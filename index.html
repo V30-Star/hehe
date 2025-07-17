@@ -3,51 +3,49 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Happy Birthday!!!</title>
+    <title>1 Month Together</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
   </head>
-  <body
-    style="background-image: url('https://images.pexels.com/photos/29399230/pexels-photo-29399230.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'); background-size: cover; background-position: center"
-    class="flex justify-center h-screen items-center"
-  >
-    <div id="kartu" class="bg-white border px-10 py-8 border-4 border-gray-300 shadow-lg shadow-blue-300 rounded-xl text-center animate__animated animate__backInDown m-8 w-80">
-      <h1 class="text-3xl">Happy Birthday</h1>
-      <h1 class="text-4xl text-pink-500 font-bold animate__animated animate__pulse animate__infinite">Vaniaa!!!</h1>
-      <button class="p-2 bg-pink-600 text-white rounded mt-5 hover:bg-pink-900 transition ease-in w-full animate__animated animate__delay-1s animate__tada" onclick="ubahKartu()">Klik Disini</button>
+  <body style="background-image: url('asset/tangan.jpg'); background-size: cover; background-position: center" class="h-screen flex justify-center items-center font-sans">
+    <div id="kartu" class="bg-white bg-opacity-70 p-8 rounded-2xl shadow-2xl w-96 text-center">
+      <h1 class="text-4xl text-gray-800 font-bold mb-6">Happy 1 Month Together!</h1>
+      <p class="text-xl text-gray-700 mb-6">Celebrating the beginning of something beautiful...</p>
+      <h2 class="text-4xl text-pink-500 font-bold animate__animated animate__pulse animate__infinite mb-8">My Dearest ❤️</h2>
+      <button class="p-3 bg-gradient-to-r from-pink-400 to-pink-600 text-white rounded-lg w-full hover:bg-pink-800 transition duration-300" onclick="ubahKartu()">Open Heartfelt Message</button>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
     <script>
       confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 },
+        particleCount: 120,
+        spread: 60,
+        origin: { y: 0.8 },
       });
 
       const kartu = document.getElementById("kartu");
 
       function ubahKartu() {
         kartu.innerHTML = `
-        <img
-          src="asset/HEHEHE.jpg"
-          alt="Foto Spesial"
-          class="w-full h-auto rounded-lg shadow-lg animate__animated animate__zoomIn mb-4"
-        />
-        <h1 class="font-semibold animate__animated animate__fadeIn">
-          Selamat ulang tahun, Pann! Semoga tahun ini makin banyak kebahagiaan,
-          panjang umur, sehat selalu yaa, dan semoga kita terus bisa
-          bareng-bareng, seru-seruan, dan saling dukung ya!... GOD Bless You!!! 🎉🎂
-        </h1>
-        <h2 class="mt-2 animate__animated animate__fadeIn">
-          - Dari: Orang Ganteng :p -
-        </h2>
-        <button
-          class="p-2 bg-slate-600 text-white rounded mt-5 hover:bg-slate-900 transition ease-in w-full animate__animated animate__delay-1s animate__tada"
-          onclick="refresh()"
-        >
-          Tutup
-        </button>
+        <div class="text-center">
+          <img
+            src="asset/lucu.jpg"
+            alt="Our Special Moment"
+            class="w-full h-auto rounded-xl shadow-lg animate__animated animate__zoomIn mb-4"
+          />
+          <p class="text-lg text-gray-800 font-semibold animate__animated animate__fadeIn mb-6">
+            One month ago, we began this beautiful adventure together. In just these 30 days, I've come to realize how much joy you bring to my life. Each moment with you feels like magic. I can't wait for many more months of laughter, love, and memories together.
+          </p>
+          <h3 class="text-md text-gray-600 mb-4 animate__animated animate__fadeIn">
+            - With all my love and gratitude, always and forever ❤️
+          </h3>
+          <button
+            class="p-3 bg-gradient-to-r from-gray-600 to-gray-800 text-white rounded-lg w-full hover:bg-gray-900 transition duration-300"
+            onclick="refresh()"
+          >
+            Close
+          </button>
+        </div>
       `;
       }
 

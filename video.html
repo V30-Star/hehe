@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Video Romantis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg1: #ffdee9;
+        --bg2: #b5fffc;
+        --card: #ffffffee;
+        --ink: #392a2a;
+        --rose: #ff5a8b;
+        --accent: #7a3cff;
+        --gold1: #c6a667;
+        --gold2: #f7e7a9;
+        --shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        color: var(--ink);
+        background: radial-gradient(1200px 800px at 20% 10%, #fff 0%, rgba(255, 255, 255, 0) 50%), linear-gradient(135deg, var(--bg1), var(--bg2));
+        display: grid;
+        place-items: center;
+        padding: 32px;
+      }
+
+      .card {
+        width: min(900px, 94vw);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.9)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0.08)) border-box;
+        border: 1px solid transparent;
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(8px);
+        position: relative;
+      }
+      .card-inner {
+        padding: clamp(22px, 4vw, 48px);
+      }
+      .ribbon {
+        position: absolute;
+        right: 18px;
+        top: 18px;
+        background: linear-gradient(135deg, var(--gold2), var(--gold1));
+        color: #4a3c11;
+        font-weight: 600;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        padding: 8px 12px;
+        border-radius: 999px;
+        box-shadow: 0 8px 20px rgba(198, 166, 103, 0.35);
+        border: 1px solid rgba(110, 90, 40, 0.25);
+      }
+      h1 {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        font-size: clamp(26px, 4.2vw, 42px);
+        line-height: 1.15;
+        margin: 0 0 12px;
+        background: linear-gradient(90deg, var(--rose), var(--accent));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .subtitle {
+        color: #a07c7c;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        font-size: 12px;
+        margin: 0 0 8px;
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #e08ca7;
+        margin: 12px 0 18px;
+      }
+      .divider .line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #f3c0cf, transparent);
+      }
+      .divider svg {
+        width: 22px;
+        height: 22px;
+      }
+
+      /* Wadah video yang responsif dan rapi */
+      .video-wrap {
+        width: 100%;
+        background: #000;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+        position: relative;
+        /* Default ratio 16:9, tetap bagus untuk horizontal */
+        aspect-ratio: 16/9;
+      }
+      /* Untuk video vertical, biar tidak kecil di kiri: pakai object-fit:contain */
+      .video-wrap video {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: contain; /* tampil penuh tanpa crop */
+        background: #000;
+      }
+
+      /* Info kecil di bawah video */
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 18px;
+        margin-top: 14px;
+        color: #7b6a6a;
+        font-size: 14px;
+      }
+      .meta b {
+        color: #4f3b3b;
+        font-weight: 600;
+      }
+
+      .actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 18px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        display: inline-block;
+        padding: 12px 18px;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 15px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
+      }
+      .btn-primary {
+        color: #fff;
+        background: linear-gradient(135deg, var(--rose), var(--accent));
+      }
+      .btn-ghost {
+        background: #fff;
+        color: #6b4a4a;
+        border: 1px solid #f0d3dd;
+      }
+
+      @media (max-width: 480px) {
+        .card-inner {
+          padding: 18px;
+        }
+        .video-wrap {
+          border-radius: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <article class="card" role="region" aria-label="Video Romantis">
+      <span class="ribbon">FOR VANIAA ♡</span>
+      <div class="card-inner">
+        <p class="subtitle">Special Moment</p>
+        <h1>Video Romantis</h1>
+
+        <div class="divider" aria-hidden="true">
+          <span class="line"></span>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.44-9.6-9.09C.22 8.76 2.3 5 6.08 5c2.12 0 3.4 1.22 3.92 2.16C10.52 6.22 11.8 5 13.92 5 17.7 5 19.78 8.76 21.6 11.91 19.5 16.56 12 21 12 21z" /></svg>
+          <span class="line"></span>
+        </div>
+
+        <!-- Wadah video -->
+        <div class="video-wrap" aria-label="Pemutar Video Romantis">
+          <!-- Tips:
+             - autoplay di mobile butuh muted & playsinline
+             - loop opsional: hapus kalau tidak perlu
+             - poster opsional: tambahkan poster="asset/poster.jpg" -->
+          <video controls autoplay muted playsinline loop>
+            <source src="asset/Vidio romance.mp4" type="video/mp4" />
+            Browser Anda tidak mendukung pemutar video.
+          </video>
+        </div>
+
+        <div class="meta">
+          <div><b>Tanggal:</b> 15 Agustus 2025</div>
+          <div><b>Dari:</b> &lt;Eyy&gt;</div>
+          <div><b>Untuk:</b> Vaniaa</div>
+        </div>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="index.html">← Kembali ke Kartu</a>
+          <a class="btn btn-ghost" href="asset/Vidio romance.mp4" download>Unduh Video</a>
+        </div>
+      </div>
+    </article>
+  </body>
+</html>

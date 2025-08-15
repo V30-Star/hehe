@@ -283,21 +283,26 @@
       const hint = document.getElementById("hint");
       let tries = 0;
       const MAX_TRICKS = 5;
+      const card = document.querySelector(".card");
 
       function moveButton(ev) {
         tries++;
         if (tries <= MAX_TRICKS) {
           ev.preventDefault();
-          const maxX = window.innerWidth - btn.offsetWidth - 20;
-          const maxY = window.innerHeight - btn.offsetHeight - 20;
+
+          const cardRect = card.getBoundingClientRect();
+          const maxX = cardRect.width - btn.offsetWidth - 20;
+          const maxY = cardRect.height - btn.offsetHeight - 20;
+
           const x = Math.floor(Math.random() * maxX);
           const y = Math.floor(Math.random() * maxY);
+
           btn.style.position = "absolute";
           btn.style.left = `${x}px`;
           btn.style.top = `${y}px`;
-          if (navigator.vibrate) {
-            navigator.vibrate(20);
-          }
+          btn.style.transform = `translate(${x}px, ${y}px)`;
+
+          if (navigator.vibrate) navigator.vibrate(20);
           if (tries === 1) hint.textContent = "Eh kok kabur? Coba lagi 😉";
           if (tries === 3) hint.textContent = "Dikit lagi bisa kok!";
           if (tries === MAX_TRICKS) hint.textContent = "Okay deh, sekarang boleh klik ❤️";
@@ -308,6 +313,7 @@
           btn.style.position = "relative";
           btn.style.left = "0";
           btn.style.top = "0";
+          btn.style.transform = "none";
         }
       }
 

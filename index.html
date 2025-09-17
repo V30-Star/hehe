@@ -1,324 +1,208 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Happy 2 Month!!!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
-    <style>
-      :root {
-        --bg1: #ffdee9;
-        --bg2: #b5fffc;
-        --card: #ffffffee;
-        --ink: #392a2a;
-        --rose: #ff5a8b;
-        --accent: #7a3cff;
-        --gold1: #c6a667;
-        --gold2: #f7e7a9;
-        --shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
-      }
-      * {
-        box-sizing: border-box;
-      }
-      html,
-      body {
-        height: 100%;
-      }
-      body {
-        margin: 0;
-        font-family: "Poppins", sans-serif;
-        color: var(--ink);
-        background: radial-gradient(1200px 800px at 20% 10%, #fff 0%, rgba(255, 255, 255, 0) 50%), linear-gradient(135deg, var(--bg1), var(--bg2));
-        overflow-x: hidden;
-        display: grid;
-        place-items: center;
-        padding: 32px;
-      }
-      .hearts {
-        position: fixed;
-        inset: 0;
-        overflow: hidden;
-        pointer-events: none;
-        z-index: 0;
-      }
-      .heart {
-        position: absolute;
-        width: 18px;
-        height: 18px;
-        transform: rotate(45deg);
-        background: radial-gradient(circle at 30% 30%, #fff 0 35%, transparent 36%), linear-gradient(135deg, #ff9bb6 0%, #ff6b9b 55%, #ff4e8a 100%);
-        opacity: 0.55;
-        filter: drop-shadow(0 6px 10px rgba(255, 75, 134, 0.25));
-        animation: floatUp calc(14s + var(--t, 0s)) linear infinite;
-      }
-      .heart::before,
-      .heart::after {
-        content: "";
-        position: absolute;
-        width: 18px;
-        height: 18px;
-        border-radius: 50%;
-        background: inherit;
-        top: -9px;
-        left: 0;
-      }
-      .heart::after {
-        left: -9px;
-        top: 0;
-      }
-      @keyframes floatUp {
-        0% {
-          transform: translateY(100vh) rotate(45deg);
-        }
-        100% {
-          transform: translateY(-15vh) rotate(45deg);
-        }
-      }
-      .card {
-        position: relative;
-        width: min(820px, 94vw);
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.9)) padding-box, linear-gradient(135deg, rgba(255, 255, 255, 0.6), rgba(0, 0, 0, 0.08)) border-box;
-        border: 1px solid transparent;
-        border-radius: 28px;
-        box-shadow: var(--shadow);
-        backdrop-filter: blur(8px);
-        z-index: 1;
-      }
-      .card-inner {
-        padding: clamp(22px, 4vw, 48px);
-      }
-      .ribbon {
-        position: absolute;
-        right: 18px;
-        top: 18px;
-        background: linear-gradient(135deg, var(--gold2), var(--gold1));
-        color: #4a3c11;
-        font-weight: 600;
-        font-size: 12px;
-        letter-spacing: 0.08em;
-        padding: 8px 12px;
-        border-radius: 999px;
-        box-shadow: 0 8px 20px rgba(198, 166, 103, 0.35);
-        border: 1px solid rgba(110, 90, 40, 0.25);
-      }
-      .pretitle {
-        text-transform: uppercase;
-        letter-spacing: 0.25em;
-        font-size: 12px;
-        color: #a07c7c;
-        margin: 0 0 10px;
-      }
-      h1 {
-        font-family: "Playfair Display", serif;
-        font-weight: 700;
-        font-size: clamp(28px, 4.2vw, 54px);
-        line-height: 1.1;
-        margin: 0 0 12px;
-        background: linear-gradient(90deg, var(--rose), var(--accent));
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-      }
-      .divider {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin: 14px 0 22px;
-        color: #e08ca7;
-      }
-      .divider .line {
-        flex: 1;
-        height: 1px;
-        background: linear-gradient(90deg, transparent, #f3c0cf, transparent);
-      }
-      .divider svg {
-        width: 22px;
-        height: 22px;
-      }
-      .message {
-        font-size: clamp(16px, 1.35vw, 18px);
-        line-height: 1.7;
-        margin: 0 0 18px;
-      }
-      .quote {
-        font-family: "Playfair Display", serif;
-        font-size: clamp(18px, 1.8vw, 22px);
-        color: #6d3b4b;
-        background: #fff5f7;
-        border: 1px dashed #f2b6c7;
-        padding: 14px 16px;
-        border-radius: 16px;
-        margin: 18px 0 24px;
-      }
-      .meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px 18px;
-        margin-top: 10px;
-        color: #7b6a6a;
-        font-size: 14px;
-      }
-      .meta b {
-        color: #4f3b3b;
-        font-weight: 600;
-      }
-      .sign {
-        margin-top: 24px;
-        display: flex;
-        justify-content: space-between;
-        align-items: end;
-        gap: 18px;
-        flex-wrap: wrap;
-      }
-      .sign .name {
-        font-family: "Playfair Display", serif;
-        font-size: clamp(20px, 2.2vw, 28px);
-        color: #5a3a3a;
-      }
-      .sign .ps {
-        font-size: 14px;
-        color: #9a7f7f;
-      }
-      .corner {
-        position: absolute;
-        inset: auto 0 0 auto;
-        width: 0;
-        height: 0;
-        border-style: solid;
-      }
-      .corner.tl {
-        left: 0;
-        top: 0;
-        border-width: 22px 22px 0 0;
-        border-color: #ffd6e4 transparent transparent transparent;
-        border-top-left-radius: 6px;
-      }
-      .corner.br {
-        right: 0;
-        bottom: 0;
-        border-width: 0 0 22px 22px;
-        border-color: transparent transparent #ffe9f1 transparent;
-        border-bottom-right-radius: 6px;
-      }
-      .btn-next {
-        display: inline-block;
-        margin-top: 28px;
-        padding: 12px 20px;
-        background: linear-gradient(135deg, var(--rose), var(--accent));
-        color: white;
-        font-size: 16px;
-        font-weight: 600;
-        text-decoration: none;
-        border-radius: 999px;
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-      }
-      .btn-next:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
-      }
-      @media print {
-        body {
-          background: #fff;
-        }
-        .hearts {
-          display: none;
-        }
-        .card {
-          box-shadow: none;
-        }
-        .ribbon {
-          position: static;
-          margin-bottom: 12px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="hearts" aria-hidden="true">
-      <div class="heart" style="left: 5%; --t: -2s; width: 16px; height: 16px"></div>
-      <div class="heart" style="left: 12%; --t: -6s"></div>
-      <div class="heart" style="left: 22%; --t: -10s; opacity: 0.45"></div>
-      <div class="heart" style="left: 30%; --t: -4s"></div>
-      <div class="heart" style="left: 38%; --t: -12s; width: 14px; height: 14px"></div>
-      <div class="heart" style="left: 46%; --t: -1s"></div>
-      <div class="heart" style="left: 54%; --t: -8s; opacity: 0.5"></div>
-      <div class="heart" style="left: 62%; --t: -5s"></div>
-      <div class="heart" style="left: 70%; --t: -11s"></div>
-      <div class="heart" style="left: 78%; --t: -3s"></div>
-      <div class="heart" style="left: 85%; --t: -7s"></div>
-      <div class="heart" style="left: 92%; --t: -9s; width: 14px; height: 14px"></div>
-    </div>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy 3 Month Anniversary</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      overflow: hidden;
+    }
 
-    <article class="card" role="region" aria-label="Kartu Ucapan 2 Bulan">
-      <span class="ribbon">2 MONTHS TOGETHER</span>
-      <span class="corner tl" aria-hidden="true"></span>
-      <span class="corner br" aria-hidden="true"></span>
-      <div class="card-inner">
-        <p class="pretitle">For My Love</p>
-        <h1>Happy 2 month, ayang</h1>
-        <div class="divider" aria-hidden="true">
-          <span class="line"></span>
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.44-9.6-9.09C.22 8.76 2.3 5 6.08 5c2.12 0 3.4 1.22 3.92 2.16C10.52 6.22 11.8 5 13.92 5 17.7 5 19.78 8.76 21.6 11.91 19.5 16.56 12 21 12 21z" /></svg>
-          <span class="line"></span>
-        </div>
-        <p class="message">Dua bulan mungkin singkat, tapi setiap detik bersamamu terasa panjang, hangat, dan penuh makna. Terima kasih sudah jadi rumah untuk hatiku, tawa untuk hariku, dan alasan untuk selalu berdoa yang baik-baik.</p>
-        <p class="message">Aku tidak butuh kata-kata yang rumit cukup kamu, genggamanmu, dan janji sederhana untuk saling jaga. Hari ini, besok, dan seterusnya.</p>
-        <p class="quote">“Kamu adalah bagian favorit dari semua hal yang kupikirkan tentang masa depan.”</p>
-        <div class="meta">
-          <div><b>Tanggal:</b> <span>15 Agustus 2025</span></div>
-          <div><b>Kepada:</b> <span>Vaniaa</span></div>
-          <div><b>Dari:</b> <span>Orang Tersayangmu!!!</span></div>
-        </div>
-        <div class="sign">
-          <div class="name">Always love, <br /><span style="font-weight: 600">&lt;Eyy&gt;</span></div>
-          <div class="ps">P.S. Kalau besok ditanya apa rencanaku—jawabannya sederhana: tetap memilih kamu, setiap hari. ❤</div>
-        </div>
-        <div class="hint" id="hint">Coba tap tombolnya… 😏</div>
-        <a id="prankBtn" class="btn-next" href="video.html" role="button" aria-label="Lanjut ke Video Romantis">Lanjut ke Video Romantis ➜</a>
+    .container {
+      position: relative;
+      width: 90%;
+      max-width: 600px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      text-align: center;
+      padding: 40px 30px;
+      overflow: hidden;
+    }
+
+    .container::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(#ff6b9b, #ffb6c1, #fddde6, #ff6b9b);
+      animation: rotate 8s linear infinite;
+      z-index: 0;
+    }
+
+    .inner {
+      position: relative;
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      z-index: 1;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0); }
+      100% { transform: rotate(360deg); }
+    }
+
+    h1 {
+      font-family: 'Sacramento', cursive;
+      font-size: 50px;
+      margin: 0 0 20px;
+      color: #ff6b9b;
+    }
+
+    .message {
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      color: #444;
+    }
+
+    .quote {
+      font-style: italic;
+      background: #fff6fa;
+      padding: 15px;
+      border-left: 4px solid #ff6b9b;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .meta {
+      font-size: 14px;
+      color: #777;
+      margin-top: 10px;
+    }
+    .meta span { display: block; }
+
+    .btn, .password-box {
+      margin-top: 25px;
+    }
+
+    .password-box input {
+      padding: 10px 15px;
+      border: 2px solid #ff6b9b;
+      border-radius: 8px;
+      font-size: 16px;
+      width: 70%;
+      text-align: center;
+    }
+
+    .password-box button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #ff6b9b;
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(255,107,155,0.4);
+      transition: all 0.2s;
+    }
+
+    .password-box button:hover { transform: translateY(-3px); }
+
+    .signature {
+      margin-top: 30px;
+      font-family: 'Sacramento', cursive;
+      font-size: 28px;
+      color: #333;
+    }
+
+    .error {
+      margin-top: 10px;
+      color: #d33;
+      font-size: 14px;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: fixed;
+      bottom: -10px;
+      width: 20px;
+      height: 20px;
+      background: #ff6b9b;
+      transform: rotate(45deg);
+      animation: rise 6s linear infinite;
+    }
+    .heart::before, .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #ff6b9b;
+      border-radius: 50%;
+    }
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: -10px; top: 0; }
+
+    @keyframes rise {
+      0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+      100% { transform: translateY(-120vh) rotate(45deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="inner">
+      <h1>Happy 3rd Month, Ayang ❤</h1>
+      <p class="message">Tiga bulan ini rasanya kayak roller coaster—ada tawa, ada sebel, ada gemes, tapi aku tetap jatuh cinta sama kamu tiap harinya. Kamu bikin aku senyum sendiri, tapi juga bisa bikin aku kesel gara-gara hal-hal kecil. Dan anehnya, aku suka semua rasanya.</p>
+      <p class="message">Aku nggak butuh hubungan yang sempurna, aku cuma butuh hubungan yang nyata—yang ada manjanya, ada dramanya, tapi ujung-ujungnya kita tetap saling milih. Dan aku janji, aku bakal tetap milih kamu.</p>
+      <p class="quote">“Kalau kamu bikin aku kesel, itu cuma bikin aku makin sadar betapa pentingnya kamu di hidupku.”</p>
+      <div class="meta">
+        <span><b>Tanggal:</b> <span id="tanggal"></span></span>
+        <span><b>Kepada:</b> Vaniaa</span>
+        <span><b>Dari:</b> Orang Tersayangmu</span>
       </div>
-    </article>
-    <script>
-      const btn = document.getElementById("prankBtn");
-      const hint = document.getElementById("hint");
-      let tries = 0;
-      const MAX_TRICKS = 5;
-      const card = document.querySelector(".card");
+      <div class="signature">Always love, <br><strong><Eyy></strong></div>
 
-      function moveButton(ev) {
-        tries++;
-        if (tries <= MAX_TRICKS) {
-          ev.preventDefault();
+      <div class="password-box">
+        <p>Masukkan password tanggal jadian kita dulu 😏</p>
+        <input type="text" id="password" placeholder="dd mm yyyy" />
+        <button onclick="checkPassword()">Unlock Surprise</button>
+        <div id="error" class="error"></div>
+      </div>
+    </div>
+  </div>
 
-          const cardRect = card.getBoundingClientRect();
-          const maxX = cardRect.width - btn.offsetWidth - 20;
-          const maxY = cardRect.height - btn.offsetHeight - 20;
+  <script>
+    // isi tanggal otomatis
+    const tanggalEl = document.getElementById('tanggal');
+    const now = new Date();
+    tanggalEl.textContent = now.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
 
-          const x = Math.floor(Math.random() * maxX);
-          const y = Math.floor(Math.random() * maxY);
+    // generate floating hearts
+    function createHeart(){
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (4 + Math.random() * 4) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
+    }
+    setInterval(createHeart, 500);
 
-          btn.style.position = "absolute";
-          btn.style.left = `${x}px`;
-          btn.style.top = `${y}px`;
-          btn.style.transform = `translate(${x}px, ${y}px)`;
-
-          if (navigator.vibrate) navigator.vibrate(20);
-          if (tries === 1) hint.textContent = "Eh kok kabur? Coba lagi 😉";
-          if (tries === 3) hint.textContent = "Dikit lagi bisa kok!";
-          if (tries === MAX_TRICKS) hint.textContent = "Okay deh, sekarang boleh klik ❤️";
-        } else {
-          btn.removeEventListener("pointerdown", moveButton);
-          btn.removeEventListener("touchstart", moveButton);
-          btn.textContent = "Sekarang boleh klik ❤️";
-          btn.style.position = "relative";
-          btn.style.left = "0";
-          btn.style.top = "0";
-          btn.style.transform = "none";
-        }
+    // password check
+    function checkPassword(){
+      const input = document.getElementById('password').value.trim();
+      const errorEl = document.getElementById('error');
+      if(input === '17 06 2025'){
+        window.location.href = 'video.html';
+      } else {
+        errorEl.textContent = 'Password salah 😝 coba ingat lagi tanggalnya!';
       }
-
-      btn.addEventListener("pointerdown", moveButton, { passive: false });
-      btn.addEventListener("touchstart", moveButton, { passive: false });
-    </script>
-  </body>
+    }
+  </script>
+</body>
 </html>

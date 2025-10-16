@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Page 9 — Voice Gate</title>
+    <style>
+      :root {
+        --bg: #0b0e16;
+        --ink: #eaf0ff;
+        --muted: #9aa6bf;
+        --card: #131a34;
+        --border: #263056;
+        --accent: #86e0ff;
+        --ok: #1b8a57;
+        --err: #ef4444;
+        --radius: 22px;
+        --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: radial-gradient(1100px 520px at 15% -10%, #1a2b57 0%, transparent 60%) no-repeat, radial-gradient(1000px 640px at 110% 0%, #2a1c49 0%, transparent 60%) no-repeat, var(--bg);
+        font: 16px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+        padding: 24px;
+      }
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin: 2px 0 18px;
+      }
+      .logo {
+        width: 54px;
+        height: 54px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        background: conic-gradient(from 230deg, #2c3b63, #1b2140 35%, #12162b 70%, #2c3b63);
+        color: #cfe0ff;
+        font-weight: 800;
+        box-shadow: var(--shadow);
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(24px, 3.6vw, 40px);
+      }
+      .subtitle {
+        color: var(--muted);
+      }
+
+      .card {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0) 60%), var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+      .head {
+        padding: 14px 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .badge {
+        background: #121a39;
+        border: 1px solid #2a3568;
+        color: #d6e2ff;
+        font-size: 12px;
+        padding: 6px 10px;
+        border-radius: 999px;
+      }
+      .body {
+        padding: 14px 16px 18px;
+      }
+
+      .panel {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: 1.2fr 0.8fr;
+      }
+      @media (max-width: 900px) {
+        .panel {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .micbox {
+        background: #0e132a;
+        border: 1px solid #263056;
+        border-radius: 14px;
+        padding: 14px;
+        min-height: 220px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .controls {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .btn {
+        padding: 12px 18px;
+        border-radius: 12px;
+        border: 1px solid #2a3355;
+        background: #16204a;
+        color: #cfe0ff;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+      .btn.primary {
+        background: #1b8a57;
+        border-color: #1b8a57;
+        color: #fff;
+      }
+      .btn.danger {
+        background: #61202b;
+        border-color: #7a2a38;
+      }
+      .btn[disabled] {
+        opacity: 0.5;
+        cursor: not-allowed;
+        transform: none;
+      }
+
+      .hint {
+        color: #9aa6bf;
+        font-size: 14px;
+      }
+      .target {
+        display: inline-block;
+        background: #121a39;
+        border: 1px solid #2a3568;
+        color: #dbe6ff;
+        padding: 4px 8px;
+        border-radius: 8px;
+      }
+
+      .transcript {
+        min-height: 78px;
+        border-radius: 12px;
+        border: 1px dashed #2a3355;
+        background: #0b1026;
+        padding: 10px 12px;
+        color: #dbe6ff;
+        font-family: ui-monospace, Menlo, Consolas, monospace;
+      }
+      .status {
+        font-size: 14px;
+        color: #a8b4d8;
+      }
+
+      /* Mic visualizer (fake pulse) */
+      .pulse {
+        width: 68px;
+        height: 68px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        margin-left: auto;
+        background: radial-gradient(circle at 50% 45%, #ff7aa6 0, #9a79ff 100%);
+        box-shadow: 0 0 0 0 rgba(255, 122, 166, 0.45);
+        transform: scale(0.98);
+        transition: 0.2s;
+      }
+      .pulse i {
+        width: 22px;
+        height: 22px;
+        background: #0b0e16;
+        mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 14 0h-2ZM11 19.93V22h2v-2.07a8.96 8.96 0 0 0 5.657-2.343l-1.414-1.414A7 7 0 0 1 6.757 18.172l-1.414 1.414A8.96 8.96 0 0 0 11 19.93Z"/></svg>')
+          center/contain no-repeat;
+      }
+      .recording .pulse {
+        animation: pulse 1s infinite;
+      }
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(255, 122, 166, 0.45);
+          transform: scale(0.98);
+        }
+        70% {
+          box-shadow: 0 0 0 18px rgba(255, 122, 166, 0);
+          transform: scale(1);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(255, 122, 166, 0);
+          transform: scale(0.98);
+        }
+      }
+
+      /* Result area */
+      .result {
+        display: none;
+        text-align: center;
+        padding: 10px 16px 20px;
+      }
+      .result.show {
+        display: block;
+      }
+      .love {
+        font-size: 36px;
+        letter-spacing: 2px;
+        font-weight: 800;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="logo">P9</div>
+        <div>
+          <h1>Voice Gate</h1>
+          <div class="subtitle">Ucapkan kata sandi untuk membuka pesan rahasia 💖</div>
+        </div>
+      </header>
+
+      <article class="card">
+        <div class="head">
+          <span class="badge" id="badge">Locked</span>
+        </div>
+
+        <div class="body">
+          <div class="panel">
+            <!-- Voice panel -->
+            <div class="micbox" id="micBox">
+              <div class="controls">
+                <button id="startBtn" class="btn primary">🎙️ Mulai Rekam</button>
+                <button id="stopBtn" class="btn danger" disabled>■ Berhenti</button>
+                <button id="solveAll" class="btn">💡 Selesaikan</button>
+                <div class="pulse"><i></i></div>
+              </div>
+              <div class="hint">
+                Kata sandi yang harus diucapkan:
+                <span class="target">cupapi&nbsp;munyenyo</span>
+              </div>
+              <div class="status" id="statusText">Siap. Tekan “Mulai Rekam”, lalu ucapkan jelas.</div>
+              <div class="transcript" id="transcript">(transkrip akan muncul di sini)</div>
+            </div>
+
+            <!-- Info / fallback -->
+            <div class="micbox">
+              <h3 style="margin: 0">Catatan</h3>
+              <ul style="margin: 6px 0 0 16px; padding-left: 4px; color: #9aa6bf; font-size: 14px">
+                <li>Kalimat harus terdeteksi sebagai <em>“cupapi munyenyo”</em> (huruf besar/kecil bebas).</li>
+                <li>Jika mic tidak didukung browser, kotak ini akan menampilkan input darurat.</li>
+                <li>Privasi: pengenalan suara memakai fitur browser (Web Speech API).</li>
+              </ul>
+              <div id="fallback" style="margin-top: 10px; display: none">
+                <div class="hint" style="margin-bottom: 6px">Fallback input:</div>
+                <input id="fallbackInput" type="text" placeholder="ketik kata sandi…" style="width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid #2a3355; background: #0b1026; color: #eaf0ff" />
+                <button id="fallbackCheck" class="btn primary" style="margin-top: 8px">Periksa</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="result" id="resultBox">
+            <h2>YOU DID IT! 🎉</h2>
+            <div class="love">I&nbsp;LOVE&nbsp;YOU</div>
+            <a href="index10.html" class="btn primary" style="margin-top: 10px">Next →</a>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <script>
+      (function () {
+        const BADGE = document.getElementById("badge");
+        const startBtn = document.getElementById("startBtn");
+        const stopBtn = document.getElementById("stopBtn");
+        const transcriptEl = document.getElementById("transcript");
+        const statusEl = document.getElementById("statusText");
+        const micBox = document.getElementById("micBox");
+        const resultBox = document.getElementById("resultBox");
+        const FALLBACK = document.getElementById("fallback");
+        const fallbackInput = document.getElementById("fallbackInput");
+        const fallbackCheck = document.getElementById("fallbackCheck");
+        const solveBtn = document.getElementById("solveAll"); // <<— NEW
+
+        const SECRET = "cupapi munyenyo";
+        const normalize = (s) =>
+          (s || "")
+            .toLowerCase()
+            .normalize("NFKD")
+            .replace(/[^a-z\s]/g, "")
+            .replace(/\s+/g, " ")
+            .trim();
+
+        const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+        let recog = null;
+        let chunks = [];
+        let speakingMs = 0;
+        let timerId = null;
+
+        function setBadge(ok) {
+          BADGE.textContent = ok ? "Unlocked" : "Locked";
+          BADGE.style.background = ok ? "#0e2a18" : "#121a39";
+          BADGE.style.borderColor = ok ? "#1a4a2f" : "#2a3568";
+          BADGE.style.color = ok ? "#c5ffd9" : "#d6e2ff";
+        }
+
+        function success() {
+          setBadge(true);
+          micBox.classList.remove("recording");
+          startBtn.disabled = false;
+          stopBtn.disabled = true;
+          statusEl.textContent = "Berhasil! 🎉";
+          resultBox.classList.add("show");
+        }
+
+        function checkTranscript(text) {
+          const norm = normalize(text);
+          if (norm.includes(normalize(SECRET)) && speakingMs >= 800) {
+            success();
+            return true;
+          }
+          return false;
+        }
+
+        function startTimer() {
+          speakingMs = 0;
+          timerId = setInterval(() => (speakingMs += 100), 100);
+        }
+        function stopTimer() {
+          clearInterval(timerId);
+          timerId = null;
+        }
+
+        // ==== Cheat inside IIFE (SELALU AKTIF) ====
+        if (solveBtn) {
+          solveBtn.addEventListener("click", () => {
+            transcriptEl.textContent = "cupapi munyenyo";
+            statusEl.textContent = "Simulasi suara berhasil!";
+            success();
+          });
+        }
+
+        // ==== Speech API / Fallback ====
+        if (!SpeechRec) {
+          statusEl.textContent = "Browser tidak mendukung pengenalan suara. Gunakan fallback input di panel sebelah.";
+          startBtn.disabled = true;
+          stopBtn.disabled = true;
+          FALLBACK.style.display = "block";
+          fallbackCheck.addEventListener("click", () => {
+            if (normalize(fallbackInput.value) === normalize(SECRET)) success();
+            else statusEl.textContent = "Salah. Coba lagi.";
+          });
+          return;
+        }
+
+        recog = new SpeechRec();
+        recog.lang = "id-ID";
+        recog.interimResults = true;
+        recog.continuous = true;
+
+        recog.onstart = () => {
+          chunks = [];
+          transcriptEl.textContent = "(mendengarkan…)";
+          statusEl.textContent = "Sedang merekam… ucapkan kalimat sandinya.";
+          micBox.classList.add("recording");
+          startBtn.disabled = true;
+          stopBtn.disabled = false;
+          setBadge(false);
+          startTimer();
+        };
+        recog.onresult = (e) => {
+          let latest = "";
+          for (let i = e.resultIndex; i < e.results.length; i++) {
+            const r = e.results[i];
+            const txt = r[0].transcript;
+            if (r.isFinal) chunks.push(txt);
+            latest = txt;
+          }
+          const combined = (chunks.join(" ") + " " + latest).trim();
+          transcriptEl.textContent = combined;
+          checkTranscript(combined);
+        };
+        recog.onerror = (e) => {
+          statusEl.textContent = "Error: " + (e.error || "unknown");
+          micBox.classList.remove("recording");
+          startBtn.disabled = false;
+          stopBtn.disabled = true;
+          stopTimer();
+        };
+        recog.onend = () => {
+          micBox.classList.remove("recording");
+          startBtn.disabled = false;
+          stopBtn.disabled = true;
+          stopTimer();
+          const combined = chunks.join(" ").trim();
+          if (combined) checkTranscript(combined);
+        };
+
+        startBtn.addEventListener("click", () => {
+          try {
+            recog.start();
+          } catch (_) {}
+        });
+        stopBtn.addEventListener("click", () => {
+          try {
+            recog.stop();
+          } catch (_) {}
+        });
+      })();
+    </script>
+  </body>
+</html>

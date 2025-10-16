@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Video Romantis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --ink: #f6f6f8;
+        --ink-dim: #c9c9d3;
+        --bg1: #0f1020;
+        --bg2: #12142a;
+        --glow1: #9b8cff;
+        --glow2: #ff76b6;
+        --accent: #8a7bff;
+        --rose: #ff5a8b;
+        --card: rgba(255, 255, 255, 0.08);
+        --border: rgba(255, 255, 255, 0.18);
+        --shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        min-height: 100%;
+        height: auto;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+        background: radial-gradient(1200px 800px at 15% 10%, rgba(138, 123, 255, 0.18), transparent 50%), radial-gradient(1000px 700px at 85% 90%, rgba(255, 118, 182, 0.14), transparent 55%), linear-gradient(135deg, var(--bg1), var(--bg2));
+        display: grid;
+        place-items: center;
+        padding: 28px 28px 56px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      /* animated glow blobs */
+      .blob {
+        position: fixed;
+        filter: blur(60px);
+        opacity: 0.35;
+        pointer-events: none;
+        mix-blend-mode: screen;
+      }
+      .blob.a {
+        width: 420px;
+        height: 420px;
+        background: radial-gradient(circle at 30% 30%, var(--glow1), transparent 60%);
+        left: -120px;
+        top: -80px;
+        animation: drift 20s ease-in-out infinite;
+      }
+      .blob.b {
+        width: 520px;
+        height: 520px;
+        background: radial-gradient(circle at 70% 70%, var(--glow2), transparent 60%);
+        right: -140px;
+        bottom: -100px;
+        animation: drift 26s ease-in-out infinite reverse;
+      }
+      @keyframes drift {
+        0%,
+        100% {
+          transform: translateY(0) translateX(0);
+        }
+        50% {
+          transform: translateY(30px) translateX(20px);
+        }
+      }
+
+      .card {
+        width: min(980px, 96vw);
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(14px) saturate(130%);
+        position: relative;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+      .card::before {
+        /* subtle gradient border glow */
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(135deg, rgba(155, 140, 255, 0.6), rgba(255, 118, 182, 0.6));
+        -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+      }
+      .inner {
+        padding: clamp(20px, 4vw, 42px);
+      }
+
+      .ribbon {
+        position: absolute;
+        right: 16px;
+        top: 16px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: #1a1230;
+        background: linear-gradient(135deg, #ffe3f0, #ffeaa7);
+        border: 1px solid rgba(255, 255, 255, 0.45);
+        box-shadow: 0 8px 22px rgba(0, 0, 0, 0.25);
+      }
+      .subtitle {
+        color: var(--ink-dim);
+        text-transform: uppercase;
+        letter-spacing: 0.26em;
+        font-size: 12px;
+        margin: 0 0 8px;
+      }
+      h1 {
+        font-family: "Playfair Display", serif;
+        font-weight: 700;
+        margin: 0 0 12px;
+        font-size: clamp(26px, 4vw, 40px);
+        line-height: 1.15;
+        background: linear-gradient(90deg, var(--glow1), var(--glow2));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 12px 0 18px;
+        color: #b9b2ff;
+      }
+      .divider .line {
+        flex: 1;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(155, 140, 255, 0.45), transparent);
+      }
+      .divider svg {
+        width: 22px;
+        height: 22px;
+      }
+
+      /* video area */
+      .video-wrap {
+        position: relative;
+        background: #000;
+        border-radius: 20px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+        width: 100%;
+        aspect-ratio: 16/9;
+      }
+      .video-wrap video {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: contain;
+        background: #000;
+      }
+      .badge {
+        position: absolute;
+        left: 12px;
+        top: 12px;
+        padding: 6px 10px;
+        border-radius: 10px;
+        font-size: 12px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: var(--ink-dim);
+        backdrop-filter: blur(6px);
+      }
+
+      .caption {
+        margin-top: 14px;
+        color: var(--ink-dim);
+        font-size: 14px;
+      }
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px 18px;
+        margin-top: 14px;
+        color: var(--ink-dim);
+        font-size: 14px;
+      }
+      .meta b {
+        color: #fff;
+        font-weight: 600;
+      }
+
+      .actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 18px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        display: inline-block;
+        padding: 12px 18px;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 15px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      }
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.28);
+      }
+      .btn-primary {
+        color: #0f0f1f;
+        background: linear-gradient(135deg, #d6ccff, #ffb4d1);
+      }
+      .btn-ghost {
+        color: #e1dff6;
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+      }
+
+      /* portrait optimization */
+      .portrait {
+        aspect-ratio: auto;
+      }
+      .portrait video {
+        height: 80vh;
+        width: auto;
+        max-width: 100%;
+        margin: 0 auto;
+        object-fit: contain;
+      }
+
+      @media (max-width: 560px) {
+        .inner {
+          padding: 18px;
+        }
+        .video-wrap {
+          border-radius: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="blob a" aria-hidden="true"></div>
+    <div class="blob b" aria-hidden="true"></div>
+
+    <article class="card" role="region" aria-label="Video Romantis">
+      <span class="ribbon">FOR VANIAA ♡</span>
+      <div class="inner">
+        <p class="subtitle">Special Moment</p>
+        <h1>Video Romantis</h1>
+
+        <div class="divider" aria-hidden="true">
+          <span class="line"></span>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 21s-7.5-4.44-9.6-9.09C.22 8.76 2.3 5 6.08 5c2.12 0 3.4 1.22 3.92 2.16C10.52 6.22 11.8 5 13.92 5 17.7 5 19.78 8.76 21.6 11.91 19.5 16.56 12 21 12 21z" />
+          </svg>
+          <span class="line"></span>
+        </div>
+
+        <div class="video-wrap" id="wrap" aria-label="Pemutar Video Romantis">
+          <span class="badge">Autoplay • Muted</span>
+          <video id="vid" controls autoplay muted playsinline loop>
+            <source src="asset/Ayanggg 3 Anniv.mp4" type="video/mp4" />
+            Browser Anda tidak mendukung pemutar video.
+          </video>
+        </div>
+
+        <p class="caption">Kalau kedip, takut kelewatan momen kecil yang bikin jatuh cinta lagi. 💫</p>
+
+        <div class="meta">
+          <div><b>Tanggal:</b> 17 September 2025</div>
+          <div><b>Dari:</b> Ayanggg Kamuuu</div>
+          <div><b>Untuk:</b> Vaniaa</div>
+        </div>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="index.html">← Kembali ke Kartu</a>
+          <a class="btn btn-ghost" href="asset/Ayanggg 3 Anniv.mp4" download>Unduh Video</a>
+        </div>
+      </div>
+    </article>
+
+    <script>
+      // Detect portrait video and optimize layout
+      const vid = document.getElementById("vid");
+      const wrap = document.getElementById("wrap");
+      function checkOrientation() {
+        if (!vid.videoWidth || !vid.videoHeight) return;
+        const isPortrait = vid.videoHeight > vid.videoWidth;
+        wrap.classList.toggle("portrait", isPortrait);
+      }
+      vid.addEventListener("loadedmetadata", checkOrientation);
+      // Also check after source change (if any)
+      if (vid.readyState >= 1) checkOrientation();
+    </script>
+  </body>
+</html>

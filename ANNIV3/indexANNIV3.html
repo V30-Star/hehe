@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy 3 Month Anniversary</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      overflow: hidden;
+    }
+
+    .container {
+      position: relative;
+      width: 90%;
+      max-width: 600px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      text-align: center;
+      padding: 40px 30px;
+      overflow: hidden;
+    }
+
+    .container::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(#ff6b9b, #ffb6c1, #fddde6, #ff6b9b);
+      animation: rotate 8s linear infinite;
+      z-index: 0;
+    }
+
+    .inner {
+      position: relative;
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      z-index: 1;
+    }
+
+    @keyframes rotate {
+      0% { transform: rotate(0); }
+      100% { transform: rotate(360deg); }
+    }
+
+    h1 {
+      font-family: 'Sacramento', cursive;
+      font-size: 50px;
+      margin: 0 0 20px;
+      color: #ff6b9b;
+    }
+
+    .message {
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 20px;
+      color: #444;
+    }
+
+    .quote {
+      font-style: italic;
+      background: #fff6fa;
+      padding: 15px;
+      border-left: 4px solid #ff6b9b;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .meta {
+      font-size: 14px;
+      color: #777;
+      margin-top: 10px;
+    }
+    .meta span { display: block; }
+
+    .btn, .password-box {
+      margin-top: 25px;
+    }
+
+    .password-box input {
+      padding: 10px 15px;
+      border: 2px solid #ff6b9b;
+      border-radius: 8px;
+      font-size: 16px;
+      width: 70%;
+      text-align: center;
+    }
+
+    .password-box button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #ff6b9b;
+      color: #fff;
+      font-weight: 600;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(255,107,155,0.4);
+      transition: all 0.2s;
+    }
+
+    .password-box button:hover { transform: translateY(-3px); }
+
+    .signature {
+      margin-top: 30px;
+      font-family: 'Sacramento', cursive;
+      font-size: 28px;
+      color: #333;
+    }
+
+    .error {
+      margin-top: 10px;
+      color: #d33;
+      font-size: 14px;
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: fixed;
+      bottom: -10px;
+      width: 20px;
+      height: 20px;
+      background: #ff6b9b;
+      transform: rotate(45deg);
+      animation: rise 6s linear infinite;
+    }
+    .heart::before, .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #ff6b9b;
+      border-radius: 50%;
+    }
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: -10px; top: 0; }
+
+    @keyframes rise {
+      0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+      100% { transform: translateY(-120vh) rotate(45deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="inner">
+      <h1>Happy 3rd Month, Ayang ❤</h1>
+      <p class="message">Tiga bulan ini rasanya kayak roller coaster—ada tawa, ada sebel, ada gemes, tapi aku tetap jatuh cinta sama kamu tiap harinya. Kamu bikin aku senyum sendiri, tapi juga bisa bikin aku kesel gara-gara hal-hal kecil. Dan anehnya, aku suka semua rasanya.</p>
+      <p class="message">Aku nggak butuh hubungan yang sempurna, aku cuma butuh hubungan yang nyata—yang ada manjanya, ada dramanya, tapi ujung-ujungnya kita tetap saling milih. Dan aku janji, aku bakal tetap milih kamu.</p>
+      <p class="quote">“Kalau kamu bikin aku kesel, itu cuma bikin aku makin sadar betapa pentingnya kamu di hidupku.”</p>
+      <div class="meta">
+        <span><b>Tanggal:</b> <span id="tanggal"></span></span>
+        <span><b>Kepada:</b> Vaniaa</span>
+        <span><b>Dari:</b> Orang Tersayangmu</span>
+      </div>
+      <div class="signature">Always love, <br><strong><Eyy></strong></div>
+
+      <div class="password-box">
+        <p>Masukkan password tanggal jadian kita dulu 😏</p>
+        <input type="text" id="password" placeholder="dd mm yyyy" />
+        <button onclick="checkPassword()">Unlock Surprise</button>
+        <div id="error" class="error"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // isi tanggal otomatis
+    const tanggalEl = document.getElementById('tanggal');
+    const now = new Date();
+    tanggalEl.textContent = now.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
+
+    // generate floating hearts
+    function createHeart(){
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (4 + Math.random() * 4) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
+    }
+    setInterval(createHeart, 500);
+
+    // password check
+    function checkPassword(){
+      const input = document.getElementById('password').value.trim();
+      const errorEl = document.getElementById('error');
+      if(input === '17 06 2025'){
+        window.location.href = 'video.html';
+      } else {
+        errorEl.textContent = 'Password salah 😝 coba ingat lagi tanggalnya!';
+      }
+    }
+  </script>
+</body>
+</html>

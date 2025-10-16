@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Good Morning Vania 🌞</title>
+    <style>
+      :root {
+        --bg: #0b0e16;
+        --ink: #ffeef6;
+        --muted: #c9cfe6;
+        --card: #151a33;
+        --border: #2a335d;
+        --accent: #ff82b2;
+        --accent-2: #ffd1e1;
+        --accent-3: #ffc49a; /* peach glow */
+        --btn: #ff82b2;
+        --btn2: #2dd4bf;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: radial-gradient(1200px 600px at 50% -10%, rgba(255, 130, 178, 0.15), transparent 60%), radial-gradient(1000px 500px at 10% 100%, rgba(255, 196, 154, 0.12), transparent 60%), var(--bg);
+        font: 16px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      }
+
+      /* Header / controls */
+      .wrap {
+        max-width: 1200px;
+        margin: auto;
+        padding: 30px 16px 18px;
+      }
+      .card {
+        background: linear-gradient(180deg, #111532, #171d3b);
+        border: 1px solid var(--border);
+        border-radius: 22px;
+        padding: 28px 28px 22px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        align-items: center;
+        justify-content: space-between;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.03) inset;
+      }
+      .title h1 {
+        margin: 0;
+        font-size: clamp(22px, 3.6vw, 36px);
+        letter-spacing: 0.3px;
+      }
+      .title p {
+        margin: 6px 0 0;
+        color: var(--muted);
+      }
+      .controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      button,
+      .btn {
+        background: linear-gradient(180deg, var(--btn), #ff6aa5);
+        color: #fff;
+        border: none;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 15px;
+        padding: 10px 18px;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: transform 0.12s ease, filter 0.2s ease, box-shadow 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        box-shadow: 0 6px 16px rgba(255, 130, 178, 0.28);
+      }
+      button:hover,
+      .btn:hover {
+        transform: translateY(-1px);
+        filter: saturate(1.05) brightness(1.05);
+      }
+      .btn.alt {
+        background: linear-gradient(180deg, #2dd4bf, #22c1ac);
+        box-shadow: 0 6px 16px rgba(45, 212, 191, 0.25);
+      }
+      audio {
+        display: none;
+      }
+
+      /* Hearts (floating when music plays) */
+      .hearts {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      .heart {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        transform: rotate(45deg);
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
+        opacity: 0.75;
+        animation: rise 2.8s linear forwards;
+      }
+      .heart:before,
+      .heart:after {
+        content: "";
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: inherit;
+      }
+      .heart:before {
+        left: -6px;
+        top: 0;
+      }
+      .heart:after {
+        top: -6px;
+        left: 0;
+      }
+      @keyframes rise {
+        0% {
+          transform: translateY(0) rotate(45deg) scale(0.9);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.9;
+        }
+        100% {
+          transform: translateY(-110vh) rotate(45deg) scale(1.1);
+          opacity: 0;
+        }
+      }
+
+      /* Section */
+      .section {
+        margin-top: 18px;
+      }
+      .section h2 {
+        font-size: 22px;
+        margin: 0 0 8px;
+      }
+      .muted {
+        color: var(--muted);
+        margin: 0 0 14px;
+      }
+
+      /* Masonry grid — responsive */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        grid-auto-rows: 8px;
+        gap: 14px;
+      }
+      figure {
+        margin: 0;
+        background: linear-gradient(180deg, #0f1530, #0f1530) padding-box, linear-gradient(180deg, #33407a, #1a2143) border-box;
+        border: 1px solid transparent;
+        border-radius: 16px;
+        padding: 10px;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+        transform-origin: center;
+        transition: transform 0.18s ease, box-shadow 0.18s ease;
+        position: relative;
+      }
+      figure:nth-child(6n + 1) {
+        transform: rotate(-1.2deg);
+      }
+      figure:nth-child(6n + 2) {
+        transform: rotate(0.8deg);
+      }
+      figure:nth-child(6n + 3) {
+        transform: rotate(-0.6deg);
+      }
+      figure:nth-child(6n + 4) {
+        transform: rotate(1.1deg);
+      }
+      figure:nth-child(6n + 5) {
+        transform: rotate(-0.9deg);
+      }
+      figure:hover {
+        transform: scale(1.02) rotate(0deg);
+        box-shadow: 0 14px 36px rgba(0, 0, 0, 0.45);
+        z-index: 2;
+      }
+
+      figure img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 12px;
+        filter: saturate(1.06) contrast(1.02);
+        /* Optional cap: uncomment jika mau thumb lebih konsisten
+      max-height:360px; object-fit:cover; */
+      }
+      figcaption {
+        text-align: center;
+        color: #ffe8f3;
+        font-weight: 700;
+        font-size: 14px;
+        margin-top: 8px;
+        opacity: 0.95;
+      }
+
+      /* Lightbox */
+      .lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(8, 10, 20, 0.82);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 60;
+        padding: 20px;
+      }
+      .lightbox.open {
+        display: flex;
+      }
+      .lightbox img {
+        max-width: min(92vw, 1200px);
+        max-height: 86vh;
+        border-radius: 18px;
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+        animation: fade 0.35s ease;
+      }
+      .lightbox .close {
+        position: fixed;
+        top: 14px;
+        right: 14px;
+        background: #1f294a;
+        border: 1px solid #31406e;
+        color: #fff;
+        padding: 8px 12px;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      @keyframes fade {
+        from {
+          opacity: 0;
+          transform: scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      /* Slideshow overlay (bigger & more romantic) */
+      .show-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 70;
+        display: none;
+        background: radial-gradient(1400px 700px at 50% -10%, rgba(255, 130, 178, 0.18), transparent 60%), radial-gradient(1000px 500px at 0% 100%, rgba(255, 196, 154, 0.16), transparent 60%), rgba(3, 6, 21, 0.68);
+        backdrop-filter: blur(2.5px);
+      }
+      .show-overlay.open {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .show-frame {
+        position: relative;
+        width: min(95vw, 1280px);
+        height: min(78vh, 780px);
+        border-radius: 22px;
+        background: radial-gradient(120% 100% at 50% 10%, rgba(255, 196, 154, 0.18), transparent 60%), linear-gradient(180deg, #0f1430, #12183a);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.04) inset, 0 0 40px rgba(255, 130, 178, 0.2);
+        overflow: hidden;
+      }
+      /* vignette inside frame */
+      .show-frame:after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(70% 60% at 50% 50%, transparent 60%, rgba(0, 0, 0, 0.35));
+        pointer-events: none;
+      }
+      /* sparkles */
+      .sparkle {
+        position: absolute;
+        width: 3px;
+        height: 3px;
+        background: linear-gradient(180deg, #fff, #ffe6f2);
+        border-radius: 50%;
+        opacity: 0.6;
+        filter: drop-shadow(0 0 6px rgba(255, 200, 220, 0.7));
+        animation: twinkle 2.5s ease-in-out infinite;
+      }
+      @keyframes twinkle {
+        0%,
+        100% {
+          transform: scale(0.6);
+          opacity: 0.4;
+        }
+        50% {
+          transform: scale(1.2);
+          opacity: 0.9;
+        }
+      }
+
+      .slide-img {
+        position: absolute;
+        inset: 16px; /* lebih tebal agar terasa “bingkai” */
+        width: calc(100% - 32px);
+        height: calc(100% - 32px);
+        object-fit: contain; /* default: fit (no crop) */
+        border-radius: 16px;
+        opacity: 0;
+        transition: opacity 0.9s ease;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+      }
+      .slide-img.active {
+        opacity: 1;
+      }
+      .slide-img.cover {
+        object-fit: cover;
+      } /* toggle Crop */
+
+      .kenburns {
+        animation: kenfit 10s ease-in-out forwards;
+      }
+      @keyframes kenfit {
+        0% {
+          transform: scale(0.985) translate(0, 0);
+        }
+        100% {
+          transform: scale(1.055) translate(1.2%, -1.2%);
+        }
+      }
+
+      .show-controls {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 14px;
+        display: flex;
+        gap: 10px;
+        z-index: 5;
+      }
+      .show-controls .btn {
+        background: linear-gradient(180deg, #334071, #2a355f);
+        box-shadow: 0 8px 18px rgba(30, 40, 90, 0.35);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .show-controls .btn:hover {
+        filter: brightness(1.07);
+      }
+
+      .tip {
+        color: var(--muted);
+        font-size: 13px;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="card">
+        <div class="title">
+          <h1>Good Morning, Vania 🌸</h1>
+          <p>Putar lagunya dan nikmati 18 momen favorit kita—lebih hangat, lebih romantis 💖</p>
+        </div>
+
+        <div class="controls">
+          <button id="playBtn">▶️ Putar</button>
+          <button id="stopBtn">⏹️ Stop</button>
+          <button id="repeatBtn">🔁 Ulangi</button>
+          <a href="asset/Good Morning Vania.mp3" download class="btn">⬇️ Download Lagu</a>
+          <button id="slideshowBtn" class="btn alt">🖼️ Slideshow</button>
+        </div>
+
+        <audio id="song" src="asset/Good Morning Vania.mp3" preload="auto"></audio>
+      </div>
+
+      <!-- Gallery -->
+      <div class="section">
+        <h2>Galeri 18 Foto</h2>
+        <p class="muted">Klik foto untuk versi besar. Slideshow berjalan otomatis saat halaman dibuka.</p>
+
+        <div class="grid" id="gallery">
+          <figure>
+            <img loading="lazy" src="asset/1.jpg" alt="" />
+            <figcaption>💗 Pagi cerah pertama</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" src="asset/2.jpg" alt="" />
+            <figcaption>🌅 Senja favorit</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" src="asset/3.jpg" alt="" />
+            <figcaption>🚶‍♀️ Jalan berdua</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" src="asset/4.jpg" alt="" />
+            <figcaption>😄 Tawa kamu</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" src="asset/5.jpg" alt="" />
+            <figcaption>☕ Kopi & cerita</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" src="asset/6.jpg" alt="" />
+            <figcaption>🚪 Di depan kamar</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" src="asset/7.jpg" alt="" />
+            <figcaption>❤️ Love you</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" src="asset/8.jpg" alt="" />
+            <figcaption>🌧️ Hujan rintik</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" src="asset/9.jpg" alt="" />
+            <figcaption>🌊 Pantai diam</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" src="asset/10.jpg" alt="" />
+            <figcaption>👣 Langkah kecil</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" src="asset/11.jpg" alt="" />
+            <figcaption>🤗 Pelukan hangat</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" src="asset/12.jpg" alt="" />
+            <figcaption>🌤️ Morning smile</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" src="asset/13.jpg" alt="" />
+            <figcaption>🎈 Sabtu ceria</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" src="asset/14.jpg" alt="" />
+            <figcaption>✨ Cahaya mata</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" src="asset/15.jpg" alt="" />
+            <figcaption>🏙️ Di balkon</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" src="asset/16.jpg" alt="" />
+            <figcaption>🔐 Secret place</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" src="asset/17.jpg" alt="" />
+            <figcaption>🌿 Taman kota</figcaption>
+          </figure>
+          <figure>
+            <img loading="lazy" src="asset/18.jpg" alt="" />
+            <figcaption>🌞 Good morning, Vania</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+      <button class="close" id="lbClose">Tutup ✕</button>
+      <img id="lbImg" src="" alt="" />
+    </div>
+
+    <!-- Slideshow overlay -->
+    <div class="show-overlay" id="show">
+      <div class="show-frame">
+        <!-- soft sparkles -->
+        <span class="sparkle" style="top: 6%; left: 12%; animation-delay: 0.1s"></span>
+        <span class="sparkle" style="top: 14%; left: 78%; animation-delay: 0.8s"></span>
+        <span class="sparkle" style="top: 84%; left: 20%; animation-delay: 1.4s"></span>
+        <span class="sparkle" style="top: 70%; left: 88%; animation-delay: 2.1s"></span>
+
+        <img class="slide-img" id="slideA" alt="" />
+        <img class="slide-img" id="slideB" alt="" />
+        <div class="show-controls">
+          <button id="prev" class="btn">⟵ Sebelumnya</button>
+          <button id="pauseShow" class="btn">⏸️ Jeda</button>
+          <button id="fitToggle" class="btn">Fit (no crop)</button>
+          <button id="next" class="btn">Berikutnya ⟶</button>
+          <button id="closeShow" class="btn">Tutup ✕</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hearts layer -->
+    <div class="hearts" id="hearts"></div>
+
+    <script>
+      /* ===== Audio controls ===== */
+      const song = document.getElementById("song");
+      const playBtn = document.getElementById("playBtn");
+      const stopBtn = document.getElementById("stopBtn");
+      const repeatBtn = document.getElementById("repeatBtn");
+      function setPlayLabel() {
+        playBtn.textContent = song.paused ? "▶️ Putar" : "⏸️ Jeda";
+      }
+
+      // Autoplay audio + auto open slideshow
+      window.addEventListener("load", () => {
+        const p = song.play();
+        if (p && p.catch)
+          p.catch(() => {
+            /* autoplay might be blocked */
+          });
+        setTimeout(openSlideshowAuto, 350);
+      });
+      playBtn.addEventListener("click", () => {
+        song.paused ? song.play() : song.pause();
+        setPlayLabel();
+      });
+      stopBtn.addEventListener("click", () => {
+        song.pause();
+        song.currentTime = 0;
+        setPlayLabel();
+      });
+      repeatBtn.addEventListener("click", () => {
+        song.currentTime = 0;
+        song.play();
+        setPlayLabel();
+      });
+      song.addEventListener("ended", setPlayLabel);
+      song.addEventListener("play", startHearts);
+      song.addEventListener("pause", stopHearts);
+
+      /* Hearts */
+      const hearts = document.getElementById("hearts");
+      let heartTimer = null;
+      function spawnHeart() {
+        const h = document.createElement("span");
+        h.className = "heart";
+        const x = Math.random() * 100,
+          size = 8 + Math.random() * 12,
+          delay = Math.random() * 400;
+        h.style.left = x + "vw";
+        h.style.bottom = "-20px";
+        h.style.width = h.style.height = size + "px";
+        h.style.animationDelay = delay + "ms";
+        hearts.appendChild(h);
+        setTimeout(() => h.remove(), 3200);
+      }
+      function startHearts() {
+        if (!heartTimer) heartTimer = setInterval(spawnHeart, 360);
+      }
+      function stopHearts() {
+        clearInterval(heartTimer);
+        heartTimer = null;
+      }
+
+      /* Lightbox */
+      const lightbox = document.getElementById("lightbox");
+      const lbImg = document.getElementById("lbImg");
+      const lbClose = document.getElementById("lbClose");
+      document.getElementById("gallery").addEventListener("click", (e) => {
+        const img = e.target.closest("img");
+        if (!img) return;
+        lbImg.src = img.src;
+        lightbox.classList.add("open");
+      });
+      lbClose.addEventListener("click", () => lightbox.classList.remove("open"));
+      lightbox.addEventListener("click", (e) => {
+        if (e.target === lightbox) lightbox.classList.remove("open");
+      });
+
+      /* Masonry sizing */
+      const grid = document.querySelector(".grid");
+      function resizeAllGridItems() {
+        const rowHeight = parseFloat(getComputedStyle(grid).getPropertyValue("grid-auto-rows"));
+        const rowGap = parseFloat(getComputedStyle(grid).getPropertyValue("gap"));
+        grid.querySelectorAll("figure").forEach((item) => {
+          const img = item.querySelector("img");
+          const caption = item.querySelector("figcaption");
+          const imgH = img.getBoundingClientRect().height;
+          const capH = caption ? caption.getBoundingClientRect().height : 0;
+          const contentH = imgH + capH + 20;
+          const rowSpan = Math.ceil((contentH + rowGap) / (rowHeight + rowGap));
+          item.style.gridRowEnd = "span " + rowSpan;
+        });
+      }
+      function imgLoaded() {
+        resizeAllGridItems();
+      }
+      window.addEventListener("load", resizeAllGridItems);
+      window.addEventListener("resize", resizeAllGridItems);
+      document.querySelectorAll("#gallery img").forEach((img) => {
+        if (img.complete) {
+          imgLoaded();
+        } else {
+          img.addEventListener("load", imgLoaded);
+        }
+      });
+
+      /* Slideshow (framed, fit by default) */
+      const show = document.getElementById("show");
+      const slideA = document.getElementById("slideA");
+      const slideB = document.getElementById("slideB");
+      const slideshowBtn = document.getElementById("slideshowBtn");
+      const closeShow = document.getElementById("closeShow");
+      const pauseShow = document.getElementById("pauseShow");
+      const nextBtn = document.getElementById("next");
+      const prevBtn = document.getElementById("prev");
+      const fitToggle = document.getElementById("fitToggle");
+
+      const imgs = Array.from(document.querySelectorAll("#gallery img")).map((i) => i.src);
+      let idx = 0,
+        playing = true,
+        ticker = null,
+        activeOnA = true,
+        coverMode = false;
+      const DURATION = 6000;
+
+      function restartAnim(el) {
+        el.classList.remove("kenburns");
+        void el.offsetWidth;
+        el.classList.add("kenburns");
+      }
+      function setSlide(el, src) {
+        el.src = src;
+        restartAnim(el);
+      }
+      function showIndex(i) {
+        const target = activeOnA ? slideB : slideA;
+        setSlide(target, imgs[i]);
+        requestAnimationFrame(() => {
+          target.classList.add("active");
+          (activeOnA ? slideA : slideB).classList.remove("active");
+          activeOnA = !activeOnA;
+        });
+      }
+      function next(n = 1) {
+        idx = (idx + n + imgs.length) % imgs.length;
+        showIndex(idx);
+      }
+      function startTicker() {
+        clearInterval(ticker);
+        ticker = setInterval(() => next(1), DURATION);
+        playing = true;
+        pauseShow.textContent = "⏸️ Jeda";
+      }
+      function stopTicker() {
+        clearInterval(ticker);
+        ticker = null;
+        playing = false;
+        pauseShow.textContent = "▶️ Lanjut";
+      }
+
+      function openSlideshow() {
+        if (!imgs.length) return;
+        show.classList.add("open");
+        slideA.classList.remove("active");
+        slideB.classList.remove("active");
+        setSlide(slideA, imgs[idx]);
+        slideA.classList.add("active");
+        setSlide(slideB, imgs[(idx + 1) % imgs.length]);
+        activeOnA = true;
+        startTicker();
+      }
+      function openSlideshowAuto() {
+        openSlideshow();
+      }
+
+      // Fit/Crop toggle
+      fitToggle.addEventListener("click", () => {
+        coverMode = !coverMode;
+        [slideA, slideB].forEach((el) => el.classList.toggle("cover", coverMode));
+        fitToggle.textContent = coverMode ? "Crop (fill)" : "Fit (no crop)";
+      });
+
+      slideshowBtn.addEventListener("click", openSlideshow);
+      closeShow.addEventListener("click", () => {
+        show.classList.remove("open");
+        stopTicker();
+      });
+      pauseShow.addEventListener("click", () => (playing ? stopTicker() : startTicker()));
+      nextBtn.addEventListener("click", () => {
+        next(1);
+        if (playing) startTicker();
+      });
+      prevBtn.addEventListener("click", () => {
+        next(-1);
+        if (playing) startTicker();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (!show.classList.contains("open")) return;
+        if (e.key === "Escape") closeShow.click();
+        if (e.key === "ArrowRight") nextBtn.click();
+        if (e.key === "ArrowLeft") prevBtn.click();
+        if (e.key === " ") {
+          e.preventDefault();
+          pauseShow.click();
+        }
+      });
+
+      // Preload
+      imgs.forEach((src) => {
+        const i = new Image();
+        i.src = src;
+      });
+    </script>
+  </body>
+</html>

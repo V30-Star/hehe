@@ -1,208 +1,324 @@
 <!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Happy 3 Month Anniversary</title>
-  <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Big Doll Card</title>
+    <style>
+      :root {
+        --bg: #0b0e16;
+        --ink: #eaf0ff;
+        --muted: #9aa6bf;
+        --card: #131a34;
+        --border: #263056;
+        --accent: #86e0ff;
+        --radius: 28px;
+        --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: radial-gradient(1100px 520px at 15% -10%, #1a2b57 0%, transparent 60%) no-repeat, radial-gradient(1000px 640px at 110% 0%, #2a1c49 0%, transparent 60%) no-repeat, var(--bg);
+        font: 16px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+      }
+
+      .card {
+        width: min(1100px, 96vw);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0) 60%), var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .card-head {
+        position: relative;
+        padding: 20px 22px 0;
+      }
+      .ribbon {
+        position: absolute;
+        top: 18px;
+        left: 18px;
+        background: #121a39;
+        border: 1px solid #2a3568;
+        color: #d6e2ff;
+        font-size: 12px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        letter-spacing: 0.2px;
+      }
+
+      .hero {
+        display: grid;
+        place-items: center;
+        padding: 12px 24px 0;
+      }
+      .art {
+        width: min(1000px, 95%);
+        aspect-ratio: 16/9;
+        border-radius: 20px;
+        border: 1px solid #263056;
+        overflow: hidden;
+        background: radial-gradient(600px 320px at 100% 0%, rgba(134, 224, 255, 0.12), transparent 60%), #0f1530;
+      }
+
+      .card-body {
+        padding: 18px 24px 26px;
+        display: grid;
+        gap: 6px;
+      }
+      h1 {
+        font-size: clamp(24px, 3.6vw, 40px);
+        margin: 0;
+      }
+      .sub {
+        color: var(--muted);
+        font-size: clamp(13px, 1.6vw, 16px);
+      }
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+      }
+      .tag {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 999px;
+        border: 1px solid #2a3355;
+        background: #121a36;
+        color: #dbe6ff;
+        font-size: 12px;
+      }
+
+      /* subtle footer stripe */
+      .footer {
+        height: 10px;
+        background: linear-gradient(90deg, #5fbef0, #a58bff, #ff7aa6);
+        opacity: 0.35;
+      }
+    </style>
+  </head>
+  <body>
+    <article class="card">
+      <div class="card-head">
+        <span class="ribbon">Case</span>
+      </div>
+
+      <div class="hero">
+        <!-- BIG DOLL ILLUSTRATION (inline SVG, no external assets) -->
+        <svg class="art" viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cute big doll illustration">
+          <!-- background -->
+          <defs>
+            <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#10173a" />
+              <stop offset="1" stop-color="#0d122b" />
+            </linearGradient>
+            <radialGradient id="glow" cx="50%" cy="40%" r="60%">
+              <stop offset="0" stop-color="#86e0ff" stop-opacity=".25" />
+              <stop offset="1" stop-color="#86e0ff" stop-opacity="0" />
+            </radialGradient>
+            <clipPath id="tummyClip">
+              <ellipse cx="600" cy="540" rx="130" ry="90" />
+            </clipPath>
+          </defs>
+          <rect width="1200" height="675" fill="url(#bg)" />
+          <ellipse cx="600" cy="540" rx="360" ry="90" fill="url(#glow)" opacity=".35" />
+
+          <!-- confetti dots -->
+          <g opacity=".22" fill="#a58bff">
+            <circle cx="160" cy="120" r="6" />
+            <circle cx="210" cy="160" r="4" />
+            <circle cx="260" cy="120" r="5" />
+            <circle cx="1030" cy="140" r="6" />
+            <circle cx="980" cy="100" r="4" />
+            <circle cx="1090" cy="190" r="5" />
+          </g>
+
+          <!-- BIG DOLL -->
+          <g transform="translate(0,20)">
+            <!-- ears -->
+            <circle cx="450" cy="210" r="90" fill="#6d4f8d" />
+            <circle cx="750" cy="210" r="90" fill="#6d4f8d" />
+            <!-- head -->
+            <circle cx="600" cy="300" r="180" fill="#7b5aa0" />
+            <!-- face patch -->
+            <ellipse cx="600" cy="340" rx="90" ry="70" fill="#e8d9ff" opacity=".9" />
+            <!-- eyes -->
+            <circle cx="540" cy="300" r="22" fill="#0f1430" />
+            <circle cx="660" cy="300" r="22" fill="#0f1430" />
+            <circle cx="534" cy="296" r="6" fill="#eaf0ff" opacity=".9" />
+            <circle cx="654" cy="296" r="6" fill="#eaf0ff" opacity=".9" />
+            <!-- nose -->
+            <ellipse cx="600" cy="330" rx="10" ry="8" fill="#0f1430" opacity=".8" />
+            <!-- smile -->
+            <path d="M560 352 Q600 372 640 352" fill="none" stroke="#0f1430" stroke-width="6" stroke-linecap="round" />
+            <!-- blush -->
+            <ellipse cx="520" cy="338" rx="22" ry="12" fill="#ff8fb1" opacity=".45" />
+            <ellipse cx="680" cy="338" rx="22" ry="12" fill="#ff8fb1" opacity=".45" />
+            <!-- body -->
+            <ellipse cx="600" cy="520" rx="220" ry="150" fill="#7b5aa0" />
+            <!-- tummy patch -->
+            <ellipse cx="600" cy="540" rx="130" ry="90" fill="#e8d9ff" opacity=".95" />
+            <!-- bow -->
+            <g transform="translate(600,210)">
+              <path
+                d="M0 0 C -40 -30, -110 -25, -130 10 C -150 45, -110 70, -60 50 C -40 40, -20 25, 0 20
+                                C 20 25, 40 40, 60 50 C 110 70, 150 45, 130 10 C 110 -25, 40 -30, 0 0 Z"
+                fill="#ff7aa6"
+                opacity=".95"
+              />
+              <circle cx="0" cy="20" r="18" fill="#fbe3ef" />
+            </g>
+            <!-- arms -->
+            <ellipse cx="430" cy="520" rx="60" ry="90" fill="#7b5aa0" transform="rotate(-18 430 520)" />
+            <ellipse cx="770" cy="520" rx="60" ry="90" fill="#7b5aa0" transform="rotate(18 770 520)" />
+            <!-- legs -->
+            <ellipse cx="520" cy="620" rx="70" ry="36" fill="#6d4f8d" />
+            <ellipse cx="680" cy="620" rx="70" ry="36" fill="#6d4f8d" />
+            <!-- heart badge -->
+            <g transform="translate(600,500)">
+              <path d="M0 10 C 0 -5, 12 -16, 24 -6 C 36 -16, 48 -5, 48 10 C 48 35, 24 52, 24 52 C 24 52, 0 35, 0 10 Z" fill="#ff5d8f" transform="translate(-24,0)" />
+            </g>
+            <!-- hidden '17' inside the tummy patch -->
+            <g clip-path="url(#tummyClip)" opacity=".08">
+              <text x="600" y="560" text-anchor="middle" font-size="72" font-weight="700" font-family="Inter, Arial" fill="#0f1430" transform="rotate(-8 600 560)">17</text>
+            </g>
+          </g>
+
+          <!-- caption plate -->
+          <g transform="translate(0,0)">
+            <rect x="420" y="72" width="360" height="46" rx="10" fill="#111735" stroke="#263056" />
+            <text x="600" y="103" text-anchor="middle" font-size="20" fill="#dbe6ff" font-family="Inter, Arial">The Story of Lovely</text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="card-body">
+        <h1>Bai</h1>
+        <div class="sub">Can you break the case?</div>
+        <div class="tags">
+          <span class="tag">Case</span>
+          <span class="tag">Buahahahahaha</span>
+          <span class="tag">Break me if you cann</span>
+        </div>
+      </div>
+      <div class="footer"></div>
+    </article>
+  </body>
+
+  <!-- ====== PUZZLE LOCK TO PAGE 2 ====== -->
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-      overflow: hidden;
-    }
-
-    .container {
-      position: relative;
-      width: 90%;
-      max-width: 600px;
-      background: #fff;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    .lock-section {
+      margin: 30px auto;
       text-align: center;
-      padding: 40px 30px;
-      overflow: hidden;
-    }
-
-    .container::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: conic-gradient(#ff6b9b, #ffb6c1, #fddde6, #ff6b9b);
-      animation: rotate 8s linear infinite;
-      z-index: 0;
-    }
-
-    .inner {
-      position: relative;
-      background: #fff;
+      background: #121a36;
+      border: 1px solid #2a3355;
       border-radius: 16px;
-      padding: 30px;
-      z-index: 1;
+      padding: 26px;
+      width: min(420px, 90%);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
     }
-
-    @keyframes rotate {
-      0% { transform: rotate(0); }
-      100% { transform: rotate(360deg); }
-    }
-
-    h1 {
-      font-family: 'Sacramento', cursive;
-      font-size: 50px;
-      margin: 0 0 20px;
-      color: #ff6b9b;
-    }
-
-    .message {
-      font-size: 16px;
-      line-height: 1.7;
-      margin-bottom: 20px;
-      color: #444;
-    }
-
-    .quote {
-      font-style: italic;
-      background: #fff6fa;
-      padding: 15px;
-      border-left: 4px solid #ff6b9b;
-      border-radius: 8px;
-      margin: 20px 0;
-    }
-
-    .meta {
-      font-size: 14px;
-      color: #777;
-      margin-top: 10px;
-    }
-    .meta span { display: block; }
-
-    .btn, .password-box {
-      margin-top: 25px;
-    }
-
-    .password-box input {
-      padding: 10px 15px;
-      border: 2px solid #ff6b9b;
-      border-radius: 8px;
-      font-size: 16px;
-      width: 70%;
-      text-align: center;
-    }
-
-    .password-box button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      background: #ff6b9b;
-      color: #fff;
+    .lock-title {
+      font-size: 20px;
       font-weight: 600;
-      border: none;
+      margin-bottom: 12px;
+    }
+    .lock-input {
+      font-size: 18px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid #2a3355;
+      background: #0e132a;
+      color: #eaf0ff;
+      width: 180px;
+      text-align: center;
+      letter-spacing: 1px;
+      transition: 0.2s;
+    }
+    .lock-input:focus {
+      border-color: #7ee0ff;
+      outline: none;
+    }
+    .lock-input.wrong {
+      animation: shake 0.3s;
+      border-color: #ef4444;
+    }
+    @keyframes shake {
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+      25% {
+        transform: translateX(-6px);
+      }
+      50% {
+        transform: translateX(6px);
+      }
+      75% {
+        transform: translateX(-6px);
+      }
+    }
+    .unlock-btn {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 10px 26px;
+      font-size: 16px;
       border-radius: 999px;
+      border: none;
       cursor: pointer;
-      box-shadow: 0 6px 15px rgba(255,107,155,0.4);
-      transition: all 0.2s;
+      background: #2a355f;
+      color: #bfcaff;
+      transition: 0.25s;
     }
-
-    .password-box button:hover { transform: translateY(-3px); }
-
-    .signature {
-      margin-top: 30px;
-      font-family: 'Sacramento', cursive;
-      font-size: 28px;
-      color: #333;
-    }
-
-    .error {
-      margin-top: 10px;
-      color: #d33;
-      font-size: 14px;
-    }
-
-    /* Floating hearts */
-    .heart {
-      position: fixed;
-      bottom: -10px;
-      width: 20px;
-      height: 20px;
-      background: #ff6b9b;
-      transform: rotate(45deg);
-      animation: rise 6s linear infinite;
-    }
-    .heart::before, .heart::after {
-      content: "";
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: #ff6b9b;
-      border-radius: 50%;
-    }
-    .heart::before { top: -10px; left: 0; }
-    .heart::after { left: -10px; top: 0; }
-
-    @keyframes rise {
-      0% { transform: translateY(0) rotate(45deg); opacity: 1; }
-      100% { transform: translateY(-120vh) rotate(45deg); opacity: 0; }
+    .unlock-btn.unlocked {
+      background: #22c55e;
+      color: #fff;
     }
   </style>
-</head>
-<body>
-  <div class="container">
-    <div class="inner">
-      <h1>Happy 3rd Month, Ayang ❤</h1>
-      <p class="message">Tiga bulan ini rasanya kayak roller coaster—ada tawa, ada sebel, ada gemes, tapi aku tetap jatuh cinta sama kamu tiap harinya. Kamu bikin aku senyum sendiri, tapi juga bisa bikin aku kesel gara-gara hal-hal kecil. Dan anehnya, aku suka semua rasanya.</p>
-      <p class="message">Aku nggak butuh hubungan yang sempurna, aku cuma butuh hubungan yang nyata—yang ada manjanya, ada dramanya, tapi ujung-ujungnya kita tetap saling milih. Dan aku janji, aku bakal tetap milih kamu.</p>
-      <p class="quote">“Kalau kamu bikin aku kesel, itu cuma bikin aku makin sadar betapa pentingnya kamu di hidupku.”</p>
-      <div class="meta">
-        <span><b>Tanggal:</b> <span id="tanggal"></span></span>
-        <span><b>Kepada:</b> Vaniaa</span>
-        <span><b>Dari:</b> Orang Tersayangmu</span>
-      </div>
-      <div class="signature">Always love, <br><strong><Eyy></strong></div>
 
-      <div class="password-box">
-        <p>Masukkan password tanggal jadian kita dulu 😏</p>
-        <input type="text" id="password" placeholder="dd mm yyyy" />
-        <button onclick="checkPassword()">Unlock Surprise</button>
-        <div id="error" class="error"></div>
-      </div>
-    </div>
+  <div class="lock-section">
+    <div class="lock-title">🔒 Enter Case Password</div>
+    <p style="color: #9aa6bf; font-size: 14px; margin-top: -4px; margin-bottom: 10px">Hint: Kapan saya membeli si Bai <strong>DD-MM-YYYY</strong></p>
+    <input type="text" id="lockerPass" class="lock-input" placeholder="-- -- ----" />
+    <br />
+    <button id="unlockBtn" class="unlock-btn" disabled>Locked</button>
   </div>
 
   <script>
-    // isi tanggal otomatis
-    const tanggalEl = document.getElementById('tanggal');
-    const now = new Date();
-    tanggalEl.textContent = now.toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
+    const input = document.getElementById("lockerPass");
+    const btn = document.getElementById("unlockBtn");
 
-    // generate floating hearts
-    function createHeart(){
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.animationDuration = (4 + Math.random() * 4) + 's';
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 7000);
-    }
-    setInterval(createHeart, 500);
-
-    // password check
-    function checkPassword(){
-      const input = document.getElementById('password').value.trim();
-      const errorEl = document.getElementById('error');
-      if(input === '17 06 2025'){
-        window.location.href = 'video.html';
+    input.addEventListener("input", () => {
+      const val = input.value.trim();
+      if (val === "12-09-2025") {
+        btn.disabled = false;
+        btn.textContent = "✅ Open Case";
+        btn.classList.add("unlocked");
       } else {
-        errorEl.textContent = 'Password salah 😝 coba ingat lagi tanggalnya!';
+        btn.disabled = true;
+        btn.textContent = "Locked";
+        btn.classList.remove("unlocked");
       }
-    }
+    });
+
+    btn.addEventListener("click", () => {
+      if (!btn.disabled) {
+        window.location.href = "index2.html";
+      } else {
+        input.classList.add("wrong");
+        setTimeout(() => input.classList.remove("wrong"), 300);
+      }
+    });
   </script>
-</body>
 </html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Countdown — Buka 17-10-2025 00:00 WIB</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <style>
+      :root {
+        --bg: #0b0e16;
+        --ink: #eaf0ff;
+        --muted: #9aa6bf;
+        --card: #131a34;
+        --border: #263056;
+        --accent: #ff82b2;
+        --accent2: #ffc49a;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100svh;
+        display: grid;
+        place-items: center;
+        color: var(--ink);
+        background: radial-gradient(1200px 600px at 50% -10%, rgba(255, 130, 178, 0.16), transparent 60%), radial-gradient(900px 500px at 0% 100%, rgba(255, 196, 154, 0.12), transparent 60%), var(--bg);
+        font: 16px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      }
+      .card {
+        width: min(92vw, 820px);
+        background: linear-gradient(180deg, #111532, #171d3b);
+        border: 1px solid var(--border);
+        border-radius: 22px;
+        padding: 28px 24px;
+        text-align: center;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+      }
+      h1 {
+        margin: 0 0 6px;
+        font-size: clamp(22px, 3.4vw, 36px);
+        letter-spacing: 0.2px;
+      }
+      p {
+        margin: 0;
+        color: var(--muted);
+      }
+      .when {
+        margin-top: 8px;
+        color: #ffd9e8;
+      }
+      .clock {
+        margin: 18px auto 8px;
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .box {
+        width: 110px;
+        padding: 14px 10px;
+        border-radius: 14px;
+        background: linear-gradient(180deg, #0f1530, #0f1530) padding-box, linear-gradient(180deg, #2a3769, #151b35) border-box;
+        border: 1px solid transparent;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+      }
+      .num {
+        font-size: 38px;
+        font-weight: 800;
+        line-height: 1;
+      }
+      .lbl {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 6px;
+        letter-spacing: 0.4px;
+      }
+      .hint {
+        margin-top: 14px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .btn {
+        margin-top: 18px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 18px;
+        border-radius: 12px;
+        cursor: pointer;
+        border: 0;
+        background: linear-gradient(180deg, var(--accent), #ff6aa5);
+        color: #fff;
+        font-weight: 700;
+        box-shadow: 0 6px 16px rgba(255, 130, 178, 0.28);
+      }
+      .btn:hover {
+        filter: brightness(1.05);
+      }
+      .note {
+        margin-top: 8px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .hearts {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      .heart {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        transform: rotate(45deg);
+        background: linear-gradient(135deg, var(--accent), #ffa7c4);
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.35));
+        opacity: 0.75;
+        animation: rise 2.8s linear forwards;
+      }
+      .heart:before,
+      .heart:after {
+        content: "";
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: inherit;
+      }
+      .heart:before {
+        left: -6px;
+        top: 0;
+      }
+      .heart:after {
+        top: -6px;
+        left: 0;
+      }
+      @keyframes rise {
+        0% {
+          transform: translateY(0) rotate(45deg) scale(0.9);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.9;
+        }
+        100% {
+          transform: translateY(-110vh) rotate(45deg) scale(1.1);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>💖 Countdown Menuju 17 Oktober 2025 💖</h1>
+      <h2>Happy Anniversary 4 Month Ayanggg!!!!</h2>
+      <p>Halaman spesial akan terbuka tepat pukul:</p>
+      <div class="when">17 Oktober 2025 • 00:00 WIB (Asia/Jakarta)</div>
+
+      <div class="clock" aria-live="polite">
+        <div class="box">
+          <div id="d" class="num">–</div>
+          <div class="lbl">Hari</div>
+        </div>
+        <div class="box">
+          <div id="h" class="num">–</div>
+          <div class="lbl">Jam</div>
+        </div>
+        <div class="box">
+          <div id="m" class="num">–</div>
+          <div class="lbl">Menit</div>
+        </div>
+        <div class="box">
+          <div id="s" class="num">–</div>
+          <div class="lbl">Detik</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hearts" id="hearts"></div>
+
+    <script>
+      // Target waktu: 17-10-2025 00:00 WIB = 2025-10-16T17:00:00Z (UTC)
+      const TARGET = new Date("2025-10-16T17:00:00Z").getTime();
+      const DEST = "index1.html"; // redirect ke halaman utama
+
+      const elD = document.getElementById("d");
+      const elH = document.getElementById("h");
+      const elM = document.getElementById("m");
+      const elS = document.getElementById("s");
+
+      function updateClock() {
+        const now = Date.now();
+        let diff = TARGET - now;
+        if (diff <= 0) {
+          clearInterval(tick);
+          setTimeout(() => (window.location.href = DEST), 500);
+          return;
+        }
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        diff -= d * (1000 * 60 * 60 * 24);
+        const h = Math.floor(diff / (1000 * 60 * 60));
+        diff -= h * (1000 * 60 * 60);
+        const m = Math.floor(diff / (1000 * 60));
+        diff -= m * (1000 * 60);
+        const s = Math.floor(diff / 1000);
+        elD.textContent = d;
+        elH.textContent = String(h).padStart(2, "0");
+        elM.textContent = String(m).padStart(2, "0");
+        elS.textContent = String(s).padStart(2, "0");
+      }
+      const tick = setInterval(updateClock, 1000);
+      updateClock();
+      
+      const hearts = document.getElementById("hearts");
+      let heartTimer = null;
+      function spawnHeart() {
+        const h = document.createElement("span");
+        h.className = "heart";
+        const x = Math.random() * 100,
+          size = 8 + Math.random() * 12,
+          delay = Math.random() * 400;
+        h.style.left = x + "vw";
+        h.style.bottom = "-20px";
+        h.style.width = h.style.height = size + "px";
+        h.style.animationDelay = delay + "ms";
+        hearts.appendChild(h);
+        setTimeout(() => h.remove(), 3200);
+      }
+      function startHearts() {
+        if (!heartTimer) heartTimer = setInterval(spawnHeart, 360);
+      }
+      function stopHearts() {
+        clearInterval(heartTimer);
+        heartTimer = null;
+      }
+      song.addEventListener("play", startHearts);
+      song.addEventListener("pause", stopHearts);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Page 10 — Suitcase Lock</title>
+    <style>
+      :root {
+        --bg: #0b0e16;
+        --ink: #eaf0ff;
+        --muted: #9aa6bf;
+        --case: #1b213f;
+        --case2: #0f1530;
+        --bevel: #2a3355;
+        --accent: #86e0ff;
+        --ok: #1b8a57;
+        --err: #ef4444;
+        --radius: 22px;
+        --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: radial-gradient(1100px 520px at 15% -10%, #1a2b57 0%, transparent 60%) no-repeat, radial-gradient(1000px 640px at 110% 0%, #2a1c49 0%, transparent 60%) no-repeat, var(--bg);
+        font: 16px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+        padding: 24px;
+      }
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin: 2px 0 18px;
+      }
+      .logo {
+        width: 54px;
+        height: 54px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        background: conic-gradient(from 230deg, #2c3b63, #1b2140 35%, #12162b 70%, #2c3b63);
+        color: #cfe0ff;
+        font-weight: 800;
+        box-shadow: var(--shadow);
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(24px, 3.6vw, 40px);
+      }
+      .subtitle {
+        color: var(--muted);
+      }
+
+      /* Suitcase */
+      .case {
+        position: relative;
+        margin: 8px auto 0;
+        width: min(92vw, 940px);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0) 60%), var(--case);
+        border: 1px solid var(--bevel);
+        border-radius: 20px;
+        box-shadow: var(--shadow);
+        padding: 18px;
+      }
+      .lid {
+        height: 22px;
+        border-radius: 14px 14px 6px 6px;
+        background: linear-gradient(180deg, #2a3355, #192047);
+        border: 1px solid #2d3863;
+        margin: -8px auto 10px;
+        width: 92%;
+      }
+      .handle {
+        position: absolute;
+        top: -22px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 140px;
+        height: 40px;
+        border-radius: 0 0 18px 18px;
+        background: #101733;
+        border: 1px solid #2a3355;
+        box-shadow: inset 0 -6px 16px rgba(0, 0, 0, 0.35);
+      }
+      .panel {
+        background: var(--case2);
+        border: 1px solid var(--bevel);
+        border-radius: 14px;
+        padding: 16px;
+      }
+
+      /* Wheels */
+      .wheels {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        gap: 10px;
+        width: min(92vw, 820px);
+        margin: 12px auto 6px;
+      }
+      .wheel {
+        background: #0b1026;
+        border: 1px solid #2a3355;
+        border-radius: 14px;
+        display: grid;
+        grid-template-rows: auto 64px auto;
+        align-items: center;
+        justify-items: center;
+        padding: 6px;
+        user-select: none;
+      }
+      .btn {
+        width: 100%;
+        border: none;
+        cursor: pointer;
+        background: #16204a;
+        color: #cfe0ff;
+        border: 1px solid #2a3355;
+        border-radius: 10px;
+        padding: 8px;
+        transition: 0.15s;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+      .btn.small {
+        padding: 6px 0;
+        font-weight: 700;
+      }
+      .viewport {
+        height: 64px;
+        width: 100%;
+        overflow: hidden;
+        display: grid;
+        place-items: center;
+        border-radius: 10px;
+        border: 1px solid #263056;
+        background: #0d1330;
+        font-weight: 800;
+        font-size: 28px;
+        letter-spacing: 1px;
+      }
+      .strip {
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.12s ease-out;
+      }
+      .digit {
+        height: 64px;
+        display: grid;
+        place-items: center;
+        color: #eaf0ff;
+      }
+
+      .out {
+        text-align: center;
+        color: #9fb0da;
+        margin-top: 6px;
+        font-family: ui-monospace, Menlo, Consolas, monospace;
+      }
+
+      .actions {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 10px;
+      }
+      .btn.primary {
+        background: var(--ok);
+        border-color: var(--ok);
+        color: #fff;
+      }
+      .msg {
+        text-align: center;
+        color: #a8b4d8;
+        margin-top: 8px;
+        min-height: 24px;
+      }
+      .msg.ok {
+        color: #b8ffd6;
+      }
+      .msg.err {
+        color: #ffc8cf;
+      }
+
+      .unlock {
+        display: none;
+        text-align: center;
+        margin-top: 12px;
+        color: #c5ffd9;
+        background: #0e2a18;
+        border: 1px solid #1a4a2f;
+        padding: 12px 14px;
+        border-radius: 12px;
+      }
+      .unlock.show {
+        display: block;
+      }
+      .next {
+        display: none;
+        margin-top: 10px;
+      }
+      .open .next {
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="logo">P10</div>
+        <div>
+          <h1>Suitcase Lock</h1>
+          <div class="subtitle">Putar 8 roda angka hingga kode tepat. Petunjuk tersebar di halaman sebelumnya.</div>
+          <div><h7>(Halaman Utama × Halaman ke 2) + (Halaman ke 3 × Halaman ke 4) + (Halaman ke 5 × Halaman ke 6) + (Halaman ke 7 − Halaman ke 8) + Ulang tahun saya + Ulang tahun kamu =?</h7></div>
+        </div>
+      </header>
+
+      <section class="case" id="case">
+        <div class="handle"></div>
+        <div class="lid"></div>
+        <div class="panel">
+          <div class="wheels" id="wheels"></div>
+          <div class="out">Kode: <span id="code">________</span></div>
+          <div class="actions">
+            <button id="check" class="btn primary">Periksa</button>
+            <a href="index11.html" id="nextBtn" class="btn primary next">Next →</a>
+          </div>
+          <div id="msg" class="msg"></div>
+          <div id="unlock" class="unlock">🔓 Berhasil! Koper terbuka.</div>
+        </div>
+      </section>
+    </div>
+
+    <script>
+      (function () {
+        const TARGET = "72236031"; // KODE BENAR (8 digit)
+        const wheelsEl = document.getElementById("wheels");
+        const codeEl = document.getElementById("code");
+        const msgEl = document.getElementById("msg");
+        const unlockEl = document.getElementById("unlock");
+        const nextBtn = document.getElementById("nextBtn");
+        const caseBox = document.getElementById("case");
+
+        const W = 8;
+        const values = Array(W).fill(0);
+
+        // build wheels
+        for (let i = 0; i < W; i++) {
+          const wheel = document.createElement("div");
+          wheel.className = "wheel";
+          wheel.tabIndex = 0;
+
+          const up = document.createElement("button");
+          up.className = "btn small";
+          up.textContent = "▲";
+          const down = document.createElement("button");
+          down.className = "btn small";
+          down.textContent = "▼";
+
+          const viewport = document.createElement("div");
+          viewport.className = "viewport";
+          const strip = document.createElement("div");
+          strip.className = "strip";
+          for (let d = 0; d < 10; d++) {
+            const cell = document.createElement("div");
+            cell.className = "digit";
+            cell.textContent = d;
+            strip.appendChild(cell);
+          }
+          viewport.appendChild(strip);
+
+          // wheel logic
+          function render() {
+            const y = -values[i] * 64; // 64px per digit
+            strip.style.transform = `translateY(${y}px)`;
+            updateCode();
+          }
+          function inc() {
+            values[i] = (values[i] + 1) % 10;
+            render();
+          }
+          function dec() {
+            values[i] = (values[i] + 9) % 10;
+            render();
+          }
+
+          up.addEventListener("click", inc);
+          down.addEventListener("click", dec);
+
+          // mouse wheel
+          wheel.addEventListener(
+            "wheel",
+            (e) => {
+              e.preventDefault();
+              (e.deltaY > 0 ? inc : dec)();
+            },
+            { passive: false }
+          );
+
+          // keyboard (focus wheel, then ↑/↓)
+          wheel.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowUp") {
+              e.preventDefault();
+              inc();
+            }
+            if (e.key === "ArrowDown") {
+              e.preventDefault();
+              dec();
+            }
+          });
+
+          wheel.appendChild(up);
+          wheel.appendChild(viewport);
+          wheel.appendChild(down);
+          wheelsEl.appendChild(wheel);
+          render();
+        }
+
+        function updateCode() {
+          codeEl.textContent = values.join("");
+          msgEl.textContent = "";
+          unlockEl.classList.remove("show");
+          caseBox.classList.remove("open");
+        }
+
+        document.getElementById("check").addEventListener("click", () => {
+          const entered = values.join("");
+          if (entered === TARGET) {
+            msgEl.textContent = "Cocok!";
+            msgEl.className = "msg ok";
+            unlockEl.classList.add("show");
+            caseBox.classList.add("open");
+            nextBtn.style.display = "inline-block";
+          } else {
+            msgEl.textContent = "Belum tepat. Coba putar lagi.";
+            msgEl.className = "msg err";
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Page 3 — Morning Riddle</title>
+    <style>
+      :root {
+        --bg: #0b0e16;
+        --ink: #eaf0ff;
+        --muted: #9aa6bf;
+        --card: #131a34;
+        --border: #263056;
+        --accent: #86e0ff;
+        --good: #22c55e;
+        --bad: #ef4444;
+        --radius: 28px;
+        --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: radial-gradient(1100px 520px at 15% -10%, #1a2b57 0%, transparent 60%) no-repeat, radial-gradient(1000px 640px at 110% 0%, #2a1c49 0%, transparent 60%) no-repeat, var(--bg);
+        font: 16px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+        padding: 24px;
+      }
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      /* Header */
+      header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin: 2px 0 18px;
+      }
+      .logo {
+        width: 54px;
+        height: 54px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        background: conic-gradient(from 230deg, #2c3b63, #1b2140 35%, #12162b 70%, #2c3b63);
+        color: #cfe0ff;
+        font-weight: 800;
+        box-shadow: var(--shadow), inset 0 -10px 20px rgba(0, 0, 0, 0.35);
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(24px, 3.4vw, 38px);
+      }
+      .subtitle {
+        color: var(--muted);
+      }
+
+      /* Card */
+      .card {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0) 60%), var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+      .card-head {
+        padding: 16px 18px 0;
+        position: relative;
+      }
+      .badge {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        background: #121a39;
+        border: 1px solid #2a3568;
+        color: #d6e2ff;
+        font-size: 12px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        letter-spacing: 0.2px;
+      }
+
+      /* Hero image */
+      .hero {
+        display: grid;
+        place-items: center;
+        padding: 10px 18px 0;
+      }
+      .art {
+        width: min(1000px, 96%);
+        aspect-ratio: 16/9;
+        border-radius: 20px;
+        border: 1px solid #263056;
+        overflow: hidden;
+        background: radial-gradient(600px 320px at 100% 0%, rgba(134, 224, 255, 0.12), transparent 60%), #0f1530;
+        position: relative;
+      }
+
+      /* Blur veil (unsolved) -> clear when solved */
+      .veil {
+        position: absolute;
+        inset: 0;
+        backdrop-filter: blur(10px) saturate(0.7) brightness(0.85);
+        transition: 0.35s;
+      }
+      body.solved .veil {
+        backdrop-filter: none;
+        background: transparent;
+      }
+      body.solved .art svg {
+        opacity: 1;
+      }
+
+      /* Caption chips (optional on image) */
+      .chip {
+        position: absolute;
+        font-size: 10px;
+        letter-spacing: 0.4px;
+        color: #d7e6ff;
+        background: #152047;
+        border: 1px solid #30408a;
+        padding: 4px 6px;
+        border-radius: 999px;
+        opacity: 0.75;
+      }
+      .chip.tl {
+        top: 8px;
+        left: 8px;
+      }
+      .chip.tr {
+        top: 8px;
+        right: 8px;
+      }
+      .chip.bl {
+        bottom: 8px;
+        left: 8px;
+      }
+      .chip.br {
+        bottom: 8px;
+        right: 8px;
+      }
+
+      .card-body {
+        padding: 16px 18px 22px;
+      }
+      h2 {
+        margin: 0.3rem 0 0.5rem;
+        font-size: 20px;
+      }
+      p {
+        margin: 0.25rem 0 0.7rem;
+      }
+      .muted {
+        color: var(--muted);
+      }
+      .divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #2a3355, transparent);
+        margin: 12px 0;
+      }
+
+      /* Input area */
+      .qa {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .answer {
+        flex: 1 1 280px;
+        min-width: 240px;
+        font-size: 16px;
+        padding: 12px 14px;
+        border-radius: 12px;
+        border: 1px solid #2a3355;
+        background: #0e132a;
+        color: #eaf0ff;
+        outline: none;
+        transition: 0.2s;
+      }
+      .answer:focus {
+        border-color: #7ee0ff;
+        box-shadow: 0 0 0 4px rgba(126, 224, 255, 0.12);
+      }
+      .btn {
+        padding: 12px 18px;
+        border-radius: 12px;
+        border: 1px solid #2a3355;
+        background: #16204a;
+        color: #cfe0ff;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+      .btn.ok {
+        background: #1b8a57;
+        border-color: #1b8a57;
+        color: #fff;
+      }
+      .btn.err {
+        animation: shake 0.28s;
+        border-color: var(--bad);
+      }
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-6px);
+        }
+        50% {
+          transform: translateX(6px);
+        }
+        75% {
+          transform: translateX(-6px);
+        }
+      }
+
+      /* Success banner */
+      .success {
+        display: none;
+        margin-top: 10px;
+        font-size: 14px;
+        color: #c5ffd9;
+        background: #0e2a18;
+        border: 1px solid #1a4a2f;
+        padding: 10px 12px;
+        border-radius: 10px;
+      }
+      body.solved .success {
+        display: block;
+      }
+      body.solved h1::after {
+        content: " — Story continues";
+        color: #9ee8ff;
+        font-weight: 600;
+      }
+
+      /* =============== HINT MODAL (progressive) =============== */
+      .hint-modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(4, 7, 18, 0.55);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        z-index: 80;
+        backdrop-filter: blur(2px);
+      }
+      .hint-modal {
+        width: min(720px, 96vw);
+        background: #121a36;
+        border: 1px solid #2a3355;
+        border-radius: 16px;
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+        position: relative;
+        animation: hintPop 0.22s ease-out;
+      }
+      @keyframes hintPop {
+        from {
+          opacity: 0;
+          transform: translateY(8px) scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .hint-close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #1a2246;
+        border: 1px solid #2d3972;
+        color: #dbe6ff;
+        font-size: 14px;
+        line-height: 1;
+        border-radius: 10px;
+        padding: 6px 8px;
+        cursor: pointer;
+      }
+      .hint-header {
+        padding: 16px 18px 0;
+      }
+      .hint-badge {
+        display: inline-block;
+        font-size: 12px;
+        color: #cfe0ff;
+        background: #121a39;
+        border: 1px solid #29326a;
+        padding: 6px 10px;
+        border-radius: 999px;
+      }
+      .hint-header h3 {
+        margin: 8px 0 2px;
+        font-size: 20px;
+      }
+      .hint-sub {
+        margin: 0;
+        color: #9aa6bf;
+      }
+      .hint-progress {
+        margin-top: 6px;
+        font-size: 12px;
+        color: #9fb0da;
+      }
+      .hint-content {
+        padding: 10px 18px 12px;
+        display: grid;
+        gap: 12px;
+        max-height: 52vh;
+        overflow: auto;
+      }
+      .hint-card {
+        background: #0e132a;
+        border: 1px solid #263056;
+        border-radius: 12px;
+        padding: 12px 14px;
+      }
+      .hint-chip {
+        display: inline-block;
+        font-size: 11px;
+        color: #d7e6ff;
+        background: #152047;
+        border: 1px solid #30408a;
+        padding: 4px 8px;
+        border-radius: 999px;
+        margin-bottom: 6px;
+      }
+      .hint-footer {
+        padding: 6px 18px 16px;
+        display: flex;
+        justify-content: flex-end;
+      }
+      .pill-btn {
+        border-radius: 999px;
+      }
+      body.modal-open {
+        overflow: hidden;
+      }
+      .penalty-burst {
+        position: absolute;
+        top: 10px;
+        left: 12px;
+        background: #34111b;
+        color: #ffc6cf;
+        border: 1px solid #5b1f2e;
+        font-size: 12px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        opacity: 0;
+        transform: translateY(-6px) scale(0.96);
+        pointer-events: none;
+      }
+      .penalty-burst.show {
+        animation: burst 900ms ease-out forwards;
+      }
+      @keyframes burst {
+        0% {
+          opacity: 0;
+          transform: translateY(-6px) scale(0.96);
+        }
+        10% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+        70% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-10px) scale(0.98);
+        }
+      }
+      .hint-modal.penalize {
+        animation: shake 0.28s;
+      }
+      #status.penalize {
+        border-color: #ef4444 !important;
+        background: #2a0f16 !important;
+        color: #ffc6cf !important;
+        animation: pulse 600ms ease-out;
+      }
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6);
+        }
+        100% {
+          box-shadow: 0 0 0 12px rgba(239, 68, 68, 0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="logo">P3</div>
+        <div>
+          <h1>Page 3</h1>
+          <div class="subtitle">Tanggal 13/10/2025 pagi hari — ayang ingin makan apa?</div>
+        </div>
+      </header>
+
+      <article class="card">
+        <div class="card-head">
+          <span class="badge" id="status">Locked</span>
+        </div>
+
+        <div class="hero">
+          <div class="art">
+            <!-- Ilustrasi samar: mangkuk mie asap + paket warna-warni -->
+            <svg viewBox="0 0 1200 675" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Gambar samar: mie instan & paket warna">
+              <defs>
+                <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#0e1430" />
+                  <stop offset="1" stop-color="#0a1026" />
+                </linearGradient>
+                <radialGradient id="steam" cx="50%" cy="30%" r="60%">
+                  <stop offset="0" stop-color="#ffffff" stop-opacity=".25" />
+                  <stop offset="1" stop-color="#ffffff" stop-opacity="0" />
+                </radialGradient>
+                <clipPath id="ramenBowl">
+                  <ellipse cx="600" cy="520" rx="160" ry="80" />
+                </clipPath>
+              </defs>
+              <rect width="1200" height="675" fill="url(#bg)" />
+              <!-- paket warna-warni (termasuk ungu) -->
+              <g transform="translate(820,180)" opacity=".85">
+                <rect x="0" y="0" width="120" height="80" rx="10" fill="#7e57c2" />
+                <!-- ungu -->
+                <rect x="-140" y="30" width="120" height="80" rx="10" fill="#ef5350" />
+                <rect x="-70" y="110" width="120" height="80" rx="10" fill="#ffca28" />
+                <rect x="-210" y="100" width="120" height="80" rx="10" fill="#66bb6a" />
+              </g>
+              <!-- mangkuk -->
+              <g transform="translate(420,260)" opacity=".9">
+                <ellipse cx="180" cy="220" rx="220" ry="40" fill="#1a224a" opacity=".5" />
+                <ellipse cx="180" cy="160" rx="210" ry="90" fill="#1c2550" stroke="#2a3568" />
+                <ellipse cx="180" cy="126" rx="180" ry="36" fill="#f5d08a" />
+                <!-- mie -->
+                <g fill="none" stroke="#f4c76b" stroke-width="6" opacity=".95">
+                  <path d="M20,110 C60,130 120,130 160,110" />
+                  <path d="M40,120 C90,140 150,140 200,120" />
+                  <path d="M80,130 C130,150 190,150 240,130" />
+                  <path d="M120,120 C170,140 230,140 280,120" />
+                </g>
+                <!-- uap -->
+                <g opacity=".65">
+                  <ellipse cx="120" cy="20" rx="60" ry="90" fill="url(#steam)" />
+                  <ellipse cx="200" cy="10" rx="60" ry="90" fill="url(#steam)" />
+                  <ellipse cx="260" cy="30" rx="50" ry="70" fill="url(#steam)" />
+                </g>
+                <!-- sumpit -->
+                <rect x="70" y="40" width="260" height="8" rx="4" fill="#b08968" transform="rotate(-10 70 40)" />
+                <rect x="70" y="54" width="260" height="8" rx="4" fill="#b08968" transform="rotate(-10 70 54)" />
+              </g>
+              <!-- watermark negara -->
+              <text x="50" y="70" font-size="14" fill="#93a3cc" opacity=".6" font-family="Inter, Arial">Negara: Populasi 51,75 juta (2024)</text>
+              <g clip-path="url(#ramenBowl)" opacity=".07">
+                <text x="600" y="540" text-anchor="middle" font-size="64" font-weight="700" font-family="Inter, Arial" fill="#b57cff" transform="rotate(-8 600 540)">62</text>
+              </g>
+            </svg>
+
+            <!-- Lapisan blur (hilang saat solved) -->
+            <div class="veil"></div>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <h2>Pertanyaan</h2>
+          <p class="muted">Tanggal <strong>13/10/2025</strong> pada pagi hari, ayang ingin makan apa?</p>
+          <div class="qa">
+            <input id="answer" class="answer" type="text" placeholder="ketik jawaban…" autocomplete="off" />
+            <button id="checkBtn" class="btn">Periksa</button>
+            <button id="openHints" class="btn" type="button" style="margin-left: auto">💡 Hint</button>
+          </div>
+          <div id="msg" class="muted" style="margin-top: 8px">Gunakan kata kunci tepat (satu kata).</div>
+          <div class="divider"></div>
+          <div class="success">✅ Benar. Gambar dibuka. <strong>Story continues.</strong></div>
+        </div>
+      </article>
+    </div>
+
+    <!-- ========================= -->
+    <!-- PROGRESSIVE HINT MODAL   -->
+    <!-- ========================= -->
+    <div id="hintsModal" class="hint-modal-backdrop" aria-hidden="true">
+      <div class="hint-modal" role="dialog" aria-modal="true" aria-labelledby="hintTitle">
+        <button class="hint-close" id="closeHints" aria-label="Close hints">✕</button>
+
+        <div class="hint-header">
+          <div class="hint-badge">Clues</div>
+          <h3 id="hintTitle">Hint untuk Teka-teki</h3>
+          <p class="hint-sub">Klik “Reveal next hint” untuk membuka petunjuk berikutnya (maks 3).</p>
+          <div class="hint-progress"><span id="hintCount">0</span>/3 revealed</div>
+        </div>
+
+        <div class="hint-content">
+          <div class="hint-card" data-hint="1" hidden>
+            <div class="hint-chip">Hint 1 — negara</div>
+            <p>Populasi negara ini <strong>51,75 juta (2024)</strong>.</p>
+          </div>
+          <div class="hint-card" data-hint="2" hidden>
+            <div class="hint-chip">Hint 2 — resep</div>
+            <p><em>Adonan tepung</em> dengan campuran <em>air</em> dan <em>garam</em>.</p>
+          </div>
+          <div class="hint-card" data-hint="3" hidden>
+            <div class="hint-chip">Hint 3 — kemasan</div>
+            <p>Bungkusannya banyak warna, salah satu favorit: <strong>ungu</strong>.</p>
+          </div>
+        </div>
+
+        <div class="hint-footer">
+          <button id="revealNextHint" class="btn pill-btn" type="button">Reveal next hint</button>
+        </div>
+
+        <div id="penaltyBurst" class="penalty-burst" aria-hidden="true">−1 hint credit</div>
+      </div>
+    </div>
+
+    <script>
+      // ====== Answer check ======
+      const ans = document.getElementById("answer");
+      const btn = document.getElementById("checkBtn");
+      const msg = document.getElementById("msg");
+      const statusBadge = document.getElementById("status");
+
+      function normalize(s) {
+        return (s || "")
+          .toLowerCase()
+          .normalize("NFKD")
+          .replace(/\s+/g, " ")
+          .replace(/[^a-z0-9\s]/g, "")
+          .trim();
+      }
+      const correct = normalize("samyang");
+
+      btn.addEventListener("click", () => {
+        const val = normalize(ans.value);
+        if (val === correct) {
+          document.body.classList.add("solved");
+          btn.classList.remove("err");
+          btn.classList.add("ok");
+          btn.textContent = "Unlocked";
+          msg.textContent = "Jawaban tepat. Selamat!";
+          if (statusBadge) {
+            statusBadge.textContent = "Unlocked";
+            statusBadge.style.background = "#0e2a18";
+            statusBadge.style.borderColor = "#1a4a2f";
+            statusBadge.style.color = "#c5ffd9";
+          }
+          // Auto next ke page 4
+          setTimeout(() => {
+            window.location.href = "index4.html";
+          }, 1500);
+        } else {
+          btn.classList.remove("ok");
+          btn.classList.add("err");
+          msg.textContent = "Belum tepat. Coba lagi ya (lihat Hint kalau perlu).";
+          if (statusBadge) statusBadge.textContent = "Locked";
+        }
+      });
+      ans.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") btn.click();
+      });
+
+      // ====== Progressive Hints Modal ======
+      (function () {
+        const modal = document.getElementById("hintsModal");
+        const openBtn = document.getElementById("openHints");
+        const closeBtn = document.getElementById("closeHints");
+        const revealBtn = document.getElementById("revealNextHint");
+        const burst = document.getElementById("penaltyBurst");
+        const counter = document.getElementById("hintCount");
+
+        let revealed = 0; // 0..3
+        const maxHints = 3;
+
+        function openModal() {
+          modal.style.display = "flex";
+          document.body.classList.add("modal-open");
+          modal.setAttribute("aria-hidden", "false");
+          closeBtn && closeBtn.focus();
+        }
+        function closeModal() {
+          modal.style.display = "none";
+          document.body.classList.remove("modal-open");
+          modal.setAttribute("aria-hidden", "true");
+          openBtn && openBtn.focus();
+        }
+        function showHint(n) {
+          const card = modal.querySelector('.hint-card[data-hint="' + n + '"]');
+          if (card && card.hasAttribute("hidden")) card.removeAttribute("hidden");
+        }
+        function penalizeFlash() {
+          modal.classList.add("penalize");
+          statusBadge && statusBadge.classList.add("penalize");
+          burst.classList.add("show");
+          setTimeout(() => {
+            modal.classList.remove("penalize");
+          }, 320);
+          setTimeout(() => {
+            statusBadge && statusBadge.classList.remove("penalize");
+          }, 620);
+          setTimeout(() => {
+            burst.classList.remove("show");
+          }, 920);
+        }
+        function updateRevealBtn() {
+          if (revealed >= maxHints) {
+            revealBtn.disabled = true;
+            revealBtn.textContent = "All hints revealed";
+          } else {
+            revealBtn.disabled = false;
+            revealBtn.textContent = "Reveal next hint";
+          }
+          counter.textContent = revealed;
+        }
+
+        openBtn && openBtn.addEventListener("click", openModal);
+        closeBtn && closeBtn.addEventListener("click", closeModal);
+        modal &&
+          modal.addEventListener("click", (e) => {
+            if (e.target === modal) closeModal();
+          });
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && modal.style.display === "flex") closeModal();
+        });
+
+        revealBtn &&
+          revealBtn.addEventListener("click", () => {
+            if (revealed < maxHints) {
+              revealed += 1;
+              showHint(revealed);
+              penalizeFlash();
+              updateRevealBtn();
+            }
+          });
+
+        updateRevealBtn();
+      })();
+    </script>
+  </body>
+</html>

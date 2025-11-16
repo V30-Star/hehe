@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Page 8 — EXTREME (Timer + Strikes)</title>
+    <style>
+      :root {
+        --bg: #0b0e16;
+        --ink: #eaf0ff;
+        --muted: #9aa6bf;
+        --card: #131a34;
+        --border: #263056;
+        --accent: #86e0ff;
+        --ok: #1b8a57;
+        --err: #ef4444;
+        --radius: 22px;
+        --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: radial-gradient(1100px 520px at 15% -10%, #1a2b57 0%, transparent 60%) no-repeat, radial-gradient(1000px 640px at 110% 0%, #2a1c49 0%, transparent 60%) no-repeat, var(--bg);
+        font: 16px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+        padding: 24px;
+      }
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin: 2px 0 18px;
+      }
+      .logo {
+        width: 54px;
+        height: 54px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        background: conic-gradient(from 230deg, #2c3b63, #1b2140 35%, #12162b 70%, #2c3b63);
+        color: #cfe0ff;
+        font-weight: 800;
+        box-shadow: var(--shadow);
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(24px, 3.6vw, 40px);
+      }
+      .subtitle {
+        color: var(--muted);
+      }
+
+      .hud {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 8px;
+        color: #cfe0ff;
+      }
+      .timer {
+        font-weight: 800;
+        letter-spacing: 1px;
+        padding: 8px 12px;
+        border-radius: 12px;
+        background: #18224d;
+        border: 1px solid #2a3568;
+        min-width: 92px;
+        text-align: center;
+      }
+      .hearts {
+        display: flex;
+        gap: 6px;
+      }
+      .heart {
+        width: 24px;
+        height: 24px;
+        background: #d3416c;
+        border-radius: 6px;
+        box-shadow: inset 0 -4px 6px rgba(0, 0, 0, 0.25);
+        clip-path: polygon(50% 84%, 4% 40%, 4% 24%, 12% 12%, 26% 10%, 50% 28%, 74% 10%, 88% 12%, 96% 24%, 96% 40%);
+        opacity: 0.9;
+      }
+      .heart.off {
+        filter: grayscale(1) brightness(0.6);
+        opacity: 0.5;
+      }
+
+      .card {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0) 60%), var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+      .card-head {
+        padding: 14px 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .badge {
+        background: #121a39;
+        border: 1px solid #2a3568;
+        color: #d6e2ff;
+        font-size: 12px;
+        padding: 6px 10px;
+        border-radius: 999px;
+      }
+      .progress {
+        margin-left: auto;
+        color: #9fb0da;
+        font-size: 14px;
+      }
+
+      .locks {
+        padding: 14px 16px 18px;
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      }
+      .lock {
+        background: #0e132a;
+        border: 1px solid #263056;
+        border-radius: 14px;
+        padding: 12px 14px;
+      }
+      .lock h3 {
+        margin: 0 0 6px;
+        font-size: 16px;
+      }
+      .lock p {
+        margin: 2px 0 10px;
+        color: #9aa6bf;
+        font-size: 14px;
+      }
+      .row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      input[type="text"] {
+        flex: 1 1 auto;
+        min-width: 160px;
+        font-size: 16px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid #2a3355;
+        background: #0b1026;
+        color: #eaf0ff;
+        outline: none;
+      }
+      input[type="text"]:focus {
+        border-color: #7ee0ff;
+        box-shadow: 0 0 0 4px rgba(126, 224, 255, 0.12);
+      }
+      .chip {
+        min-width: 42px;
+        text-align: center;
+        font-weight: 700;
+        background: #121a39;
+        border: 1px solid #2a3568;
+        color: #d6e2ff;
+        padding: 8px 10px;
+        border-radius: 10px;
+      }
+      .ok {
+        border-color: var(--ok) !important;
+      }
+      .err {
+        border-color: var(--err) !important;
+        animation: shake 0.25s;
+      }
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-6px);
+        }
+        50% {
+          transform: translateX(6px);
+        }
+        75% {
+          transform: translateX(-6px);
+        }
+      }
+
+      .preview {
+        padding: 12px 16px;
+        border-top: 1px dashed #2a3355;
+        background: #0b1026;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+        font-family: ui-monospace, Menlo, Consolas, monospace;
+      }
+      .big {
+        font-size: 20px;
+        letter-spacing: 1px;
+      }
+
+      .actions {
+        padding: 12px 16px 18px;
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+      }
+      .btn {
+        padding: 12px 18px;
+        border-radius: 12px;
+        border: 1px solid #2a3355;
+        background: #16204a;
+        color: #cfe0ff;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+      .btn.primary {
+        background: #1b8a57;
+        border-color: #1b8a57;
+        color: #fff;
+      }
+
+      /* Grid heart puzzle */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(5, 28px);
+        gap: 6px;
+        margin-top: 8px;
+      }
+      .cell {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        background: #0b1026;
+        border: 1px solid #2a3355;
+        cursor: pointer;
+        transition: 0.15s;
+      }
+      .cell.on {
+        background: #e85a8f;
+        border-color: #e85a8f;
+      }
+
+      body::after {
+        content: "42";
+        position: fixed;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(7deg);
+        font-size: clamp(50px, 10vw, 30px);
+        font-weight: 400;
+        color: #86e0ff;
+        opacity: 0.05;
+        filter: blur(2px);
+        mix-blend-mode: screen;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .success {
+        display: none;
+        margin: 12px 16px 18px;
+        color: #c5ffd9;
+        background: #0e2a18;
+        border: 1px solid #1a4a2f;
+        padding: 12px 14px;
+        border-radius: 12px;
+      }
+      body.solved .success {
+        display: block;
+      }
+      .final {
+        display: none;
+        text-align: center;
+        padding: 10px 16px 22px;
+      }
+      body.solved .final {
+        display: block;
+      }
+      .love {
+        font-size: 36px;
+        letter-spacing: 2px;
+        font-weight: 800;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="logo">P8</div>
+        <div>
+          <h1>EXTREME LOCK</h1>
+          <div class="subtitle">4 tantangan, 4 nyala cinta — waktu 4 menit ⏳</div>
+          <div class="hud">
+            <div class="timer" id="timer">04:00</div>
+            <div class="hearts" id="hearts">
+              <div class="heart"></div>
+              <div class="heart"></div>
+              <div class="heart"></div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <article class="card">
+        <div class="card-head">
+          <span class="badge" id="status">Locked</span>
+          <div class="progress"><span id="done">0</span>/4 solved</div>
+        </div>
+
+        <section class="locks">
+          <!-- Lock 1: Playfair -->
+          <div class="lock" data-key="LOVE" id="lock1">
+            <h3>Lock 1 — Playfair</h3>
+            <p>Kunci: <code>FOURMONTHS</code> • Ciphertext: <code id="pfCt">…</code></p>
+            <div class="row">
+              <input type="text" placeholder="plaintext hasil desifrasi" />
+              <span class="chip">#1</span>
+            </div>
+          </div>
+
+          <!-- Lock 2: Vigenère -->
+          <div class="lock" data-key="YOU" id="lock2">
+            <h3>Lock 2 — Vigenère</h3>
+            <p>Kunci = jawaban Lock 1 • Ciphertext: <code id="vigCt">…</code></p>
+            <div class="row">
+              <input type="text" placeholder="plaintext hasil desifrasi" />
+              <span class="chip">#2</span>
+            </div>
+          </div>
+
+          <!-- Lock 3: Grid Heart (hasil = 4) -->
+          <div class="lock" data-key="4" id="lock3">
+            <h3>Lock 3 — Grid Heart</h3>
+            <p>Nyalakan kotak agar terbentuk hati ❤️</p>
+            <div class="grid" id="heartGrid"></div>
+            <div class="row" style="margin-top: 8px">
+              <input type="text" placeholder="angka token" />
+              <span class="chip">#3</span>
+            </div>
+          </div>
+
+          <!-- Lock 4: Anagram -->
+          <div class="lock" data-key="EVER" id="lock4">
+            <h3>Lock 4 — Anagram</h3>
+            <p>Susun <code>REVE</code> → kata bermakna “selamanya”.</p>
+            <div class="row">
+              <input type="text" placeholder="jawaban" />
+              <span class="chip">#4</span>
+            </div>
+          </div>
+        </section>
+
+        <div class="preview">
+          <div>Kode:</div>
+          <div id="code" class="big">_ _ _ _</div>
+        </div>
+
+        <div class="actions">
+          <button id="check" class="btn primary">Periksa</button>
+          <button id="solveAll" class="btn">💡 Selesaikan Semua</button>
+          <a id="next" href="index9.html" class="btn primary" style="display: none">Next →</a>
+        </div>
+
+        <div class="success">✅ Semua kunci terbuka. Kamu lulus tantangan EXTREME!</div>
+
+        <div class="final">
+          <div class="love">LOVE&nbsp;YOU&nbsp;4&nbsp;EVER</div>
+        </div>
+      </article>
+    </div>
+
+    <script>
+      /* ========== Utils ========== */
+      const norm = (s) => (s || "").toUpperCase().replace(/[^A-Z0-9]/g, ""); // keep A-Z0-9
+      const setBadge = (txt, ok = false) => {
+        const b = document.getElementById("status");
+        b.textContent = txt;
+        if (ok) {
+          b.style.background = "#0e2a18";
+          b.style.borderColor = "#1a4a2f";
+          b.style.color = "#c5ffd9";
+        } else {
+          b.style.background = "#121a39";
+          b.style.borderColor = "#2a3568";
+          b.style.color = "#d6e2ff";
+        }
+      };
+
+      /* ========== TIMER (4:00) & STRIKES (3) ========== */
+      let timeLeft = 4 * 60; // 4 minutes
+      let strikes = 0;
+      const timerEl = document.getElementById("timer");
+      const heartEls = Array.from(document.getElementById("hearts").children);
+
+      function renderTimer() {
+        const m = Math.floor(timeLeft / 60)
+          .toString()
+          .padStart(2, "0");
+        const s = (timeLeft % 60).toString().padStart(2, "0");
+        timerEl.textContent = `${m}:${s}`;
+      }
+      function tick() {
+        timeLeft--;
+        renderTimer();
+        if (timeLeft <= 0) failRun("Waktu habis! Reset.");
+      }
+      let tId = setInterval(tick, 1000);
+      renderTimer();
+
+      function addStrike(reason = "Salah.") {
+        if (document.body.classList.contains("solved")) return;
+        strikes = Math.min(3, strikes + 1);
+        for (let i = 0; i < 3; i++) heartEls[i].classList.toggle("off", i < strikes);
+        if (strikes >= 3) failRun(`${reason} Nyawa habis. Reset.`);
+      }
+      function failRun(msg) {
+        clearInterval(tId);
+        alert(msg);
+        location.reload(); // start over
+      }
+
+      /* ========== LOCK 1 — PLAYFAIR ========== */
+      const pfKey = "FOURMONTHS"; // kunci
+      const pfPlainTarget = "LOVE"; // plaintext yang harus ditebak
+      const pfCtEl = document.getElementById("pfCt");
+
+      // Build 5x5 table (I/J digabung)
+      function buildPFTable(key) {
+        const clean = norm(key).replace(/J/g, "I");
+        const seen = new Set();
+        const letters = [];
+        for (const ch of clean + "ABCDEFGHIKLMNOPQRSTUVWXYZ") {
+          // tanpa J
+          if (!seen.has(ch)) {
+            seen.add(ch);
+            letters.push(ch);
+          }
+        }
+        const table = [];
+        while (letters.length) table.push(letters.splice(0, 5));
+        const pos = {};
+        table.forEach((row, r) => row.forEach((ch, c) => (pos[ch] = [r, c])));
+        return { table, pos };
+      }
+      function pfPrepare(s) {
+        let t = norm(s).replace(/J/g, "I");
+        // di-graf: pasangan 2 huruf, duplikat dipisah X
+        let out = "";
+        for (let i = 0; i < t.length; i++) {
+          const a = t[i],
+            b = t[i + 1];
+          out += a;
+          if (!b || a === b) {
+            out += "X";
+          } else {
+            out += b;
+            i++;
+          }
+        }
+        if (out.length % 2 === 1) out += "X";
+        return out;
+      }
+      function pfEncrypt(plain, key) {
+        const { table, pos } = buildPFTable(key);
+        const p = pfPrepare(plain);
+        let ct = "";
+        for (let i = 0; i < p.length; i += 2) {
+          let a = p[i],
+            b = p[i + 1];
+          const [ra, ca] = pos[a],
+            [rb, cb] = pos[b];
+          if (ra === rb) {
+            ct += table[ra][(ca + 1) % 5] + table[rb][(cb + 1) % 5];
+          } else if (ca === cb) {
+            ct += table[(ra + 1) % 5][ca] + table[(rb + 1) % 5][cb];
+          } else {
+            ct += table[ra][cb] + table[rb][ca];
+          }
+        }
+        return ct;
+      }
+      // tampilkan ciphertext untuk PF target
+      pfCtEl.textContent = pfEncrypt(pfPlainTarget, pfKey);
+
+      /* ========== LOCK 2 — VIGENÈRE ========== */
+      const vigCtEl = document.getElementById("vigCt");
+      const vigPlainTarget = "YOU";
+      function vigenereEnc(plain, key) {
+        const P = norm(plain).replace(/[^A-Z]/g, "");
+        const K = norm(key).replace(/[^A-Z]/g, "");
+        let ct = "";
+        for (let i = 0; i < P.length; i++) {
+          const a = P.charCodeAt(i) - 65,
+            b = K.charCodeAt(i % K.length) - 65;
+          ct += String.fromCharCode(65 + ((a + b) % 26));
+        }
+        return ct;
+      }
+      // Ciphertext Lock2 tergantung jawaban Lock1 (LOVE) — sudah diketahui:
+      vigCtEl.textContent = vigenereEnc(vigPlainTarget, pfPlainTarget);
+
+      /* ========== LOCK 3 — GRID HEART (hasil token = 4) ========== */
+      const gridEl = document.getElementById("heartGrid");
+      // Desain hati 5x5 (1 = nyala)
+      const HEART = [
+        /* row0 */ [0, 1, 1, 1, 0],
+        /* row1 */ [1, 1, 1, 1, 1],
+        /* row2 */ [1, 1, 1, 1, 1],
+        /* row3 */ [0, 1, 1, 1, 0],
+        /* row4 */ [0, 0, 1, 0, 0],
+      ];
+      const cells = [];
+      function buildGrid() {
+        gridEl.innerHTML = "";
+        for (let r = 0; r < 5; r++) {
+          for (let c = 0; c < 5; c++) {
+            const div = document.createElement("div");
+            div.className = "cell";
+            div.dataset.r = r;
+            div.dataset.c = c;
+            div.onclick = () => div.classList.toggle("on");
+            gridEl.appendChild(div);
+            cells.push(div);
+          }
+        }
+      }
+      buildGrid();
+      function isHeartSolved() {
+        for (let r = 0; r < 5; r++) {
+          for (let c = 0; c < 5; c++) {
+            const should = HEART[r][c] === 1;
+            const on = cells[r * 5 + c].classList.contains("on");
+            if (on !== should) return false;
+          }
+        }
+        return true;
+      }
+
+      /* ========== LOCK 4 — ANAGRAM ========== */
+      // (stateless — langsung dicek)
+
+      /* ========== CHECK ALL + strikes ========== */
+      const locks = document.querySelectorAll(".lock");
+      const codeEl = document.getElementById("code");
+      const doneEl = document.getElementById("done");
+      const nextBtn = document.getElementById("next");
+
+      function checkOne(lock) {
+        const key = lock.getAttribute("data-key"); // target token
+        const input = lock.querySelector("input");
+        let ok = false;
+
+        if (lock.id === "lock1") {
+          // Jawaban harus 'LOVE'
+          ok = norm(input.value) === norm(pfPlainTarget);
+        } else if (lock.id === "lock2") {
+          // Jawaban harus 'YOU'
+          ok = norm(input.value) === norm(vigPlainTarget);
+        } else if (lock.id === "lock3") {
+          // Harus bentuk hati benar + input "4"
+          const token = norm(input.value);
+          ok = isHeartSolved() && token === "4";
+        } else {
+          // default: samakan string
+          ok = norm(input.value) === norm(key);
+        }
+
+        input.classList.toggle("ok", ok);
+        input.classList.toggle("err", !ok && !!input.value.trim());
+        return ok ? key : null;
+      }
+
+      function recompute(silent = false) {
+        let solved = 0;
+        const pieces = [];
+        locks.forEach((lock, idx) => {
+          const piece = checkOne(lock);
+          if (piece !== null) {
+            solved++;
+            pieces[idx] = piece;
+          } else {
+            pieces[idx] = "_";
+          }
+        });
+        doneEl.textContent = solved;
+        codeEl.textContent = pieces.join(" ");
+        if (!silent && solved < locks.length) {
+          // penalti kalau ada input terisi tapi salah di lock manapun
+          const anyWrong = Array.from(locks).some((l) => {
+            const inp = l.querySelector("input");
+            return inp.value.trim() && !inp.classList.contains("ok");
+          });
+          if (anyWrong) addStrike("Jawaban salah.");
+        }
+        if (solved === locks.length) {
+          clearInterval(tId);
+          document.body.classList.add("solved");
+          setBadge("Unlocked", true);
+          nextBtn.style.display = "inline-block";
+        }
+      }
+
+      document.getElementById("check").addEventListener("click", () => recompute(false));
+      // juga dengarkan Enter
+      locks.forEach((l) =>
+        l.querySelector("input").addEventListener("keydown", (e) => {
+          if (e.key === "Enter") recompute(false);
+        })
+      );
+
+      // inisialisasi UI tanpa penalti
+      recompute(true);
+      // ===== Solve All Button =====
+      document.getElementById("solveAll").addEventListener("click", () => {
+        // isi semua jawaban benar
+        document.querySelector("#lock1 input").value = "LOVE";
+        document.querySelector("#lock2 input").value = "YOU";
+        document.querySelector("#lock3 input").value = "4";
+        document.querySelector("#lock4 input").value = "EVER";
+
+        // nyalakan grid hati
+        cells.forEach((cell, idx) => {
+          const r = Math.floor(idx / 5);
+          const c = idx % 5;
+          if (HEART[r][c] === 1) cell.classList.add("on");
+          else cell.classList.remove("on");
+        });
+
+        recompute(true); // update status tanpa penalti
+        setTimeout(() => recompute(false), 300); // pastikan langsung valid
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Page 7 — Extreme Lock (4 Months Special)</title>
+    <style>
+      :root {
+        --bg: #0b0e16;
+        --ink: #eaf0ff;
+        --muted: #9aa6bf;
+        --card: #131a34;
+        --border: #263056;
+        --accent: #86e0ff;
+        --ok: #1b8a57;
+        --err: #ef4444;
+        --radius: 22px;
+        --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: radial-gradient(1100px 520px at 15% -10%, #1a2b57 0%, transparent 60%) no-repeat, radial-gradient(1000px 640px at 110% 0%, #2a1c49 0%, transparent 60%) no-repeat, var(--bg);
+        font: 16px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+        padding: 24px;
+      }
+      .wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+      header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin: 2px 0 18px;
+      }
+      .logo {
+        width: 54px;
+        height: 54px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        background: conic-gradient(from 230deg, #2c3b63, #1b2140 35%, #12162b 70%, #2c3b63);
+        color: #cfe0ff;
+        font-weight: 800;
+        box-shadow: var(--shadow);
+      }
+      h1 {
+        margin: 0;
+        font-size: clamp(24px, 3.6vw, 40px);
+      }
+      .subtitle {
+        color: var(--muted);
+      }
+
+      .card {
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0) 60%), var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+      .card-head {
+        padding: 14px 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .badge {
+        background: #121a39;
+        border: 1px solid #2a3568;
+        color: #d6e2ff;
+        font-size: 12px;
+        padding: 6px 10px;
+        border-radius: 999px;
+      }
+      .progress {
+        margin-left: auto;
+        color: #9fb0da;
+        font-size: 14px;
+      }
+
+      .locks {
+        padding: 14px 16px 18px;
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+      .lock {
+        background: #0e132a;
+        border: 1px solid #263056;
+        border-radius: 14px;
+        padding: 12px 14px;
+      }
+      .lock h3 {
+        margin: 0 0 6px;
+        font-size: 16px;
+      }
+      .lock p {
+        margin: 2px 0 10px;
+        color: #9aa6bf;
+        font-size: 14px;
+      }
+      /* ── CLUE SAMAR: 42 ───────────────────────── */
+      body::after {
+        content: "42";
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-5deg);
+        font-size: clamp(50px, 10vw, 30px);
+        font-weight: 400;
+        color: #86e0ff;
+        opacity: 0.06;
+        filter: blur(1.4px);
+        mix-blend-mode: screen;
+        pointer-events: none;
+        z-index: 0;
+      }
+      .row {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      input[type="text"] {
+        flex: 1 1 auto;
+        min-width: 160px;
+        font-size: 16px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid #2a3355;
+        background: #0b1026;
+        color: #eaf0ff;
+        outline: none;
+      }
+      input[type="text"]:focus {
+        border-color: #7ee0ff;
+        box-shadow: 0 0 0 4px rgba(126, 224, 255, 0.12);
+      }
+      .chip {
+        min-width: 42px;
+        text-align: center;
+        font-weight: 700;
+        background: #121a39;
+        border: 1px solid #2a3568;
+        color: #d6e2ff;
+        padding: 8px 10px;
+        border-radius: 10px;
+      }
+      .ok {
+        border-color: var(--ok) !important;
+      }
+      .err {
+        border-color: var(--err) !important;
+        animation: shake 0.25s;
+      }
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        25% {
+          transform: translateX(-6px);
+        }
+        50% {
+          transform: translateX(6px);
+        }
+        75% {
+          transform: translateX(-6px);
+        }
+      }
+
+      .preview {
+        padding: 12px 16px;
+        border-top: 1px dashed #2a3355;
+        background: #0b1026;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        flex-wrap: wrap;
+        font-family: ui-monospace, Menlo, Consolas, monospace;
+      }
+      .big {
+        font-size: 20px;
+        letter-spacing: 1px;
+      }
+      .actions {
+        padding: 12px 16px 18px;
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+      }
+      .btn {
+        padding: 12px 18px;
+        border-radius: 12px;
+        border: 1px solid #2a3355;
+        background: #16204a;
+        color: #cfe0ff;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+      }
+      .btn.primary {
+        background: #1b8a57;
+        border-color: #1b8a57;
+        color: #fff;
+      }
+
+      .success {
+        display: none;
+        margin-top: 12px;
+        color: #c5ffd9;
+        background: #0e2a18;
+        border: 1px solid #1a4a2f;
+        padding: 12px 14px;
+        border-radius: 12px;
+      }
+      body.solved .success {
+        display: block;
+      }
+      .final {
+        display: none;
+        text-align: center;
+        padding: 10px 16px 18px;
+      }
+      body.solved .final {
+        display: block;
+      }
+      .love {
+        font-size: 36px;
+        letter-spacing: 2px;
+        font-weight: 800;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header>
+        <div class="logo">P7</div>
+        <div>
+          <h1>Extreme Lock — 4 Months</h1>
+          <div class="subtitle">Empat kunci, satu pesan. Buktikan cintamu 💖</div>
+        </div>
+      </header>
+
+      <article class="card">
+        <div class="card-head">
+          <span class="badge" id="status">Locked</span>
+          <div class="progress"><span id="done">0</span>/4 solved</div>
+        </div>
+
+        <section class="locks">
+          <!-- Lock 1: Caesar 4 -->
+          <div class="lock" data-key="LOVE">
+            <h3>Lock 1 — Caesar</h3>
+            <p>Desifrer <code>PSRB</code> dengan pergeseran sebesar jumlah bulan anniversary. (*♡ months*)</p>
+            <div class="row">
+              <input type="text" placeholder="jawaban" />
+              <span class="chip">#1</span>
+            </div>
+          </div>
+
+          <!-- Lock 2: Mirror -->
+          <div class="lock" data-key="YOU">
+            <h3>Lock 2 — Mirror</h3>
+            <p>Kata di cermin: <code>uoy</code>. Tulis versi sebenarnya.</p>
+            <div class="row">
+              <input type="text" placeholder="jawaban" />
+              <span class="chip">#2</span>
+            </div>
+          </div>
+
+          <!-- Lock 3: Acrostic → 4 -->
+          <div class="lock" data-key="4">
+            <h3>Lock 3 — Acrostic</h3>
+            <p>Ambil huruf pertama tiap baris lalu jumlahkan alfabetnya (A=1, B=2, ...). <br />Empat baris berikut punya total = ?</p>
+            <pre style="margin: 6px 0 8px; padding: 8px; background: #0b1026; border: 1px solid #2a3355; border-radius: 10px; color: #cfe0ff">
+Lovely day begins
+October promises
+Violet memories
+Everlasting smile
+</pre
+            >
+            <div class="row">
+              <input type="text" placeholder="angka" />
+              <span class="chip">#3</span>
+            </div>
+          </div>
+
+          <!-- Lock 4: Anagram EVER -->
+          <div class="lock" data-key="EVER">
+            <h3>Lock 4 — Anagram</h3>
+            <p>Susun ulang huruf <code>REVE</code> menjadi kata bermakna “selamanya”.</p>
+            <div class="row">
+              <input type="text" placeholder="jawaban" />
+              <span class="chip">#4</span>
+            </div>
+          </div>
+        </section>
+
+        <div class="preview">
+          <div>Kode:</div>
+          <div id="code" class="big">_ _ _ _</div>
+        </div>
+
+        <div class="actions">
+          <button id="check" class="btn primary">Periksa</button>
+          <a id="next" href="index8.html" class="btn primary" style="display: none">Next →</a>
+        </div>
+
+        <div class="success">✅ Semua kunci terbuka. Kamu resmi lulus tantangan ekstrim ini!</div>
+
+        <div class="final">
+          <div class="love">I&nbsp;LOVE&nbsp;YOU</div>
+        </div>
+      </article>
+    </div>
+
+    <script>
+      const locks = document.querySelectorAll(".lock");
+      const codeEl = document.getElementById("code");
+      const doneEl = document.getElementById("done");
+      const statusBadge = document.getElementById("status");
+      const nextBtn = document.getElementById("next");
+
+      function norm(s) {
+        return (s || "").trim().toUpperCase().replace(/\s+/g, "");
+      }
+
+      function checkOne(lock) {
+        const key = lock.getAttribute("data-key"); // target (LOVE / YOU / 4 / EVER)
+        const input = lock.querySelector("input");
+        const val = norm(input.value);
+        const ok = val === norm(key);
+        input.classList.toggle("ok", ok);
+        input.classList.toggle("err", !!val && !ok);
+        return ok ? key : null;
+      }
+
+      function recompute() {
+        let solved = 0;
+        const pieces = [];
+        locks.forEach((lock, idx) => {
+          const piece = checkOne(lock);
+          if (piece !== null) {
+            solved++;
+            pieces[idx] = piece;
+          } else {
+            pieces[idx] = "_";
+          }
+        });
+        doneEl.textContent = solved;
+        codeEl.textContent = pieces.join(" ");
+        if (solved === locks.length) {
+          document.body.classList.add("solved");
+          statusBadge.textContent = "Unlocked";
+          statusBadge.style.background = "#0e2a18";
+          statusBadge.style.borderColor = "#1a4a2f";
+          statusBadge.style.color = "#c5ffd9";
+          nextBtn.style.display = "inline-block";
+        }
+      }
+
+      locks.forEach((lock) => {
+        const input = lock.querySelector("input");
+        input.addEventListener("input", recompute);
+        input.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") recompute();
+        });
+      });
+      document.getElementById("check").addEventListener("click", recompute);
+
+      // preload
+      recompute();
+    </script>
+  </body>
+</html>

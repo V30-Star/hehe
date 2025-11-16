@@ -52,6 +52,125 @@
         }
       }
 
+      /* Countdown Screen */
+      #countdown-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #1a0033 0%, #0d011f 50%, #2d1b4e 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        transition: opacity 1s ease;
+      }
+
+      #countdown-screen.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .countdown-container {
+        text-align: center;
+        padding: 40px;
+      }
+
+      .countdown-title {
+        font-family: "Playfair Display", serif;
+        font-size: 3em;
+        color: #ffcc80;
+        margin-bottom: 20px;
+        text-shadow: 0 0 30px rgba(255, 204, 128, 0.8);
+        animation: glow 2s ease-in-out infinite alternate;
+      }
+
+      .countdown-subtitle {
+        font-size: 1.3em;
+        color: #e91e63;
+        margin-bottom: 50px;
+        font-weight: 600;
+      }
+
+      .countdown-timer {
+        display: flex;
+        gap: 30px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-bottom: 30px;
+      }
+
+      .countdown-item {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 30px 25px;
+        min-width: 120px;
+        border: 2px solid rgba(255, 204, 128, 0.3);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        transition: transform 0.3s ease;
+      }
+
+      .countdown-item:hover {
+        transform: translateY(-5px);
+      }
+
+      .countdown-number {
+        font-size: 3.5em;
+        font-weight: 700;
+        color: #ffeb3b;
+        display: block;
+        text-shadow: 0 0 20px rgba(255, 235, 59, 0.6);
+      }
+
+      .countdown-label {
+        font-size: 1em;
+        color: #ffcc80;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-top: 10px;
+      }
+
+      .countdown-message {
+        font-size: 1.1em;
+        color: #fce4ec;
+        max-width: 600px;
+        margin: 0 auto;
+        line-height: 1.8;
+      }
+
+      .heart-animation {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto 40px;
+        animation: heartBeat 1.5s ease-in-out infinite;
+      }
+
+      @keyframes heartBeat {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        25% {
+          transform: scale(1.1);
+        }
+        50% {
+          transform: scale(1);
+        }
+      }
+
+      /* Main Content */
+      #main-content {
+        opacity: 0;
+        transition: opacity 1s ease;
+      }
+
+      #main-content.show {
+        opacity: 1;
+      }
+
       h1,
       h2,
       h3 {
@@ -326,6 +445,27 @@
 
       /* Responsive Design */
       @media (max-width: 768px) {
+        .countdown-title {
+          font-size: 2em;
+        }
+
+        .countdown-timer {
+          gap: 15px;
+        }
+
+        .countdown-item {
+          min-width: 80px;
+          padding: 20px 15px;
+        }
+
+        .countdown-number {
+          font-size: 2.5em;
+        }
+
+        .countdown-label {
+          font-size: 0.8em;
+        }
+
         h1 {
           font-size: 2.5em;
         }
@@ -384,157 +524,239 @@
     </style>
   </head>
   <body>
-    <div class="hero-section fade-in">
-      <div class="hero-image">
-        <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400" alt="Holographic Heart" />
+    <!-- Countdown Screen -->
+    <div id="countdown-screen">
+      <div class="countdown-container">
+        <div class="heart-animation">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50,90 C20,70 10,50 10,35 C10,20 20,10 30,10 C40,10 45,15 50,25 C55,15 60,10 70,10 C80,10 90,20 90,35 C90,50 80,70 50,90 Z" fill="#e91e63" stroke="#ff6b8b" stroke-width="2">
+              <animate attributeName="opacity" values="1;0.6;1" dur="1.5s" repeatCount="indefinite" />
+            </path>
+          </svg>
+        </div>
+
+        <h1 class="countdown-title">Menghitung Detik Menuju...</h1>
+        <p class="countdown-subtitle">Hari Istimewa Kita ke-5 Bulan 💖</p>
+
+        <div class="countdown-timer">
+          <div class="countdown-item">
+            <span class="countdown-number" id="days">00</span>
+            <span class="countdown-label">Hari</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-number" id="hours">00</span>
+            <span class="countdown-label">Jam</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-number" id="minutes">00</span>
+            <span class="countdown-label">Menit</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-number" id="seconds">00</span>
+            <span class="countdown-label">Detik</span>
+          </div>
+        </div>
+
+        <p class="countdown-message">
+          Sabar ya sayang... Pesan spesialku akan terbuka pada<br />
+          <strong style="color: #ffeb3b; font-size: 1.2em">17 November 2025, pukul 00:00 WIB</strong>
+        </p>
       </div>
-
-      <h1>5 Bulan Bersama, dan Selamanya</h1>
-      <p style="font-size: 1.5em; color: #e91e63; font-weight: 600">Untuk Vaniaa, Bidadariku.</p>
-      <p style="font-size: 1.8em; font-weight: bold; color: #ffeb3b">— 17 November 2025 —</p>
-
-      <a class="cta-button" onclick="showMessage()">Buka Pesan Khususku!</a>
     </div>
 
-    <div id="message-section" class="container hidden">
-      <h2>💌 Surat Cinta untuk 5 Bulan</h2>
-      <div class="section-content">
-        <p>Sayang, hari ini genap 5 bulan kita bersama. Rasanya seperti baru kemarin kita mulai, tapi setiap hari yang kita lewati telah menjadi petualangan terindah.</p>
+    <!-- Main Content -->
+    <div id="main-content">
+      <div class="hero-section fade-in">
+        <div class="hero-image">
+          <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400" alt="Holographic Heart" />
+        </div>
 
-        <p style="font-style: italic; font-weight: bold; color: #ffeb3b">
-          Lima bulan ini, kamu sudah mengajariku arti <strong>kesabaran</strong>, <strong>kebahagiaan</strong>, dan <strong>rumah</strong>. Kamu adalah tawa di hari-hari gilaku, ketenangan saat aku cemas, dan alasan aku selalu ingin menjadi
-          lebih baik.
-        </p>
+        <h1>5 Bulan Bersama, dan Selamanya</h1>
+        <p style="font-size: 1.5em; color: #e91e63; font-weight: 600">Untuk Vaniaa, Bidadariku.</p>
+        <p style="font-size: 1.8em; font-weight: bold; color: #ffeb3b">— 17 November 2025 —</p>
 
-        <p>
-          Aku bersyukur alam semesta mempertemukan kita. Terima kasih sudah menjadi dirimu yang apa adanya: cerdas, baik hati, dan paling cantik di mataku. Aku berjanji akan selalu berusaha membuatmu sebahagia dirimu membuatku, hari ini,
-          besok, dan selamanya.
-        </p>
-
-        <p>Jangan takut untuk menghadapi hari-hari kedepan karena hari-hari kedepan akan semakin indah dan akan menjadi kenangan yang sangat sangat indah di masa depan.</p>
-        
-        <p>Dan ingat ayat alkitab dibawah ini yak :)</p>
-        
-        <p>
-          2 Tesalonika 3:10-11 (TB) Sebab, juga waktu kami berada di antara kamu, kami memberi peringatan ini kepada kamu: jika seorang tidak mau bekerja, janganlah ia makan. Kami katakan ini karena kami dengar, bahwa ada orang yang tidak
-          tertib hidupnya dan tidak bekerja, melainkan sibuk dengan hal-hal yang tidak berguna
-        </p>
-
-        <p style="font-size: 1.6em; margin-top: 40px; color: #e91e63; text-align: center"><em>Selamat Hari Jadi ke-5, Sayang.</em></p>
-        <p style="font-weight: bold; font-size: 1.2em; color: #fce4ec; text-align: center">Love, Vaniaa!!!</p>
+        <a class="cta-button" onclick="showMessage()">Buka Pesan Khususku!</a>
       </div>
-    </div>
 
-    <div class="container fade-in">
-      <h2>✨ Lintasan Kenangan Kita</h2>
-      <div class="section-content">
-        <h3 style="color: #ffcc80; font-size: 1.5em; margin-bottom: 20px">Galeri Kenangan (20 Momen Spesial)</h3>
-        <div class="photo-gallery">
-          <div class="photo-card">
-            <img src="asset5/1.jpg" alt="Moment 1" />
-            <p>Moment 1</p>
-          </div>
-          <div class="photo-card">
-            <img src="asset5/2.jpg" alt="Moment 2" />
-            <p>Moment 2</p>
-          </div>
-          <div class="photo-card">
-            <img src="asset5/3.jpg" alt="Moment 3" />
-            <p>Moment 3</p>
-          </div>
-          <div class="photo-card">
-            <img src="asset5/4.jpg" alt="Moment 4" />
-            <p>Moment 4</p>
-          </div>
-          <div class="photo-card">
-            <img src="asset5/5.jpg" alt="Moment 5" />
-            <p>Moment 5</p>
-          </div>
-          <div class="photo-card">
-            <img src="asset5/6.jpg" alt="Moment 6" />
-            <p>Moment 6</p>
-          </div>
-          <div class="photo-card">
-            <img src="asset5/7.jpg" alt="Moment 7" />
-            <p>Moment 7</p>
-          </div>
-          <div class="photo-card">
-            <img src="asset5/8.jpg" alt="Moment 8" />
-            <p>Moment 8</p>
-          </div>
-          <div class="photo-card">
-            <img src="asset5/9.jpg" alt="Moment 9" />
-            <p>Moment 9</p>
-          </div>
-          <div class="photo-card">
-            <img src="asset5/10.jpg" alt="Moment 10" />
-            <p>Moment 10</p>
-          </div>
-          <div class="photo-card">
-            <img src="asset5/11.jpg" alt="Moment 11" />
-            <p>Moment 11</p>
-          </div>
-          <div class="photo-card">
-            <img src="asset5/12.jpg" alt="Moment 12" />
-            <p>Moment 12</p>
-          </div>
-          <div class="photo-card">
-            <img src="asset5/13.jpg" alt="Moment 13" />
-            <p>Moment 13</p>
-          </div>
-          <div class="photo-card">
-            <img src="asset5/14.jpg" alt="Moment 14" />
-            <p>Moment 14</p>
-          </div>
-          <div class="photo-card">
-            <img src="asset5/15.jpg" alt="Moment 15" />
-            <p>Moment 15</p>
-          </div>
-          <div class="photo-card">
-            <img src="asset5/16.jpg" alt="Moment 16" />
-            <p>Moment 16</p>
-          </div>
-          <div class="photo-card">
-            <img src="asset5/17.jpg" alt="Moment 17" />
-            <p>Moment 17</p>
-          </div>
-          <div class="photo-card">
-            <img src="asset5/18.jpg" alt="Moment 18" />
-            <p>Moment 18</p>
-          </div>
-          <div class="photo-card">
-            <img src="asset5/19.jpg" alt="Moment 19" />
-            <p>Moment 19</p>
-          </div>
-          <div class="photo-card">
-            <img src="asset5/20.jpg" alt="Moment 20" />
-            <p>Moment 20</p>
+      <div id="message-section" class="container hidden">
+        <h2>💌 Surat Cinta untuk 5 Bulan</h2>
+        <div class="section-content">
+          <p>Sayang, hari ini genap 5 bulan kita bersama. Rasanya seperti baru kemarin kita mulai, tapi setiap hari yang kita lewati telah menjadi petualangan terindah.</p>
+
+          <p style="font-style: italic; font-weight: bold; color: #ffeb3b">
+            Lima bulan ini, kamu sudah mengajariku arti <strong>kesabaran</strong>, <strong>kebahagiaan</strong>, dan <strong>rumah</strong>. Kamu adalah tawa di hari-hari gilaku, ketenangan saat aku cemas, dan alasan aku selalu ingin
+            menjadi lebih baik.
+          </p>
+
+          <p>
+            Aku bersyukur alam semesta mempertemukan kita. Terima kasih sudah menjadi dirimu yang apa adanya: cerdas, baik hati, dan paling cantik di mataku. Aku berjanji akan selalu berusaha membuatmu sebahagia dirimu membuatku, hari ini,
+            besok, dan selamanya.
+          </p>
+
+          <p style="font-size: 1.6em; margin-top: 40px; color: #e91e63; text-align: center"><em>Selamat Hari Jadi ke-5, Sayang.</em></p>
+          <p style="font-weight: bold; font-size: 1.2em; color: #fce4ec; text-align: center">Love, Vaniaa!!!</p>
+        </div>
+      </div>
+
+      <div class="container fade-in">
+        <h2>✨ Lintasan Kenangan Kita</h2>
+        <div class="section-content">
+          <h3 style="color: #ffcc80; font-size: 1.5em; margin-bottom: 20px">Galeri Kenangan (20 Momen Spesial)</h3>
+          <div class="photo-gallery">
+            <div class="photo-card">
+              <img src="asset5/1.jpg" alt="Moment 1" />
+              <p>Moment 1</p>
+            </div>
+            <div class="photo-card">
+              <img src="asset5/2.jpg" alt="Moment 2" />
+              <p>Moment 2</p>
+            </div>
+            <div class="photo-card">
+              <img src="asset5/3.jpg" alt="Moment 3" />
+              <p>Moment 3</p>
+            </div>
+            <div class="photo-card">
+              <img src="asset5/4.jpg" alt="Moment 4" />
+              <p>Moment 4</p>
+            </div>
+            <div class="photo-card">
+              <img src="asset5/5.jpg" alt="Moment 5" />
+              <p>Moment 5</p>
+            </div>
+            <div class="photo-card">
+              <img src="asset5/6.jpg" alt="Moment 6" />
+              <p>Moment 6</p>
+            </div>
+            <div class="photo-card">
+              <img src="asset5/7.jpg" alt="Moment 7" />
+              <p>Moment 7</p>
+            </div>
+            <div class="photo-card">
+              <img src="asset5/8.jpg" alt="Moment 8" />
+              <p>Moment 8</p>
+            </div>
+            <div class="photo-card">
+              <img src="asset5/9.jpg" alt="Moment 9" />
+              <p>Moment 9</p>
+            </div>
+            <div class="photo-card">
+              <img src="asset5/10.jpg" alt="Moment 10" />
+              <p>Moment 10</p>
+            </div>
+            <div class="photo-card">
+              <img src="asset5/11.jpg" alt="Moment 11" />
+              <p>Moment 11</p>
+            </div>
+            <div class="photo-card">
+              <img src="asset5/12.jpg" alt="Moment 12" />
+              <p>Moment 12</p>
+            </div>
+            <div class="photo-card">
+              <img src="asset5/13.jpg" alt="Moment 13" />
+              <p>Moment 13</p>
+            </div>
+            <div class="photo-card">
+              <img src="asset5/14.jpg" alt="Moment 14" />
+              <p>Moment 14</p>
+            </div>
+            <div class="photo-card">
+              <img src="asset5/15.jpg" alt="Moment 15" />
+              <p>Moment 15</p>
+            </div>
+            <div class="photo-card">
+              <img src="asset5/16.jpg" alt="Moment 16" />
+              <p>Moment 16</p>
+            </div>
+            <div class="photo-card">
+              <img src="asset5/17.jpg" alt="Moment 17" />
+              <p>Moment 17</p>
+            </div>
+            <div class="photo-card">
+              <img src="asset5/18.jpg" alt="Moment 18" />
+              <p>Moment 18</p>
+            </div>
+            <div class="photo-card">
+              <img src="asset5/19.jpg" alt="Moment 19" />
+              <p>Moment 19</p>
+            </div>
+            <div class="photo-card">
+              <img src="asset5/20.jpg" alt="Moment 20" />
+              <p>Moment 20</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="container fade-in">
-      <h2>🎵 Soundtrack Hubungan Kita</h2>
-      <div class="section-content" style="text-align: center">
-        <p>Putar lagu ini dan mari kita rayakan malam ini, seperti pertama kali kita mendengarnya. Lagu kita, selalu.</p>
+      <div class="container fade-in">
+        <h2>🎵 Soundtrack Hubungan Kita</h2>
+        <div class="section-content" style="text-align: center">
+          <p>Putar lagu ini dan mari kita rayakan malam ini, seperti pertama kali kita mendengarnya. Lagu kita, selalu.</p>
 
-        <audio controls autoplay loop>
-          <source src="asset5/Yiruma - River Flows In You (An Kay Remix).mp3" type="audio/mpeg" />
-          Browser Anda tidak mendukung elemen audio.
-        </audio>
+          <audio controls autoplay loop>
+            <source src="asset5/Yiruma - River Flows In You (An Kay Remix).mp3" type="audio/mpeg" />
+            Browser Anda tidak mendukung elemen audio.
+          </audio>
 
-        <p style="font-size: 0.9em; margin-top: 15px; color: #a0a0a0; font-style: italic">(Musik latar: River Flows In You - An Kay Remix)</p>
-        <p style="font-size: 0.9em; margin-top: 5px; color: #ffcc80">(Tekan tombol Play di atas jika musik tidak terputar otomatis oleh browser)</p>
+          <p style="font-size: 0.9em; margin-top: 15px; color: #a0a0a0; font-style: italic">(Musik latar: River Flows In You - An Kay Remix)</p>
+          <p style="font-size: 0.9em; margin-top: 5px; color: #ffcc80">(Tekan tombol Play di atas jika musik tidak terputar otomatis oleh browser)</p>
+        </div>
       </div>
-    </div>
 
-    <footer>
-      <p style="font-size: 1.1em; color: #ffcc80">Sejak 17/06/2025 - Selamanya. <em>Our Cosmic Love.</em></p>
-      <p style="margin-top: 15px">Dibuat dengan sepenuh hati oleh pacarmu, Viery Gantenggg.</p>
-    </footer>
+      <footer>
+        <p style="font-size: 1.1em; color: #ffcc80">Sejak 17/06/2025 - Selamanya. <em>Our Cosmic Love.</em></p>
+        <p style="margin-top: 15px">Dibuat dengan sepenuh hati oleh pacarmu, Viery Gantenggg.</p>
+      </footer>
+    </div>
 
     <script>
+      // Set target date: 17 November 2025 00:00 WIB (UTC+7)
+      const targetDate = new Date("2025-11-17T00:00:00+07:00").getTime();
+
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        // Calculate time units
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Update countdown display
+        document.getElementById("days").textContent = String(days).padStart(2, "0");
+        document.getElementById("hours").textContent = String(hours).padStart(2, "0");
+        document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
+        document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+
+        // Check if countdown is finished
+        if (distance < 0) {
+          clearInterval(countdownInterval);
+          revealContent();
+        }
+      }
+
+      function revealContent() {
+        const countdownScreen = document.getElementById("countdown-screen");
+        const mainContent = document.getElementById("main-content");
+
+        countdownScreen.classList.add("hidden");
+        setTimeout(() => {
+          countdownScreen.style.display = "none";
+          mainContent.classList.add("show");
+        }, 1000);
+      }
+
+      // Check if target date has passed on page load
+      if (new Date().getTime() >= targetDate) {
+        document.getElementById("countdown-screen").style.display = "none";
+        document.getElementById("main-content").classList.add("show");
+      } else {
+        // Update countdown every second
+        updateCountdown();
+        const countdownInterval = setInterval(updateCountdown, 1000);
+      }
+
+      // Message section reveal function
       function showMessage() {
         const messageSection = document.getElementById("message-section");
         messageSection.classList.remove("hidden");
@@ -545,7 +767,7 @@
         }, 50);
       }
 
-      // Intersection Observer untuk animasi saat scroll
+      // Intersection Observer for scroll animations
       const observerOptions = {
         threshold: 0.1,
         rootMargin: "0px 0px -100px 0px",

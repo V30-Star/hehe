@@ -157,6 +157,11 @@ function showWinModal() {
   document.querySelector(".modal-content.win-content").style.opacity = "0";
   document.querySelector(".modal-content.win-content").style.pointerEvents = "none";
   setTimeout(triggerFireworks, 3000);
+
+  // Redirect to index.html after 20 seconds of flower animation
+  setTimeout(() => {
+    window.location.href = "index.html";
+  }, 20000);
 }
 
 function cheatToWin() {

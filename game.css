@@ -469,25 +469,26 @@ button:hover {
   width: 500px;
   height: 500px;
   margin: 0 auto 40px;
-  filter: drop-shadow(0 0 80px rgba(255, 20, 147, 0.9)) drop-shadow(0 0 120px rgba(255, 105, 180, 0.7)) drop-shadow(0 0 200px rgba(255, 182, 193, 0.5));
-  animation: flowerSway 5s cubic-bezier(0.4, 0, 0.2, 1) infinite, flowerGlowMassive 4s ease-in-out infinite, flowerBreathe 6s ease-in-out infinite;
+  filter: drop-shadow(0 0 60px rgba(255, 20, 147, 0.8)) drop-shadow(0 0 100px rgba(255, 105, 180, 0.5));
+  animation: flowerSway 5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
   transform-style: preserve-3d;
-  perspective: 1200px;
+  perspective: 1000px;
+  will-change: filter, transform;
 }
 
 @keyframes flowerSway {
   0%,
   100% {
-    transform: translateX(0) translateY(0) rotateZ(0deg) rotateX(2deg);
+    transform: translateX(0) translateY(0) rotateZ(0deg);
   }
   25% {
-    transform: translateX(-15px) translateY(-10px) rotateZ(2deg) rotateX(3deg);
+    transform: translateX(-12px) translateY(-8px) rotateZ(1deg);
   }
   50% {
-    transform: translateX(0) translateY(-5px) rotateZ(0deg) rotateX(0deg);
+    transform: translateX(0) translateY(-4px) rotateZ(0deg);
   }
   75% {
-    transform: translateX(15px) translateY(-10px) rotateZ(-2deg) rotateX(-3deg);
+    transform: translateX(12px) translateY(-8px) rotateZ(-1deg);
   }
 }
 
@@ -521,21 +522,19 @@ button:hover {
   border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
   margin-left: -50px;
   margin-top: -65px;
-  box-shadow: inset -5px -8px 15px rgba(0, 0, 0, 0.2), inset 2px 2px 8px rgba(255, 255, 255, 0.4), 0 0 25px rgba(255, 105, 180, 0.6), 0 0 50px rgba(255, 20, 147, 0.5), 0 0 80px rgba(255, 20, 147, 0.3);
-  filter: brightness(1.15) saturate(1.4) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
-  animation: bloomRose 5s ease-in-out infinite, petalShimmer 2.5s ease-in-out infinite;
-  transform-style: preserve-3d;
+  box-shadow: inset -4px -6px 12px rgba(0, 0, 0, 0.15), 0 0 20px rgba(255, 105, 180, 0.5);
+  animation: petalPulse 8s ease-in-out infinite;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }
 
 @keyframes petalShimmer {
   0%,
   100% {
-    opacity: 0.9;
-    filter: brightness(1.15) saturate(1.4) drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
+    opacity: 0.95;
   }
   50% {
     opacity: 1;
-    filter: brightness(1.4) saturate(1.6) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.25));
   }
 }
 
@@ -562,70 +561,55 @@ button:hover {
   }
 }
 
-@keyframes petalShimmer {
-  0%,
-  100% {
-    opacity: 0.95;
-    filter: brightness(1.1) saturate(1.3);
-  }
-  50% {
-    opacity: 1;
-    filter: brightness(1.3) saturate(1.5);
-  }
-}
-
 @keyframes petalPulse {
   0% {
     transform: scale(0.8);
-    opacity: 0.5;
-    filter: brightness(0.8) saturate(1);
+    opacity: 0.4;
   }
   50% {
-    transform: scale(1.1);
+    transform: scale(1.08);
     opacity: 1;
-    filter: brightness(1.4) saturate(1.6);
   }
   100% {
     transform: scale(0.8);
-    opacity: 0.5;
-    filter: brightness(0.8) saturate(1);
+    opacity: 0.4;
   }
 }
 .petal1 {
   opacity: 0.8;
   transform: rotate(0deg) translateY(-120px);
-  animation: petalPulse 8s ease-in-out infinite;
+  animation: petalPulse 20s ease-in-out infinite;
   animation-delay: 0s;
 }
 .petal2 {
   opacity: 0.8;
   transform: rotate(30deg) translateY(-120px);
-  animation: petalPulse 8s ease-in-out infinite;
-  animation-delay: 0.67s;
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 0.83s;
 }
 .petal3 {
   opacity: 0.8;
   transform: rotate(60deg) translateY(-120px);
-  animation: petalPulse 8s ease-in-out infinite;
-  animation-delay: 1.34s;
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 1.67s;
 }
 .petal4 {
   opacity: 0.8;
   transform: rotate(90deg) translateY(-120px);
-  animation: petalPulse 8s ease-in-out infinite;
-  animation-delay: 2.01s;
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 2.5s;
 }
 .petal5 {
   opacity: 0.8;
   transform: rotate(120deg) translateY(-120px);
-  animation: petalPulse 8s ease-in-out infinite;
-  animation-delay: 2.68s;
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 3.33s;
 }
 .petal6 {
   opacity: 0.8;
   transform: rotate(150deg) translateY(-120px);
-  animation: petalPulse 8s ease-in-out infinite;
-  animation-delay: 3.35s;
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 4.17s;
 }
 
 @keyframes petalFloat {
@@ -654,8 +638,8 @@ button:hover {
   opacity: 0.85;
   background: linear-gradient(135deg, #ff1493 0%, #ff1493 50%, #ff69b4 100%);
   transform: rotate(0deg) translateY(-100px);
-  animation: petalPulse 8s ease-in-out infinite;
-  animation-delay: 4.02s;
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 5s;
 }
 .petal8 {
   width: 95px;
@@ -663,8 +647,8 @@ button:hover {
   opacity: 0.85;
   background: linear-gradient(135deg, #ff1493 0%, #ff1493 50%, #ff69b4 100%);
   transform: rotate(60deg) translateY(-100px);
-  animation: petalPulse 8s ease-in-out infinite;
-  animation-delay: 4.69s;
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 5.83s;
 }
 .petal9 {
   width: 95px;
@@ -672,8 +656,8 @@ button:hover {
   opacity: 0.85;
   background: linear-gradient(135deg, #ff1493 0%, #ff1493 50%, #ff69b4 100%);
   transform: rotate(120deg) translateY(-100px);
-  animation: petalPulse 8s ease-in-out infinite;
-  animation-delay: 5.36s;
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 6.67s;
 }
 .petal10 {
   width: 90px;
@@ -681,8 +665,8 @@ button:hover {
   opacity: 0.9;
   background: linear-gradient(135deg, #c71585 0%, #ff1493 60%, #ff69b4 100%);
   transform: rotate(180deg) translateY(-100px);
-  animation: petalPulse 8s ease-in-out infinite;
-  animation-delay: 6.03s;
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 7.5s;
 }
 .petal11 {
   width: 90px;
@@ -690,8 +674,8 @@ button:hover {
   opacity: 0.9;
   background: linear-gradient(135deg, #c71585 0%, #ff1493 60%, #ff69b4 100%);
   transform: rotate(240deg) translateY(-100px);
-  animation: petalPulse 8s ease-in-out infinite;
-  animation-delay: 6.7s;
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 8.33s;
 }
 .petal12 {
   width: 90px;
@@ -699,8 +683,332 @@ button:hover {
   opacity: 0.9;
   background: linear-gradient(135deg, #c71585 0%, #ff1493 60%, #ff69b4 100%);
   transform: rotate(300deg) translateY(-100px);
-  animation: petalPulse 8s ease-in-out infinite;
-  animation-delay: 7.37s;
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 9.17s;
+}
+.petal13 {
+  width: 88px;
+  height: 118px;
+  opacity: 0.85;
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 50%, #ffb6d9 100%);
+  transform: rotate(15deg) translateY(-110px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 10s;
+}
+.petal14 {
+  width: 88px;
+  height: 118px;
+  opacity: 0.85;
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 50%, #ffb6d9 100%);
+  transform: rotate(45deg) translateY(-110px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 10.83s;
+}
+.petal15 {
+  width: 88px;
+  height: 118px;
+  opacity: 0.85;
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 50%, #ffb6d9 100%);
+  transform: rotate(75deg) translateY(-110px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 11.67s;
+}
+.petal16 {
+  width: 88px;
+  height: 118px;
+  opacity: 0.85;
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 50%, #ffb6d9 100%);
+  transform: rotate(105deg) translateY(-110px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 12.5s;
+}
+.petal17 {
+  width: 88px;
+  height: 118px;
+  opacity: 0.85;
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 50%, #ffb6d9 100%);
+  transform: rotate(135deg) translateY(-110px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 13.33s;
+}
+.petal18 {
+  width: 88px;
+  height: 118px;
+  opacity: 0.85;
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 50%, #ffb6d9 100%);
+  transform: rotate(165deg) translateY(-110px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 14.17s;
+}
+.petal19 {
+  width: 86px;
+  height: 116px;
+  opacity: 0.88;
+  background: linear-gradient(135deg, #c71585 0%, #ff1493 50%, #ff69b4 100%);
+  transform: rotate(195deg) translateY(-105px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 15s;
+}
+.petal20 {
+  width: 86px;
+  height: 116px;
+  opacity: 0.88;
+  background: linear-gradient(135deg, #c71585 0%, #ff1493 50%, #ff69b4 100%);
+  transform: rotate(225deg) translateY(-105px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 15.83s;
+}
+.petal21 {
+  width: 86px;
+  height: 116px;
+  opacity: 0.88;
+  background: linear-gradient(135deg, #c71585 0%, #ff1493 50%, #ff69b4 100%);
+  transform: rotate(255deg) translateY(-105px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 16.67s;
+}
+.petal22 {
+  width: 86px;
+  height: 116px;
+  opacity: 0.88;
+  background: linear-gradient(135deg, #c71585 0%, #ff1493 50%, #ff69b4 100%);
+  transform: rotate(285deg) translateY(-105px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 17.5s;
+}
+.petal23 {
+  width: 84px;
+  height: 114px;
+  opacity: 0.92;
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 40%, #ffb6d9 100%);
+  transform: rotate(22.5deg) translateY(-115px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 18.33s;
+}
+.petal24 {
+  width: 84px;
+  height: 114px;
+  opacity: 0.92;
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 40%, #ffb6d9 100%);
+  transform: rotate(337.5deg) translateY(-115px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 19.17s;
+}
+.petal25 {
+  width: 82px;
+  height: 112px;
+  opacity: 0.86;
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 50%, #ffb6d9 100%);
+  transform: rotate(7.5deg) translateY(-112px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 0.42s;
+}
+.petal26 {
+  width: 82px;
+  height: 112px;
+  opacity: 0.86;
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 50%, #ffb6d9 100%);
+  transform: rotate(37.5deg) translateY(-112px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 1.25s;
+}
+.petal27 {
+  width: 82px;
+  height: 112px;
+  opacity: 0.86;
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 50%, #ffb6d9 100%);
+  transform: rotate(67.5deg) translateY(-112px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 2.08s;
+}
+.petal28 {
+  width: 82px;
+  height: 112px;
+  opacity: 0.86;
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 50%, #ffb6d9 100%);
+  transform: rotate(97.5deg) translateY(-112px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 2.92s;
+}
+.petal29 {
+  width: 82px;
+  height: 112px;
+  opacity: 0.86;
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 50%, #ffb6d9 100%);
+  transform: rotate(127.5deg) translateY(-112px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 3.75s;
+}
+.petal30 {
+  width: 82px;
+  height: 112px;
+  opacity: 0.86;
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 50%, #ffb6d9 100%);
+  transform: rotate(157.5deg) translateY(-112px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 4.58s;
+}
+.petal31 {
+  width: 85px;
+  height: 115px;
+  opacity: 0.89;
+  background: linear-gradient(135deg, #c71585 0%, #ff1493 50%, #ff69b4 100%);
+  transform: rotate(187.5deg) translateY(-108px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 5.42s;
+}
+.petal32 {
+  width: 85px;
+  height: 115px;
+  opacity: 0.89;
+  background: linear-gradient(135deg, #c71585 0%, #ff1493 50%, #ff69b4 100%);
+  transform: rotate(217.5deg) translateY(-108px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 6.25s;
+}
+.petal33 {
+  width: 85px;
+  height: 115px;
+  opacity: 0.89;
+  background: linear-gradient(135deg, #c71585 0%, #ff1493 50%, #ff69b4 100%);
+  transform: rotate(247.5deg) translateY(-108px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 7.08s;
+}
+.petal34 {
+  width: 85px;
+  height: 115px;
+  opacity: 0.89;
+  background: linear-gradient(135deg, #c71585 0%, #ff1493 50%, #ff69b4 100%);
+  transform: rotate(277.5deg) translateY(-108px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 7.92s;
+}
+.petal35 {
+  width: 83px;
+  height: 113px;
+  opacity: 0.87;
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 45%, #ffb6d9 100%);
+  transform: rotate(11.25deg) translateY(-113px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 8.75s;
+}
+.petal36 {
+  width: 83px;
+  height: 113px;
+  opacity: 0.87;
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 45%, #ffb6d9 100%);
+  transform: rotate(41.25deg) translateY(-113px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 9.58s;
+}
+.petal37 {
+  width: 83px;
+  height: 113px;
+  opacity: 0.87;
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 45%, #ffb6d9 100%);
+  transform: rotate(71.25deg) translateY(-113px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 10.42s;
+}
+.petal38 {
+  width: 83px;
+  height: 113px;
+  opacity: 0.87;
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 45%, #ffb6d9 100%);
+  transform: rotate(101.25deg) translateY(-113px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 11.25s;
+}
+.petal39 {
+  width: 83px;
+  height: 113px;
+  opacity: 0.87;
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 45%, #ffb6d9 100%);
+  transform: rotate(131.25deg) translateY(-113px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 12.08s;
+}
+.petal40 {
+  width: 83px;
+  height: 113px;
+  opacity: 0.87;
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 45%, #ffb6d9 100%);
+  transform: rotate(161.25deg) translateY(-113px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 12.92s;
+}
+.petal41 {
+  width: 87px;
+  height: 117px;
+  opacity: 0.91;
+  background: linear-gradient(135deg, #c71585 0%, #ff1493 55%, #ff69b4 100%);
+  transform: rotate(191.25deg) translateY(-107px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 13.75s;
+}
+.petal42 {
+  width: 87px;
+  height: 117px;
+  opacity: 0.91;
+  background: linear-gradient(135deg, #c71585 0%, #ff1493 55%, #ff69b4 100%);
+  transform: rotate(221.25deg) translateY(-107px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 14.58s;
+}
+.petal43 {
+  width: 87px;
+  height: 117px;
+  opacity: 0.91;
+  background: linear-gradient(135deg, #c71585 0%, #ff1493 55%, #ff69b4 100%);
+  transform: rotate(251.25deg) translateY(-107px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 15.42s;
+}
+.petal44 {
+  width: 87px;
+  height: 117px;
+  opacity: 0.91;
+  background: linear-gradient(135deg, #c71585 0%, #ff1493 55%, #ff69b4 100%);
+  transform: rotate(281.25deg) translateY(-107px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 16.25s;
+}
+.petal45 {
+  width: 81px;
+  height: 111px;
+  opacity: 0.84;
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 50%, #ffb6d9 100%);
+  transform: rotate(26.25deg) translateY(-114px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 17.08s;
+}
+.petal46 {
+  width: 81px;
+  height: 111px;
+  opacity: 0.84;
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 50%, #ffb6d9 100%);
+  transform: rotate(56.25deg) translateY(-114px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 17.92s;
+}
+.petal47 {
+  width: 81px;
+  height: 111px;
+  opacity: 0.84;
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 50%, #ffb6d9 100%);
+  transform: rotate(86.25deg) translateY(-114px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 18.75s;
+}
+.petal48 {
+  width: 81px;
+  height: 111px;
+  opacity: 0.84;
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 50%, #ffb6d9 100%);
+  transform: rotate(326.25deg) translateY(-114px);
+  animation: petalPulse 20s ease-in-out infinite;
+  animation-delay: 19.58s;
 }
 
 .center {

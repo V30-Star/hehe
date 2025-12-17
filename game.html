@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Snakes and Ladders - 6 Month Anniversary</title>
+    <link rel="stylesheet" href="game.css" />
+  </head>
+  <body>
+    <div class="floating-hearts">
+      <div class="heart">❤️</div>
+      <div class="heart">💖</div>
+      <div class="heart">💕</div>
+      <div class="heart">💗</div>
+      <div class="heart">💓</div>
+    </div>
+    <div class="game-container">
+      <h1>Snakes and Ladders: Our 6 Month Journey</h1>
+      <div id="board"></div>
+      <div id="controls">
+        <button id="rollDice">Roll Dice</button>
+        <button id="cheatBtn">Cheat to Win</button>
+        <p id="currentPosition">Current Position: 1</p>
+        <p id="message"></p>
+      </div>
+    </div>
+    <div id="eventModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2 id="eventTitle"></h2>
+        <p id="eventContent"></p>
+        <button id="continueBtn">Continue</button>
+      </div>
+    </div>
+    <canvas id="fireworksCanvas"></canvas>
+    <div id="flower">
+      <div id="flowerContainer">
+        <div class="petal petal1"></div>
+        <div class="petal petal2"></div>
+        <div class="petal petal3"></div>
+        <div class="petal petal4"></div>
+        <div class="petal petal5"></div>
+        <div class="petal petal6"></div>
+        <div class="petal petal7"></div>
+        <div class="petal petal8"></div>
+        <div class="petal petal9"></div>
+        <div class="petal petal10"></div>
+        <div class="petal petal11"></div>
+        <div class="petal petal12"></div>
+        <div class="center"></div>
+      </div>
+      <h2 id="flowerText" class="flower-message">
+        🌹 This flower represents our beautiful journey together 🌹<br />
+        <span class="romantic-text"
+          >Every petal holds a moment we've shared,<br />
+          Every color reflects the love we've cared.<br />
+          From the first hello to today,<br />
+          You've filled my heart in every way.</span
+        ><br /><br />
+        <span class="happy-text">Happy 6 Months to My Love! 💕</span>
+      </h2>
+    </div>
+    <div id="winModal" class="modal">
+      <div class="modal-content win-content">
+        <h2>Congratulations! You've reached the end of our journey!</h2>
+        <p>Happy 6 Months, my love! 🌹</p>
+        <button id="playAgainBtn">Play Again</button>
+      </div>
+    </div>
+    <script src="game.js"></script>
+  </body>
+</html>

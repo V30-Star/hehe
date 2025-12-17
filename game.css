@@ -244,7 +244,7 @@ button:hover {
 .modal {
   display: none;
   position: fixed;
-  z-index: 1;
+  z-index: 100;
   left: 0;
   top: 0;
   width: 100%;
@@ -254,17 +254,47 @@ button:hover {
   backdrop-filter: blur(5px);
 }
 
-.modal-content {
+.modal.show {
+  display: block !important;
+}
+
+#cheatModal {
+  z-index: 9999 !important;
+}
+
+#cheatModal.show {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+#cheatModal .modal-content {
   background: linear-gradient(135deg, #ffffff, #f8f9fa);
-  margin: 10% auto;
+  margin: 0;
   padding: 30px;
-  border: none;
+  border: 3px solid #ff1493;
   width: 80%;
   max-width: 500px;
   border-radius: 20px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
   animation: modalAppear 0.5s ease-out;
   backdrop-filter: blur(10px);
+}
+
+#cheatModal input[type="text"] {
+  box-sizing: border-box;
+  font-size: 16px;
+  font-family: inherit;
+}
+
+#cheatModal button {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#cheatModal button:hover {
+  background: #ff0080 !important;
+  transform: translateY(-2px);
 }
 
 @keyframes modalAppear {
@@ -290,6 +320,16 @@ button:hover {
 .close:hover,
 .close:focus {
   color: #d63384;
+}
+
+#cheatModal h2 {
+  color: #d63384;
+  margin-top: 0;
+}
+
+#cheatModal p {
+  color: #333;
+  line-height: 1.6;
 }
 
 #eventTitle {

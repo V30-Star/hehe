@@ -165,11 +165,41 @@ function showWinModal() {
 }
 
 function cheatToWin() {
-  currentPosition = 100;
-  updatePlayerPosition(100);
-  document.getElementById("currentPosition").textContent = "Current Position: 100";
-  document.getElementById("message").textContent = "Cheated to victory!";
-  showWinModal();
+  document.getElementById("cheatModal").style.display = "flex";
+  document.getElementById("cheatPassword").value = "";
+  document.getElementById("cheatError").style.display = "none";
+  const passwordInput = document.getElementById("cheatPassword");
+  passwordInput.focus();
+
+  // Add Enter key support
+  passwordInput.onkeypress = function (e) {
+    if (e.key === "Enter") submitCheatPassword();
+  };
+}
+
+function closeCheatModal() {
+  document.getElementById("cheatModal").style.display = "none";
+}
+
+function submitCheatPassword() {
+  const password = document.getElementById("cheatPassword").value.trim().toLowerCase();
+  const errorEl = document.getElementById("cheatError");
+  const correctPassword = "ubiquitous";
+
+  if (password === correctPassword) {
+    closeCheatModal();
+    currentPosition = 100;
+    updatePlayerPosition(100);
+    document.getElementById("currentPosition").textContent = "Current Position: 100";
+    document.getElementById("message").textContent = "Cheated to victory! Great learning!";
+    showWinModal();
+  } else {
+    errorEl.textContent = "❌ Incorrect! The word means 'present everywhere'. Try again!";
+    errorEl.style.display = "block";
+    setTimeout(() => {
+      errorEl.style.display = "none";
+    }, 3000);
+  }
 }
 
 function playAgain() {

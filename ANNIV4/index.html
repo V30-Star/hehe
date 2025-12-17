@@ -27,6 +27,93 @@
         background: radial-gradient(1200px 600px at 50% -10%, rgba(255, 130, 178, 0.16), transparent 60%), radial-gradient(900px 500px at 0% 100%, rgba(255, 196, 154, 0.12), transparent 60%), var(--bg);
         font: 16px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
       }
+
+      .password-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+
+      .password-modal.hidden {
+        display: none;
+      }
+
+      .password-box {
+        background: linear-gradient(180deg, #111532, #171d3b);
+        border: 2px solid var(--accent);
+        border-radius: 20px;
+        padding: 40px;
+        text-align: center;
+        box-shadow: 0 0 40px rgba(255, 130, 178, 0.3);
+        max-width: 400px;
+        width: 90%;
+      }
+
+      .password-box h2 {
+        color: var(--accent);
+        margin: 0 0 20px;
+        font-size: 28px;
+      }
+
+      .password-box p {
+        color: var(--muted);
+        margin: 0 0 25px;
+      }
+
+      .password-box input {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        background: rgba(19, 26, 52, 0.8);
+        color: var(--ink);
+        font-size: 16px;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+      }
+
+      .password-box input:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 15px rgba(255, 130, 178, 0.2);
+      }
+
+      .password-box button {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        color: #000;
+        border: none;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .password-box button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 130, 178, 0.3);
+      }
+
+      .password-error {
+        color: #ff6b6b;
+        font-size: 14px;
+        margin-top: 10px;
+        display: none;
+      }
+
+      .password-error.show {
+        display: block;
+      }
+
       .card {
         width: min(92vw, 820px);
         background: linear-gradient(180deg, #111532, #171d3b);
@@ -151,6 +238,16 @@
     </style>
   </head>
   <body>
+    <div class="password-modal" id="passwordModal">
+      <div class="password-box">
+        <h2>🔐 Protected</h2>
+        <p>Enter password to unlock ANNIV4</p>
+        <input type="password" id="passwordInput" placeholder="Enter password..." onkeypress="if(event.key==='Enter') checkPassword()" />
+        <button onclick="checkPassword()">Unlock</button>
+        <div class="password-error" id="passwordError">Incorrect password. Try again.</div>
+      </div>
+    </div>
+
     <div class="card">
       <h1>💖 Countdown Menuju 17 Oktober 2025 💖</h1>
       <h2>Happy Anniversary 4 Month Ayanggg!!!!</h2>
@@ -211,7 +308,7 @@
       }
       const tick = setInterval(updateClock, 1000);
       updateClock();
-      
+
       const hearts = document.getElementById("hearts");
       let heartTimer = null;
       function spawnHeart() {
@@ -236,6 +333,32 @@
       }
       song.addEventListener("play", startHearts);
       song.addEventListener("pause", stopHearts);
+    </script>
+
+    <script>
+      // Password protection for ANNIV4
+      const CORRECT_PASSWORD = "17102025";
+
+      function checkPassword() {
+        const input = document.getElementById("passwordInput");
+        const error = document.getElementById("passwordError");
+
+        if (input.value === CORRECT_PASSWORD) {
+          document.getElementById("passwordModal").classList.add("hidden");
+          input.value = "";
+        } else {
+          error.classList.add("show");
+          input.value = "";
+          setTimeout(() => {
+            error.classList.remove("show");
+          }, 3000);
+        }
+      }
+
+      // Focus on password input when page loads
+      window.addEventListener("load", () => {
+        document.getElementById("passwordInput").focus();
+      });
     </script>
   </body>
 </html>

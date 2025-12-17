@@ -18,6 +18,92 @@
       overflow: hidden;
     }
 
+    .password-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .password-modal.hidden {
+      display: none;
+    }
+
+    .password-box {
+      background: #fff;
+      border: 3px solid #ff6b9b;
+      border-radius: 20px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 0 40px rgba(255, 107, 155, 0.3);
+      max-width: 400px;
+      width: 90%;
+    }
+
+    .password-box h2 {
+      color: #ff6b9b;
+      margin: 0 0 20px;
+      font-size: 28px;
+    }
+
+    .password-box p {
+      color: #666;
+      margin: 0 0 25px;
+    }
+
+    .password-box input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #ffb6c1;
+      border-radius: 12px;
+      background: #fff;
+      color: #333;
+      font-size: 16px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .password-box input:focus {
+      outline: none;
+      border-color: #ff6b9b;
+      box-shadow: 0 0 15px rgba(255, 107, 155, 0.2);
+    }
+
+    .password-box button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #ff6b9b, #ffb6c1);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .password-box button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255, 107, 155, 0.3);
+    }
+
+    .password-error {
+      color: #ff3333;
+      font-size: 14px;
+      margin-top: 10px;
+      display: none;
+    }
+
+    .password-error.show {
+      display: block;
+    }
+
     .container {
       position: relative;
       width: 90%;
@@ -154,6 +240,15 @@
   </style>
 </head>
 <body>
+  <div class="password-modal" id="passwordModal">
+    <div class="password-box">
+      <h2>🔐 Unlock Anniversary</h2>
+      <p>Enter password to view</p>
+      <input type="password" id="passwordInput" placeholder="Enter password">
+      <button onclick="checkPassword()">Unlock</button>
+      <div class="password-error" id="passwordError">Wrong password. Try again!</div>
+    </div>
+  </div>
   <div class="container">
     <div class="inner">
       <h1>Happy 3rd Month, Ayang ❤</h1>
@@ -194,15 +289,26 @@
     setInterval(createHeart, 500);
 
     // password check
-    function checkPassword(){
-      const input = document.getElementById('password').value.trim();
-      const errorEl = document.getElementById('error');
-      if(input === '17 06 2025'){
-        window.location.href = 'video.html';
+    const CORRECT_PASSWORD = "17092025";
+    
+    function checkPassword() {
+      const input = document.getElementById("passwordInput").value.trim();
+      const errorEl = document.getElementById("passwordError");
+      
+      if (input === CORRECT_PASSWORD) {
+        document.getElementById("passwordModal").classList.add("hidden");
       } else {
-        errorEl.textContent = 'Password salah 😝 coba ingat lagi tanggalnya!';
+        errorEl.classList.add("show");
+        setTimeout(() => {
+          errorEl.classList.remove("show");
+        }, 3000);
       }
     }
+    
+    // Auto-focus password input on load
+    window.addEventListener("load", () => {
+      document.getElementById("passwordInput").focus();
+    });
   </script>
 </body>
 </html>

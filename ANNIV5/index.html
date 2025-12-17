@@ -521,9 +521,108 @@
           transform: translateY(0);
         }
       }
+
+      .password-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+
+      .password-modal.hidden {
+        display: none;
+      }
+
+      .password-box {
+        background: linear-gradient(135deg, #1a0033 0%, #2d1b4e 100%);
+        border: 3px solid #ffcc80;
+        border-radius: 20px;
+        padding: 40px;
+        text-align: center;
+        box-shadow: 0 0 40px rgba(255, 204, 128, 0.3);
+        max-width: 400px;
+        width: 90%;
+      }
+
+      .password-box h2 {
+        color: #ffcc80;
+        margin: 0 0 20px;
+        font-size: 28px;
+      }
+
+      .password-box p {
+        color: #fce4ec;
+        margin: 0 0 25px;
+      }
+
+      .password-box input {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid #ffcc80;
+        border-radius: 12px;
+        background: rgba(255, 204, 128, 0.1);
+        color: #fce4ec;
+        font-size: 16px;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+      }
+
+      .password-box input::placeholder {
+        color: rgba(252, 228, 196, 0.5);
+      }
+
+      .password-box input:focus {
+        outline: none;
+        border-color: #ffcc80;
+        box-shadow: 0 0 15px rgba(255, 204, 128, 0.3);
+      }
+
+      .password-box button {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(135deg, #ffcc80, #ffe082);
+        color: #1a0033;
+        border: none;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .password-box button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(255, 204, 128, 0.4);
+      }
+
+      .password-error {
+        color: #ff6b6b;
+        font-size: 14px;
+        margin-top: 10px;
+        display: none;
+      }
+
+      .password-error.show {
+        display: block;
+      }
     </style>
   </head>
   <body>
+    <div class="password-modal" id="passwordModal">
+      <div class="password-box">
+        <h2>🔐 Unlock Anniversary</h2>
+        <p>Enter password to view</p>
+        <input type="password" id="passwordInput" placeholder="Enter password" />
+        <button onclick="checkPassword()">Unlock</button>
+        <div class="password-error" id="passwordError">Wrong password. Try again!</div>
+      </div>
+    </div>
     <!-- Countdown Screen -->
     <div id="countdown-screen">
       <div class="countdown-container">
@@ -786,6 +885,28 @@
         if (!el.classList.contains("hidden")) {
           observer.observe(el);
         }
+      });
+
+      // Password check
+      const CORRECT_PASSWORD = "17112025";
+
+      function checkPassword() {
+        const input = document.getElementById("passwordInput").value.trim();
+        const errorEl = document.getElementById("passwordError");
+
+        if (input === CORRECT_PASSWORD) {
+          document.getElementById("passwordModal").classList.add("hidden");
+        } else {
+          errorEl.classList.add("show");
+          setTimeout(() => {
+            errorEl.classList.remove("show");
+          }, 3000);
+        }
+      }
+
+      // Auto-focus password input on load
+      window.addEventListener("load", () => {
+        document.getElementById("passwordInput").focus();
       });
     </script>
   </body>

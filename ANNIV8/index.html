@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy 8th Month, Ayang! ❤️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&family=Sacramento&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        font-family: "Quicksand", sans-serif;
+        background: #fff5f5;
+        overflow-x: hidden;
+        margin: 0;
+      }
+      .font-romantis {
+        font-family: "Sacramento", cursive;
+      }
+
+      /* Floating Hearts Background */
+      .floating-heart {
+        position: fixed;
+        color: #feb2b2;
+        pointer-events: none;
+        z-index: 0;
+        animation: float 6s linear infinite;
+      }
+      @keyframes float {
+        0% {
+          transform: translateY(100vh) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(-10vh) rotate(360deg);
+          opacity: 0;
+        }
+      }
+
+      .card-glass {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 182, 193, 0.5);
+      }
+
+      /* Custom Modal */
+      #customModal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(6px);
+        z-index: 50;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .modal-content {
+        transform: scale(0.7);
+        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      #customModal.active .modal-content {
+        transform: scale(1);
+      }
+
+      /* Hug Animation */
+      .emoji-left {
+        animation: walk-right 1.2s ease-in-out forwards;
+      }
+      .emoji-right {
+        animation: walk-left 1.2s ease-in-out forwards;
+      }
+      .hug-container {
+        animation: heart-beat 1s 1.2s infinite;
+      }
+
+      @keyframes walk-right {
+        0% {
+          transform: translateX(-60px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateX(8px);
+          opacity: 1;
+        }
+      }
+      @keyframes walk-left {
+        0% {
+          transform: translateX(60px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateX(-8px);
+          opacity: 1;
+        }
+      }
+      @keyframes heart-beat {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.15);
+        }
+      }
+
+      /* Confetti Piece */
+      .confetti {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: #ff69b4;
+        animation: confetti-fall 3s linear forwards;
+      }
+      @keyframes confetti-fall {
+        0% {
+          transform: translateY(0) rotate(0);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(500px) rotate(720deg);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body class="min-h-screen flex items-center justify-center p-4">
+    <div id="hearts-container"></div>
+
+    <div class="max-w-md w-full card-glass rounded-3xl shadow-2xl p-8 relative z-10 border-b-8 border-pink-300 transform transition hover:scale-[1.02]">
+      <div class="text-center mb-6">
+        <span class="bg-pink-100 text-pink-600 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest"> Level 8 Unlocked! 🔓 </span>
+        <h1 class="font-romantis text-5xl text-pink-500 mt-4 leading-tight">Happy Anniversary!</h1>
+        <p class="text-gray-500 italic text-sm mt-2">"8 Bulan & Masih Sayang Banget Sama Kamu"</p>
+      </div>
+
+      <div class="text-gray-700 leading-relaxed text-center space-y-4">
+        <p>Happy 8th month, <span class="font-bold text-pink-500 underline decoration-wavy">ayangg</span>. ❤️</p>
+        <p>Delapan bulan mungkin terdengar singkat, tapi buat aku, ini sudah berisi banyak hal yang berarti. Terima kasih sudah hadir, sudah bertahan, dan selalu membuat hari-hariku terasa lebih ringan dan hidup.</p>
+
+        <p>Aku bersyukur bisa berjalan sejauh ini sama kamu. Dan aku masih ingin banyak waktu, cerita, dan momen lagi yang kita lewati bersama.</p>
+
+        <div class="bg-pink-50 p-4 rounded-xl border-dashed border-2 border-pink-200 text-sm italic">
+          "Untuk hadiahnya… masih menyusul ya! 🎁 <br />
+          Tapi sebenarnya, kamu sendiri sudah jadi hadiah terbaik yang aku punya sampai hari ini."
+        </div>
+
+        <p class="font-semibold pt-2 text-pink-600">I'm really glad I have you. 💐</p>
+      </div>
+
+      <div class="mt-8 text-center">
+        <button onclick="openModal()" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 transform active:scale-95 flex items-center justify-center mx-auto gap-2">
+          Kirim Pelukan Online <span>🤗</span>
+        </button>
+      </div>
+    </div>
+
+    <div id="customModal">
+      <div id="confetti-anchor" class="modal-content bg-white p-6 rounded-3xl shadow-2xl max-w-xs w-full text-center relative overflow-hidden">
+        <div class="flex justify-center items-center mb-4 h-24 relative hug-container">
+          <span class="emoji-left text-6xl">🧸</span>
+          <span class="emoji-right text-6xl">🐰</span>
+          <div class="absolute top-0 text-pink-500 text-2xl animate-bounce">❤️</div>
+        </div>
+
+        <h2 class="text-2xl font-bold text-pink-600 mb-2 font-romantis">Hug Received!</h2>
+        <div class="text-[10px] text-gray-400 mb-4 tracking-widest uppercase font-black">Status: Successfully Delivered ✅</div>
+
+        <p class="text-gray-600 mb-6 text-sm leading-relaxed">
+          Satu pelukan paling hangat mendarat di sana!<br />
+          Makasih ya sudah jadi bagian dari 8 bulan ini.<br />
+          <strong>I love you more than coding! ❤️</strong>
+        </p>
+
+        <button onclick="closeModal()" class="w-full bg-pink-100 hover:bg-pink-200 text-pink-600 font-bold py-2 rounded-xl transition duration-200">Tutup & Sayang Kamu</button>
+      </div>
+    </div>
+
+    <script>
+      // 1. Logika Hati Terbang di Background
+      function createHeart() {
+        const heart = document.createElement("div");
+        heart.classList.add("floating-heart");
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.animationDuration = Math.random() * 3 + 3 + "s";
+        heart.style.fontSize = Math.random() * 20 + 10 + "px";
+        document.getElementById("hearts-container").appendChild(heart);
+        setTimeout(() => heart.remove(), 6000);
+      }
+      setInterval(createHeart, 400);
+
+      // 2. Logika Modal
+      const modal = document.getElementById("customModal");
+
+      function openModal() {
+        modal.style.display = "flex";
+        setTimeout(() => {
+          modal.classList.add("active");
+          createConfetti(); // Panggil efek konfeti saat modal buka
+        }, 10);
+      }
+
+      function closeModal() {
+        modal.classList.remove("active");
+        setTimeout(() => (modal.style.display = "none"), 300);
+      }
+
+      // 3. Efek Konfeti Sederhana
+      function createConfetti() {
+        const anchor = document.getElementById("confetti-anchor");
+        for (let i = 0; i < 30; i++) {
+          const confetti = document.createElement("div");
+          confetti.classList.add("confetti");
+          confetti.style.left = Math.random() * 100 + "%";
+          confetti.style.backgroundColor = ["#ff69b4", "#ffb6c1", "#ff1493", "#ffc0cb"][Math.floor(Math.random() * 4)];
+          confetti.style.animationDelay = Math.random() * 0.5 + "s";
+          anchor.appendChild(confetti);
+          setTimeout(() => confetti.remove(), 3000);
+        }
+      }
+
+      // Tutup modal jika klik di luar area putih
+      window.onclick = function (event) {
+        if (event.target == modal) closeModal();
+      };
+    </script>
+  </body>
+</html>

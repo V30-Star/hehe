@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IELTS Test – For My Love 💙</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --ice: #e8f4fd;
+      --deep: #0a2540;
+      --blue: #1a6fad;
+      --light-blue: #5aabdd;
+      --accent: #ff6b9d;
+      --gold: #f5c842;
+      --bg: #f0f8ff;
+      --white: #ffffff;
+      --glass: rgba(255,255,255,0.72);
+      --shadow: 0 8px 40px rgba(10,37,64,0.13);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      color: var(--deep);
+      overflow-x: hidden;
+    }
+
+    /* ─── BACKGROUND ─── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(90,171,221,0.22) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 85% 90%, rgba(255,107,157,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 70% 70% at 50% 50%, rgba(232,244,253,0.8) 0%, transparent 80%),
+        linear-gradient(160deg, #c9e8fa 0%, #f0f8ff 40%, #fce4f0 100%);
+      pointer-events: none;
+    }
+
+    /* ─── SNOWFLAKES ─── */
+    .snowflakes { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
+    .snowflake {
+      position: absolute;
+      top: -20px;
+      color: rgba(90,171,221,0.35);
+      font-size: 1.2rem;
+      animation: fall linear infinite;
+      user-select: none;
+    }
+    @keyframes fall {
+      to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* ─── LAYOUT ─── */
+    .wrapper {
+      position: relative; z-index: 2;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      text-align: center;
+      padding: 48px 32px 36px;
+      background: var(--glass);
+      backdrop-filter: blur(18px);
+      border-radius: 28px;
+      border: 1.5px solid rgba(255,255,255,0.9);
+      box-shadow: var(--shadow), 0 0 0 1px rgba(90,171,221,0.12);
+      margin-bottom: 36px;
+      animation: slideDown 0.7s cubic-bezier(.22,1,.36,1);
+    }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .header-ice { font-size: 3.2rem; margin-bottom: 12px; display: block; animation: float 3s ease-in-out infinite; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      color: var(--deep);
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+    header h1 em { color: var(--blue); font-style: italic; }
+    header p { color: #5a7a96; font-size: 0.97rem; font-weight: 300; }
+
+    /* ─── PROGRESS BAR ─── */
+    .progress-bar-wrap {
+      background: rgba(255,255,255,0.6);
+      border-radius: 99px;
+      height: 10px;
+      margin: 24px 0 0;
+      overflow: hidden;
+      border: 1px solid rgba(90,171,221,0.3);
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--light-blue), var(--accent));
+      border-radius: 99px;
+      transition: width 0.6s cubic-bezier(.22,1,.36,1);
+    }
+    .progress-label { font-size: 0.82rem; color: #7a9bb5; margin-top: 8px; text-align: right; }
+
+    /* ─── SECTION TABS ─── */
+    .tabs {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      flex: 1; min-width: 130px;
+      padding: 14px 20px;
+      border: 2px solid rgba(90,171,221,0.3);
+      border-radius: 16px;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #5a7a96;
+      cursor: pointer;
+      transition: all 0.25s;
+      text-align: center;
+    }
+    .tab-btn .tab-icon { display: block; font-size: 1.5rem; margin-bottom: 4px; }
+    .tab-btn:hover { border-color: var(--light-blue); color: var(--blue); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,111,173,0.12); }
+    .tab-btn.active { border-color: var(--blue); background: var(--blue); color: white; box-shadow: 0 6px 24px rgba(26,111,173,0.28); transform: translateY(-2px); }
+    .tab-btn.done { border-color: #42c98a; background: rgba(66,201,138,0.08); color: #2a9e6c; }
+    .tab-btn.done::after { content: ' ✓'; }
+
+    /* ─── SECTION CARD ─── */
+    .section-card {
+      display: none;
+      background: var(--glass);
+      backdrop-filter: blur(18px);
+      border-radius: 24px;
+      border: 1.5px solid rgba(255,255,255,0.9);
+      box-shadow: var(--shadow);
+      padding: 40px 36px;
+      animation: fadeUp 0.4s cubic-bezier(.22,1,.36,1);
+    }
+    .section-card.active { display: block; }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .section-header {
+      display: flex; align-items: center; gap: 16px;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1.5px solid rgba(90,171,221,0.18);
+    }
+    .section-icon-big { font-size: 2.6rem; }
+    .section-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--deep);
+    }
+    .section-header p { font-size: 0.88rem; color: #6a8aaa; margin-top: 4px; }
+
+    /* ─── PASSAGE ─── */
+    .passage {
+      background: rgba(232,244,253,0.55);
+      border-left: 4px solid var(--light-blue);
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin-bottom: 28px;
+      font-size: 0.95rem;
+      line-height: 1.75;
+      color: #2a3d50;
+    }
+    .passage strong { color: var(--blue); }
+
+    /* ─── AUDIO PLAYER MOCK ─── */
+    .audio-player {
+      background: linear-gradient(135deg, var(--deep) 0%, #1a3a5c 100%);
+      border-radius: 16px;
+      padding: 22px 26px;
+      margin-bottom: 28px;
+      display: flex; align-items: center; gap: 18px;
+      color: white;
+      box-shadow: 0 8px 30px rgba(10,37,64,0.22);
+    }
+    .play-btn {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--light-blue), var(--blue));
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      box-shadow: 0 4px 16px rgba(90,171,221,0.4);
+      transition: transform 0.2s;
+    }
+    .play-btn:hover { transform: scale(1.08); }
+    .audio-info { flex: 1; }
+    .audio-title { font-size: 0.9rem; font-weight: 500; margin-bottom: 8px; }
+    .audio-bar { height: 4px; background: rgba(255,255,255,0.2); border-radius: 99px; overflow: hidden; }
+    .audio-fill { width: 35%; height: 100%; background: linear-gradient(90deg, var(--light-blue), var(--accent)); border-radius: 99px; }
+    .audio-time { font-size: 0.78rem; opacity: 0.6; margin-top: 6px; }
+
+    /* ─── QUESTIONS ─── */
+    .questions { display: flex; flex-direction: column; gap: 22px; }
+    .question {
+      background: rgba(255,255,255,0.7);
+      border-radius: 16px;
+      padding: 22px 24px;
+      border: 1.5px solid rgba(200,225,245,0.6);
+      transition: box-shadow 0.2s;
+    }
+    .question:hover { box-shadow: 0 4px 20px rgba(26,111,173,0.08); }
+    .q-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--light-blue);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .q-text {
+      font-size: 0.97rem;
+      color: var(--deep);
+      font-weight: 400;
+      line-height: 1.55;
+      margin-bottom: 14px;
+    }
+    .options { display: flex; flex-direction: column; gap: 9px; }
+    .option-label {
+      display: flex; align-items: center; gap: 12px;
+      padding: 11px 16px;
+      border-radius: 10px;
+      border: 1.5px solid rgba(200,225,245,0.7);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.93rem;
+      color: #3a5068;
+      background: rgba(255,255,255,0.6);
+    }
+    .option-label:hover { border-color: var(--light-blue); background: rgba(90,171,221,0.08); }
+    .option-label input[type=radio] { accent-color: var(--blue); width: 16px; height: 16px; flex-shrink: 0; }
+    .option-label.selected { border-color: var(--blue); background: rgba(26,111,173,0.07); color: var(--blue); font-weight: 500; }
+    .option-label.correct { border-color: #42c98a; background: rgba(66,201,138,0.1); color: #1e8a5a; }
+    .option-label.wrong { border-color: #f04f5f; background: rgba(240,79,95,0.08); color: #c0334a; }
+
+    /* text input */
+    .text-input, textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1.5px solid rgba(200,225,245,0.8);
+      background: rgba(255,255,255,0.8);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      color: var(--deep);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      resize: vertical;
+    }
+    .text-input:focus, textarea:focus {
+      border-color: var(--light-blue);
+      box-shadow: 0 0 0 3px rgba(90,171,221,0.15);
+    }
+    textarea { min-height: 160px; line-height: 1.65; }
+    .word-count { font-size: 0.8rem; color: #8aacbe; text-align: right; margin-top: 6px; }
+
+    /* ─── BUTTONS ─── */
+    .btn-row { display: flex; gap: 14px; margin-top: 32px; justify-content: flex-end; flex-wrap: wrap; }
+    .btn {
+      padding: 13px 30px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: all 0.25s;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue), #0e5a9a);
+      color: white;
+      box-shadow: 0 6px 20px rgba(26,111,173,0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(26,111,173,0.38); }
+    .btn-secondary {
+      background: rgba(255,255,255,0.8);
+      color: var(--blue);
+      border: 1.5px solid rgba(90,171,221,0.4);
+    }
+    .btn-secondary:hover { border-color: var(--blue); background: rgba(90,171,221,0.08); }
+    .btn-submit {
+      background: linear-gradient(135deg, var(--accent), #e0547a);
+      color: white;
+      box-shadow: 0 6px 20px rgba(255,107,157,0.3);
+    }
+    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(255,107,157,0.4); }
+
+    /* ─── SCORE / RESULT ─── */
+    .result-card {
+      display: none;
+      text-align: center;
+      padding: 56px 40px;
+      background: var(--glass);
+      backdrop-filter: blur(18px);
+      border-radius: 28px;
+      border: 1.5px solid rgba(255,255,255,0.9);
+      box-shadow: var(--shadow);
+      animation: fadeUp 0.5s cubic-bezier(.22,1,.36,1);
+    }
+    .result-card.show { display: block; }
+    .result-emoji { font-size: 4rem; margin-bottom: 16px; display: block; animation: pop 0.6s cubic-bezier(.22,1,.36,1); }
+    @keyframes pop { from{transform:scale(0)} to{transform:scale(1)} }
+    .result-card h2 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 12px; }
+    .result-card p { color: #5a7a96; font-size: 1rem; line-height: 1.7; max-width: 500px; margin: 0 auto 28px; }
+    .score-chips { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
+    .score-chip {
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+    .chip-l { background: rgba(90,171,221,0.15); color: var(--blue); }
+    .chip-r { background: rgba(66,201,138,0.12); color: #2a9e6c; }
+    .chip-w { background: rgba(255,107,157,0.12); color: #c0335c; }
+
+    /* ─── TIMER ─── */
+    .timer-badge {
+      position: fixed; top: 20px; right: 20px; z-index: 999;
+      background: var(--glass);
+      backdrop-filter: blur(14px);
+      border: 1.5px solid rgba(255,255,255,0.85);
+      border-radius: 50px;
+      padding: 10px 20px;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--deep);
+      box-shadow: var(--shadow);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .timer-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: blink 1s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    @media(max-width:600px){
+      .section-card { padding: 28px 20px; }
+      .tabs { gap: 8px; }
+      .tab-btn { min-width: 100px; padding: 11px 12px; font-size: 0.85rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Snowflakes -->
+<div class="snowflakes" id="snowflakes"></div>
+
+<!-- Timer -->
+<div class="timer-badge">
+  <span class="timer-dot"></span>
+  <span id="timerDisplay">60:00</span>
+</div>
+
+<div class="wrapper">
+
+  <!-- Header -->
+  <header>
+    <span class="header-ice">🧊</span>
+    <h1>IELTS Practice Test<br><em>— For My Love, Ayang 💙 —</em></h1>
+    <p>Listening · Reading · Writing &nbsp;|&nbsp; Do your best, I believe in you! ❤️</p>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="progress-label" id="progressLabel">0% completed</div>
+  </header>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchSection('listening')" id="tab-listening">
+      <span class="tab-icon">🎧</span>Listening
+    </button>
+    <button class="tab-btn" onclick="switchSection('reading')" id="tab-reading">
+      <span class="tab-icon">📖</span>Reading
+    </button>
+    <button class="tab-btn" onclick="switchSection('writing')" id="tab-writing">
+      <span class="tab-icon">✍️</span>Writing
+    </button>
+  </div>
+
+  <!-- ══ LISTENING ══ -->
+  <div class="section-card active" id="sec-listening">
+    <div class="section-header">
+      <span class="section-icon-big">🎧</span>
+      <div>
+        <h2>Listening Test</h2>
+        <p>Part 1 – 5 Questions &nbsp;|&nbsp; Play the audio and answer carefully.</p>
+      </div>
+    </div>
+
+    <!-- TTS Notice -->
+    <div style="background:rgba(245,200,66,0.12);border:1.5px solid rgba(245,200,66,0.4);border-radius:12px;padding:12px 16px;margin-bottom:14px;font-size:0.85rem;color:#7a6010;display:flex;align-items:center;gap:10px;">
+      <span>💡</span>
+      <span>Audio ini menggunakan <strong>Text-to-Speech</strong> dari browser. Pastikan volume perangkat kamu sudah menyala!</span>
+    </div>
+
+    <div class="audio-player">
+      <button class="play-btn" id="playBtn" onclick="toggleTTS()" title="Play audio">▶️</button>
+      <div class="audio-info">
+        <div class="audio-title">Recording 1 – Conversation at a Hotel Reception</div>
+        <div class="audio-bar"><div class="audio-fill" id="audioFill" style="width:0%"></div></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;">
+          <div class="audio-time" id="audioStatus">Tekan ▶ untuk memutar percakapan</div>
+          <button onclick="replayTTS()" style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:20px;color:white;font-size:0.75rem;padding:4px 12px;cursor:pointer;">🔄 Replay</button>
+        </div>
+      </div>
+      <span style="font-size:1.3rem;opacity:0.7">🔊</span>
+    </div>
+
+    <!-- Script transcript (hidden, for TTS) -->
+    <div id="ttsScript" style="display:none;">
+      Receptionist: Good afternoon! Welcome to the Grand Lake Hotel. How can I help you?
+      Guest: Hi, good afternoon. I have a reservation. The name is Emma Williams.
+      Receptionist: Let me check that for you... Yes, here we are! Emma Williams. You're booked in for three nights, is that correct?
+      Guest: That's right, three nights.
+      Receptionist: Wonderful. Now I see here that you originally requested a twin room, but unfortunately we had a small issue with that room's air conditioning. We'd like to upgrade you to a double room at no extra charge. Is that alright?
+      Guest: Oh, that's perfectly fine, thank you!
+      Receptionist: Great! So, just a few things to let you know. Breakfast is served in the dining room on the ground floor. It starts at seven thirty in the morning and runs until ten.
+      Guest: Perfect, that works for me.
+      Receptionist: And here is your room key card. Oh, and the Wi-Fi password is HotelLake2024. That's capital H, capital L, Hotel Lake 2024.
+      Guest: Hotel Lake 2024, got it. Thank you so much!
+      Receptionist: You're very welcome. Enjoy your stay, Miss Williams!
+    </div>
+
+    <div class="questions" id="q-listening">
+
+      <div class="question">
+        <div class="q-label">Question 1</div>
+        <div class="q-text">What is the name of the guest checking in?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="l1" value="A"> Sarah Johnson</label>
+          <label class="option-label"><input type="radio" name="l1" value="B"> Emma Williams</label>
+          <label class="option-label"><input type="radio" name="l1" value="C"> Laura Thompson</label>
+          <label class="option-label"><input type="radio" name="l1" value="D"> Claire Henderson</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-label">Question 2</div>
+        <div class="q-text">For how many nights will the guest be staying?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="l2" value="A"> Two nights</label>
+          <label class="option-label"><input type="radio" name="l2" value="B"> Three nights</label>
+          <label class="option-label"><input type="radio" name="l2" value="C"> Four nights</label>
+          <label class="option-label"><input type="radio" name="l2" value="D"> Five nights</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-label">Question 3</div>
+        <div class="q-text">What type of room did the guest originally request?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="l3" value="A"> Single room</label>
+          <label class="option-label"><input type="radio" name="l3" value="B"> Double room</label>
+          <label class="option-label"><input type="radio" name="l3" value="C"> Twin room</label>
+          <label class="option-label"><input type="radio" name="l3" value="D"> Suite</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-label">Question 4</div>
+        <div class="q-text">What time does breakfast start at the hotel?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="l4" value="A"> 6:30 AM</label>
+          <label class="option-label"><input type="radio" name="l4" value="B"> 7:00 AM</label>
+          <label class="option-label"><input type="radio" name="l4" value="C"> 7:30 AM</label>
+          <label class="option-label"><input type="radio" name="l4" value="D"> 8:00 AM</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-label">Question 5</div>
+        <div class="q-text">What is the Wi-Fi password given to the guest?</div>
+        <input type="text" class="text-input" placeholder="Type your answer here..." name="l5" oninput="updateProgress()"/>
+      </div>
+
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="submitSection('listening')">Submit Listening ➜</button>
+    </div>
+  </div>
+
+  <!-- ══ READING ══ -->
+  <div class="section-card" id="sec-reading">
+    <div class="section-header">
+      <span class="section-icon-big">📖</span>
+      <div>
+        <h2>Reading Test</h2>
+        <p>Passage 1 – 5 Questions &nbsp;|&nbsp; Read carefully before answering.</p>
+      </div>
+    </div>
+
+    <div class="passage">
+      <strong>The Science of Sleep</strong><br><br>
+      Sleep is one of the most essential biological processes for human health. During sleep, the body undergoes a series of restorative activities including muscle repair, memory consolidation, and the release of hormones that regulate growth and appetite. Despite its importance, sleep is often undervalued in modern society.<br><br>
+      The National Sleep Foundation recommends that adults aged 18–64 get between <strong>seven and nine hours</strong> of sleep per night. However, studies indicate that approximately <strong>35% of adults</strong> in developed nations report getting fewer than seven hours on a regular basis. This chronic sleep deprivation has been linked to increased risks of cardiovascular disease, obesity, diabetes, and even reduced immune function.<br><br>
+      Interestingly, the quality of sleep matters as much as the quantity. Sleep occurs in cycles, each lasting about <strong>90 minutes</strong>, and includes stages of light sleep, deep sleep (slow-wave sleep), and REM (rapid eye movement) sleep. REM sleep is particularly associated with dreaming and emotional processing. Disruption to these cycles — whether from noise, light, or irregular schedules — can impair cognitive performance even if total sleep duration appears sufficient.
+    </div>
+
+    <div class="questions" id="q-reading">
+
+      <div class="question">
+        <div class="q-label">Question 1</div>
+        <div class="q-text">How many hours of sleep does the National Sleep Foundation recommend for most adults?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="r1" value="A"> 6–8 hours</label>
+          <label class="option-label"><input type="radio" name="r1" value="B"> 7–9 hours</label>
+          <label class="option-label"><input type="radio" name="r1" value="C"> 8–10 hours</label>
+          <label class="option-label"><input type="radio" name="r1" value="D"> 5–7 hours</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-label">Question 2</div>
+        <div class="q-text">What percentage of adults in developed nations regularly sleep fewer than seven hours?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="r2" value="A"> 25%</label>
+          <label class="option-label"><input type="radio" name="r2" value="B"> 30%</label>
+          <label class="option-label"><input type="radio" name="r2" value="C"> 35%</label>
+          <label class="option-label"><input type="radio" name="r2" value="D"> 40%</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-label">Question 3</div>
+        <div class="q-text">How long does one sleep cycle typically last?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="r3" value="A"> 60 minutes</label>
+          <label class="option-label"><input type="radio" name="r3" value="B"> 75 minutes</label>
+          <label class="option-label"><input type="radio" name="r3" value="C"> 90 minutes</label>
+          <label class="option-label"><input type="radio" name="r3" value="D"> 120 minutes</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-label">Question 4</div>
+        <div class="q-text">Which sleep stage is most associated with dreaming and emotional processing?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="r4" value="A"> Light sleep</label>
+          <label class="option-label"><input type="radio" name="r4" value="B"> Deep sleep</label>
+          <label class="option-label"><input type="radio" name="r4" value="C"> Slow-wave sleep</label>
+          <label class="option-label"><input type="radio" name="r4" value="D"> REM sleep</label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-label">Question 5</div>
+        <div class="q-text">According to the passage, which of the following is NOT mentioned as a consequence of chronic sleep deprivation?</div>
+        <div class="options">
+          <label class="option-label"><input type="radio" name="r5" value="A"> Cardiovascular disease</label>
+          <label class="option-label"><input type="radio" name="r5" value="B"> Depression</label>
+          <label class="option-label"><input type="radio" name="r5" value="C"> Obesity</label>
+          <label class="option-label"><input type="radio" name="r5" value="D"> Reduced immune function</label>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="switchSection('listening')">← Back</button>
+      <button class="btn btn-primary" onclick="submitSection('reading')">Submit Reading ➜</button>
+    </div>
+  </div>
+
+  <!-- ══ WRITING ══ -->
+  <div class="section-card" id="sec-writing">
+    <div class="section-header">
+      <span class="section-icon-big">✍️</span>
+      <div>
+        <h2>Writing Test</h2>
+        <p>Task 1 + Task 2 &nbsp;|&nbsp; Express your ideas clearly.</p>
+      </div>
+    </div>
+
+    <!-- Task 1 -->
+    <div class="question" style="margin-bottom:20px;">
+      <div class="q-label">Writing Task 1 — Describe a Chart</div>
+      <div class="q-text" style="margin-bottom:14px;">
+        The chart below shows the percentage of people using the internet in four countries between 2000 and 2020. 
+        <strong>Summarize the information</strong> by selecting and reporting the main features, and make comparisons where relevant. Write at least <strong>150 words</strong>.
+      </div>
+      <!-- Simple SVG chart -->
+      <svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:420px;border-radius:12px;background:rgba(232,244,253,0.4);padding:12px;margin-bottom:14px;">
+        <text x="10" y="18" font-size="9" fill="#6a8aaa" font-family="DM Sans">Internet Users (%) — 2000–2020</text>
+        <!-- Grid lines -->
+        <line x1="50" y1="25" x2="400" y2="25" stroke="#cce" stroke-width="0.5"/>
+        <line x1="50" y1="60" x2="400" y2="60" stroke="#cce" stroke-width="0.5"/>
+        <line x1="50" y1="95" x2="400" y2="95" stroke="#cce" stroke-width="0.5"/>
+        <line x1="50" y1="130" x2="400" y2="130" stroke="#cce" stroke-width="0.5"/>
+        <line x1="50" y1="165" x2="400" y2="165" stroke="#cce" stroke-width="0.5"/>
+        <!-- Y labels -->
+        <text x="5" y="28" font-size="7.5" fill="#8aacbe">100%</text>
+        <text x="12" y="63" font-size="7.5" fill="#8aacbe">75%</text>
+        <text x="12" y="98" font-size="7.5" fill="#8aacbe">50%</text>
+        <text x="12" y="133" font-size="7.5" fill="#8aacbe">25%</text>
+        <text x="18" y="168" font-size="7.5" fill="#8aacbe">0%</text>
+        <!-- X labels -->
+        <text x="46" y="175" font-size="7.5" fill="#8aacbe">2000</text>
+        <text x="155" y="175" font-size="7.5" fill="#8aacbe">2005</text>
+        <text x="262" y="175" font-size="7.5" fill="#8aacbe">2010</text>
+        <text x="368" y="175" font-size="7.5" fill="#8aacbe">2020</text>
+        <!-- Lines: Country A -->
+        <polyline points="50,150 165,120 280,70 410,28" fill="none" stroke="#1a6fad" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Country B -->
+        <polyline points="50,160 165,140 280,110 410,65" fill="none" stroke="#5aabdd" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="6,3"/>
+        <!-- Country C -->
+        <polyline points="50,162 165,155 280,135 410,100" fill="none" stroke="#ff6b9d" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Country D -->
+        <polyline points="50,163 165,162 280,155 410,138" fill="none" stroke="#f5c842" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="3,3"/>
+        <!-- Legend -->
+        <rect x="52" y="32" width="10" height="3" fill="#1a6fad" rx="1"/>
+        <text x="65" y="36" font-size="7" fill="#2a3d50">Country A</text>
+        <rect x="105" y="32" width="10" height="3" fill="#5aabdd" rx="1"/>
+        <text x="118" y="36" font-size="7" fill="#2a3d50">Country B</text>
+        <rect x="155" y="32" width="10" height="3" fill="#ff6b9d" rx="1"/>
+        <text x="168" y="36" font-size="7" fill="#2a3d50">Country C</text>
+        <rect x="205" y="32" width="10" height="3" fill="#f5c842" rx="1"/>
+        <text x="218" y="36" font-size="7" fill="#2a3d50">Country D</text>
+      </svg>
+      <textarea id="writing1" placeholder="Write your response here… (min. 150 words)" oninput="countWords('writing1','wc1')"></textarea>
+      <div class="word-count" id="wc1">0 / 150+ words</div>
+    </div>
+
+    <!-- Task 2 -->
+    <div class="question">
+      <div class="q-label">Writing Task 2 — Essay</div>
+      <div class="q-text" style="margin-bottom:14px;">
+        Some people believe that technology has made our lives more complicated, while others argue it has made life simpler. 
+        <strong>Discuss both views</strong> and give your own opinion. Write at least <strong>250 words</strong>.
+      </div>
+      <textarea id="writing2" placeholder="Write your essay here… (min. 250 words)" oninput="countWords('writing2','wc2')"></textarea>
+      <div class="word-count" id="wc2">0 / 250+ words</div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="switchSection('reading')">← Back</button>
+      <button class="btn btn-submit" onclick="submitAll()">✨ Submit All Sections</button>
+    </div>
+  </div>
+
+  <!-- ══ RESULT ══ -->
+  <div class="result-card" id="resultCard">
+    <span class="result-emoji">🎉</span>
+    <h2>Well Done, Ayang!</h2>
+    <p>You've completed the IELTS Practice Test. Here's how you did. Remember, every attempt makes you stronger — I'm so proud of you! 💙</p>
+    <div class="score-chips">
+      <div class="score-chip chip-l" id="scoreL">🎧 Listening: –</div>
+      <div class="score-chip chip-r" id="scoreR">📖 Reading: –</div>
+      <div class="score-chip chip-w" id="scoreW">✍️ Writing: Submitted</div>
+    </div>
+    <p id="resultMsg" style="font-style:italic;color:#e87aa0;font-family:'Playfair Display',serif;font-size:1.05rem;"></p>
+    <button class="btn btn-primary" onclick="restartTest()" style="margin-top:8px;">🔄 Try Again</button>
+  </div>
+
+</div>
+
+<script>
+  // ── Snowflakes ──
+  const sf = document.getElementById('snowflakes');
+  for(let i=0;i<18;i++){
+    const s=document.createElement('span');
+    s.className='snowflake';
+    s.textContent=['❄','❅','❆','✦','·'][Math.floor(Math.random()*5)];
+    s.style.left=Math.random()*100+'vw';
+    s.style.fontSize=(0.7+Math.random()*1.2)+'rem';
+    s.style.animationDuration=(6+Math.random()*10)+'s';
+    s.style.animationDelay=(-Math.random()*12)+'s';
+    s.style.opacity=0.2+Math.random()*0.5;
+    sf.appendChild(s);
+  }
+
+  // ── Correct answers ──
+  const answers = {
+    l1:'B', l2:'B', l3:'C', l4:'C',
+    r1:'B', r2:'C', r3:'C', r4:'D', r5:'B'
+  };
+
+  // ── Timer ──
+  let totalSeconds = 3600;
+  const timerEl = document.getElementById('timerDisplay');
+  const timerInterval = setInterval(()=>{
+    if(totalSeconds<=0){clearInterval(timerInterval);timerEl.textContent='00:00';return;}
+    totalSeconds--;
+    const m=Math.floor(totalSeconds/60), s=totalSeconds%60;
+    timerEl.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+    if(totalSeconds<300) timerEl.parentElement.style.borderColor='rgba(240,79,95,0.5)';
+  },1000);
+
+  // ── Section switching ──
+  let currentSection='listening';
+  const sections=['listening','reading','writing'];
+  function switchSection(name){
+    document.querySelectorAll('.section-card').forEach(c=>c.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+    document.getElementById('sec-'+name).classList.add('active');
+    document.getElementById('tab-'+name).classList.add('active');
+    currentSection=name;
+    updateProgress();
+  }
+
+  // ── Progress ──
+  function updateProgress(){
+    const radioTotal=Object.keys(answers).length;
+    let filled=0;
+    document.querySelectorAll('input[type=radio]:checked').forEach(()=>filled++);
+    const l5=document.querySelector('input[name=l5]');
+    if(l5&&l5.value.trim()) filled++;
+    const w1=document.getElementById('writing1').value.trim();
+    const w2=document.getElementById('writing2').value.trim();
+    const writingDone=(w1.split(/\s+/).filter(Boolean).length>=150?1:0)+(w2.split(/\s+/).filter(Boolean).length>=250?1:0);
+    const pct=Math.round(((filled+(writingDone*0.5))/(radioTotal+1+2))*100);
+    document.getElementById('progressBar').style.width=Math.min(pct,100)+'%';
+    document.getElementById('progressLabel').textContent=Math.min(pct,100)+'% completed';
+  }
+
+  // ── Radio highlight ──
+  document.querySelectorAll('.option-label input[type=radio]').forEach(inp=>{
+    inp.addEventListener('change',function(){
+      const name=this.name;
+      document.querySelectorAll(`input[name=${name}]`).forEach(r=>{
+        r.closest('.option-label').classList.remove('selected');
+      });
+      this.closest('.option-label').classList.add('selected');
+      updateProgress();
+    });
+  });
+
+  // ── Word count ──
+  function countWords(id,wcId){
+    const words=document.getElementById(id).value.trim().split(/\s+/).filter(Boolean).length;
+    const limit=id==='writing1'?150:250;
+    const el=document.getElementById(wcId);
+    el.textContent=words+' / '+limit+'+ words';
+    el.style.color=words>=limit?'#42c98a':'#8aacbe';
+    updateProgress();
+  }
+
+  // ── Score calc ──
+  let lScore=0, rScore=0;
+  function calcScore(prefix, count){
+    let score=0;
+    for(let i=1;i<=count;i++){
+      const k=prefix+i;
+      const sel=document.querySelector(`input[name=${k}]:checked`);
+      if(sel && sel.value===answers[k]) score++;
+    }
+    return score;
+  }
+
+  // ── Submit section ──
+  let lSubmitted=false, rSubmitted=false;
+  function submitSection(sec){
+    if(sec==='listening'){
+      lScore=calcScore('l',4);
+      // show correct/wrong
+      for(let i=1;i<=4;i++){
+        const k='l'+i;
+        document.querySelectorAll(`input[name=${k}]`).forEach(r=>{
+          const lbl=r.closest('.option-label');
+          if(r.value===answers[k]) lbl.classList.add('correct');
+          else if(r.checked) lbl.classList.add('wrong');
+          r.disabled=true;
+        });
+      }
+      document.getElementById('tab-listening').classList.add('done');
+      lSubmitted=true;
+      switchSection('reading');
+    } else if(sec==='reading'){
+      rScore=calcScore('r',5);
+      for(let i=1;i<=5;i++){
+        const k='r'+i;
+        document.querySelectorAll(`input[name=${k}]`).forEach(r=>{
+          const lbl=r.closest('.option-label');
+          if(r.value===answers[k]) lbl.classList.add('correct');
+          else if(r.checked) lbl.classList.add('wrong');
+          r.disabled=true;
+        });
+      }
+      document.getElementById('tab-reading').classList.add('done');
+      rSubmitted=true;
+      switchSection('writing');
+    }
+  }
+
+  // ── Submit all ──
+  function submitAll(){
+    if(!lSubmitted){ lScore=calcScore('l',4); }
+    if(!rSubmitted){ rScore=calcScore('r',5); }
+    document.getElementById('tab-writing').classList.add('done');
+    document.querySelectorAll('.section-card').forEach(c=>c.classList.remove('active'));
+    const res=document.getElementById('resultCard');
+    res.classList.add('show');
+    document.getElementById('scoreL').textContent='🎧 Listening: '+lScore+'/5';
+    document.getElementById('scoreR').textContent='📖 Reading: '+rScore+'/5';
+    const total=lScore+rScore;
+    let msg='';
+    if(total>=8) msg='Amazing! You\'re absolutely brilliant. 🌟';
+    else if(total>=6) msg='Great job! A little more practice and you\'ll ace it! 💪';
+    else if(total>=4) msg='Good effort! Keep studying, you\'re getting there! 📚';
+    else msg='Don\'t give up! Every mistake is a step forward. I love you! 🩵';
+    document.getElementById('resultMsg').textContent=msg;
+    clearInterval(timerInterval);
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  // ── Restart ──
+  function restartTest(){
+    location.reload();
+  }
+
+  // ── TTS Audio ──
+  let ttsUtterance = null;
+  let ttsPlaying = false;
+  let ttsProgressInterval = null;
+  let ttsStartTime = 0;
+  const TTS_DURATION_MS = 75000; // ~75 seconds estimated
+
+  const ttsLines = [
+    { text: "Good afternoon! Welcome to the Grand Lake Hotel. How can I help you?", rate: 0.88, pitch: 1.15 },
+    { text: "Hi, good afternoon. I have a reservation. The name is Emma Williams.", rate: 0.85, pitch: 0.92 },
+    { text: "Let me check that for you... Yes, here we are! Emma Williams. You are booked in for three nights, is that correct?", rate: 0.88, pitch: 1.15 },
+    { text: "That's right, three nights.", rate: 0.85, pitch: 0.92 },
+    { text: "Wonderful. Now I see here that you originally requested a twin room, but unfortunately we had a small issue with that room's air conditioning. We'd like to upgrade you to a double room at no extra charge. Is that alright?", rate: 0.88, pitch: 1.15 },
+    { text: "Oh, that's perfectly fine, thank you!", rate: 0.85, pitch: 0.92 },
+    { text: "Great! So, just a few things to let you know. Breakfast is served in the dining room on the ground floor. It starts at seven thirty in the morning and runs until ten.", rate: 0.88, pitch: 1.15 },
+    { text: "Perfect, that works for me.", rate: 0.85, pitch: 0.92 },
+    { text: "And here is your room key card. Oh, and the Wi-Fi password is Hotel Lake 2024. That's capital H, capital L, Hotel, Lake, 2024.", rate: 0.84, pitch: 1.15 },
+    { text: "Hotel Lake 2024, got it. Thank you so much!", rate: 0.85, pitch: 0.92 },
+    { text: "You're very welcome. Enjoy your stay, Miss Williams!", rate: 0.88, pitch: 1.15 },
+  ];
+
+  let currentLine = 0;
+  let ttsChain = null;
+
+  function speakLine(index) {
+    if (index >= ttsLines.length) {
+      // Done
+      ttsPlaying = false;
+      document.getElementById('playBtn').textContent = '▶️';
+      document.getElementById('audioFill').style.width = '100%';
+      document.getElementById('audioStatus').textContent = '✅ Selesai! Jawab soal di bawah.';
+      clearInterval(ttsProgressInterval);
+      return;
+    }
+
+    const line = ttsLines[index];
+    const utter = new SpeechSynthesisUtterance(line.text);
+    utter.rate = line.rate;
+    utter.pitch = line.pitch;
+    utter.volume = 1;
+    utter.lang = 'en-US';
+
+    // Try to assign different voices for alternating speakers
+    const voices = speechSynthesis.getVoices();
+    const femaleVoices = voices.filter(v => v.lang.startsWith('en') && (v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('woman') || v.name.includes('Samantha') || v.name.includes('Victoria') || v.name.includes('Karen') || v.name.includes('Moira') || v.name.includes('Fiona')));
+    const maleVoices = voices.filter(v => v.lang.startsWith('en') && (v.name.toLowerCase().includes('male') || v.name.toLowerCase().includes('man') || v.name.includes('Daniel') || v.name.includes('Alex') || v.name.includes('Fred') || v.name.includes('Tom')));
+    const enVoices = voices.filter(v => v.lang.startsWith('en'));
+
+    // Even index = receptionist (higher pitch), odd = guest (lower pitch)
+    if (index % 2 === 0) {
+      if (femaleVoices.length > 0) utter.voice = femaleVoices[0];
+      else if (enVoices.length > 0) utter.voice = enVoices[0];
+    } else {
+      if (maleVoices.length > 0) utter.voice = maleVoices[0];
+      else if (enVoices.length > 1) utter.voice = enVoices[1];
+      else if (enVoices.length > 0) utter.voice = enVoices[0];
+    }
+
+    const speaker = index % 2 === 0 ? '👩 Receptionist' : '🧑 Guest';
+    document.getElementById('audioStatus').textContent = speaker + ': "' + line.text.substring(0, 40) + (line.text.length > 40 ? '…' : '') + '"';
+
+    utter.onend = () => {
+      currentLine++;
+      setTimeout(() => speakLine(currentLine), 300);
+    };
+
+    utter.onerror = (e) => {
+      console.warn('TTS error:', e);
+      currentLine++;
+      speakLine(currentLine);
+    };
+
+    ttsUtterance = utter;
+    speechSynthesis.speak(utter);
+  }
+
+  function startTTSProgress() {
+    ttsStartTime = Date.now();
+    const fill = document.getElementById('audioFill');
+    clearInterval(ttsProgressInterval);
+    ttsProgressInterval = setInterval(() => {
+      const elapsed = Date.now() - ttsStartTime;
+      const pct = Math.min((elapsed / TTS_DURATION_MS) * 100, 99);
+      fill.style.width = pct + '%';
+    }, 500);
+  }
+
+  function toggleTTS() {
+    if (!('speechSynthesis' in window)) {
+      alert('Browser kamu tidak mendukung Text-to-Speech. Coba pakai Chrome atau Edge ya!');
+      return;
+    }
+
+    if (ttsPlaying) {
+      // Pause
+      speechSynthesis.pause();
+      ttsPlaying = false;
+      document.getElementById('playBtn').textContent = '▶️';
+      document.getElementById('audioStatus').textContent = '⏸ Dijeda...';
+      clearInterval(ttsProgressInterval);
+    } else {
+      // Resume or start
+      if (speechSynthesis.paused) {
+        speechSynthesis.resume();
+        ttsPlaying = true;
+        document.getElementById('playBtn').textContent = '⏸️';
+        startTTSProgress();
+      } else {
+        // Fresh start
+        speechSynthesis.cancel();
+        currentLine = 0;
+        ttsPlaying = true;
+        document.getElementById('playBtn').textContent = '⏸️';
+        document.getElementById('audioFill').style.width = '0%';
+        // Wait for voices to load
+        const voices = speechSynthesis.getVoices();
+        if (voices.length === 0) {
+          speechSynthesis.onvoiceschanged = () => { speakLine(0); startTTSProgress(); };
+        } else {
+          speakLine(0);
+          startTTSProgress();
+        }
+      }
+    }
+  }
+
+  function replayTTS() {
+    speechSynthesis.cancel();
+    ttsPlaying = false;
+    currentLine = 0;
+    clearInterval(ttsProgressInterval);
+    document.getElementById('audioFill').style.width = '0%';
+    document.getElementById('playBtn').textContent = '▶️';
+    document.getElementById('audioStatus').textContent = 'Tekan ▶ untuk memutar percakapan';
+  }
+</script>
+</body>
+</html>

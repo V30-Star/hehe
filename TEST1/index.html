@@ -1,961 +1,803 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>IELTS Test – For My Love 💙</title>
+  <title>IELTS Advanced Test – For My Love 💙</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
-    :root {
-      --ice: #e8f4fd;
-      --deep: #0a2540;
-      --blue: #1a6fad;
-      --light-blue: #5aabdd;
-      --accent: #ff6b9d;
-      --gold: #f5c842;
-      --bg: #f0f8ff;
-      --white: #ffffff;
-      --glass: rgba(255,255,255,0.72);
-      --shadow: 0 8px 40px rgba(10,37,64,0.13);
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background: var(--bg);
-      min-height: 100vh;
-      color: var(--deep);
-      overflow-x: hidden;
-    }
-
-    /* ─── BACKGROUND ─── */
-    body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 20% 10%, rgba(90,171,221,0.22) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 50% at 85% 90%, rgba(255,107,157,0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 70% 70% at 50% 50%, rgba(232,244,253,0.8) 0%, transparent 80%),
-        linear-gradient(160deg, #c9e8fa 0%, #f0f8ff 40%, #fce4f0 100%);
-      pointer-events: none;
-    }
-
-    /* ─── SNOWFLAKES ─── */
-    .snowflakes { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
-    .snowflake {
-      position: absolute;
-      top: -20px;
-      color: rgba(90,171,221,0.35);
-      font-size: 1.2rem;
-      animation: fall linear infinite;
-      user-select: none;
-    }
-    @keyframes fall {
-      to { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-    }
-
-    /* ─── LAYOUT ─── */
-    .wrapper {
-      position: relative; z-index: 2;
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 40px 20px 80px;
-    }
-
-    /* ─── HEADER ─── */
-    header {
-      text-align: center;
-      padding: 48px 32px 36px;
-      background: var(--glass);
-      backdrop-filter: blur(18px);
-      border-radius: 28px;
-      border: 1.5px solid rgba(255,255,255,0.9);
-      box-shadow: var(--shadow), 0 0 0 1px rgba(90,171,221,0.12);
-      margin-bottom: 36px;
-      animation: slideDown 0.7s cubic-bezier(.22,1,.36,1);
-    }
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .header-ice { font-size: 3.2rem; margin-bottom: 12px; display: block; animation: float 3s ease-in-out infinite; }
-    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-    header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      color: var(--deep);
-      line-height: 1.25;
-      margin-bottom: 10px;
-    }
-    header h1 em { color: var(--blue); font-style: italic; }
-    header p { color: #5a7a96; font-size: 0.97rem; font-weight: 300; }
-
-    /* ─── PROGRESS BAR ─── */
-    .progress-bar-wrap {
-      background: rgba(255,255,255,0.6);
-      border-radius: 99px;
-      height: 10px;
-      margin: 24px 0 0;
-      overflow: hidden;
-      border: 1px solid rgba(90,171,221,0.3);
-    }
-    .progress-bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--light-blue), var(--accent));
-      border-radius: 99px;
-      transition: width 0.6s cubic-bezier(.22,1,.36,1);
-    }
-    .progress-label { font-size: 0.82rem; color: #7a9bb5; margin-top: 8px; text-align: right; }
-
-    /* ─── SECTION TABS ─── */
-    .tabs {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 28px;
-      flex-wrap: wrap;
-    }
-    .tab-btn {
-      flex: 1; min-width: 130px;
-      padding: 14px 20px;
-      border: 2px solid rgba(90,171,221,0.3);
-      border-radius: 16px;
-      background: var(--glass);
-      backdrop-filter: blur(12px);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: #5a7a96;
-      cursor: pointer;
-      transition: all 0.25s;
-      text-align: center;
-    }
-    .tab-btn .tab-icon { display: block; font-size: 1.5rem; margin-bottom: 4px; }
-    .tab-btn:hover { border-color: var(--light-blue); color: var(--blue); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(26,111,173,0.12); }
-    .tab-btn.active { border-color: var(--blue); background: var(--blue); color: white; box-shadow: 0 6px 24px rgba(26,111,173,0.28); transform: translateY(-2px); }
-    .tab-btn.done { border-color: #42c98a; background: rgba(66,201,138,0.08); color: #2a9e6c; }
-    .tab-btn.done::after { content: ' ✓'; }
-
-    /* ─── SECTION CARD ─── */
-    .section-card {
-      display: none;
-      background: var(--glass);
-      backdrop-filter: blur(18px);
-      border-radius: 24px;
-      border: 1.5px solid rgba(255,255,255,0.9);
-      box-shadow: var(--shadow);
-      padding: 40px 36px;
-      animation: fadeUp 0.4s cubic-bezier(.22,1,.36,1);
-    }
-    .section-card.active { display: block; }
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .section-header {
-      display: flex; align-items: center; gap: 16px;
-      margin-bottom: 28px;
-      padding-bottom: 20px;
-      border-bottom: 1.5px solid rgba(90,171,221,0.18);
-    }
-    .section-icon-big { font-size: 2.6rem; }
-    .section-header h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.6rem;
-      color: var(--deep);
-    }
-    .section-header p { font-size: 0.88rem; color: #6a8aaa; margin-top: 4px; }
-
-    /* ─── PASSAGE ─── */
-    .passage {
-      background: rgba(232,244,253,0.55);
-      border-left: 4px solid var(--light-blue);
-      border-radius: 12px;
-      padding: 20px 22px;
-      margin-bottom: 28px;
-      font-size: 0.95rem;
-      line-height: 1.75;
-      color: #2a3d50;
-    }
-    .passage strong { color: var(--blue); }
-
-    /* ─── AUDIO PLAYER MOCK ─── */
-    .audio-player {
-      background: linear-gradient(135deg, var(--deep) 0%, #1a3a5c 100%);
-      border-radius: 16px;
-      padding: 22px 26px;
-      margin-bottom: 28px;
-      display: flex; align-items: center; gap: 18px;
-      color: white;
-      box-shadow: 0 8px 30px rgba(10,37,64,0.22);
-    }
-    .play-btn {
-      width: 52px; height: 52px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--light-blue), var(--blue));
-      border: none; cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem;
-      flex-shrink: 0;
-      box-shadow: 0 4px 16px rgba(90,171,221,0.4);
-      transition: transform 0.2s;
-    }
-    .play-btn:hover { transform: scale(1.08); }
-    .audio-info { flex: 1; }
-    .audio-title { font-size: 0.9rem; font-weight: 500; margin-bottom: 8px; }
-    .audio-bar { height: 4px; background: rgba(255,255,255,0.2); border-radius: 99px; overflow: hidden; }
-    .audio-fill { width: 35%; height: 100%; background: linear-gradient(90deg, var(--light-blue), var(--accent)); border-radius: 99px; }
-    .audio-time { font-size: 0.78rem; opacity: 0.6; margin-top: 6px; }
-
-    /* ─── QUESTIONS ─── */
-    .questions { display: flex; flex-direction: column; gap: 22px; }
-    .question {
-      background: rgba(255,255,255,0.7);
-      border-radius: 16px;
-      padding: 22px 24px;
-      border: 1.5px solid rgba(200,225,245,0.6);
-      transition: box-shadow 0.2s;
-    }
-    .question:hover { box-shadow: 0 4px 20px rgba(26,111,173,0.08); }
-    .q-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--light-blue);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-    .q-text {
-      font-size: 0.97rem;
-      color: var(--deep);
-      font-weight: 400;
-      line-height: 1.55;
-      margin-bottom: 14px;
-    }
-    .options { display: flex; flex-direction: column; gap: 9px; }
-    .option-label {
-      display: flex; align-items: center; gap: 12px;
-      padding: 11px 16px;
-      border-radius: 10px;
-      border: 1.5px solid rgba(200,225,245,0.7);
-      cursor: pointer;
-      transition: all 0.2s;
-      font-size: 0.93rem;
-      color: #3a5068;
-      background: rgba(255,255,255,0.6);
-    }
-    .option-label:hover { border-color: var(--light-blue); background: rgba(90,171,221,0.08); }
-    .option-label input[type=radio] { accent-color: var(--blue); width: 16px; height: 16px; flex-shrink: 0; }
-    .option-label.selected { border-color: var(--blue); background: rgba(26,111,173,0.07); color: var(--blue); font-weight: 500; }
-    .option-label.correct { border-color: #42c98a; background: rgba(66,201,138,0.1); color: #1e8a5a; }
-    .option-label.wrong { border-color: #f04f5f; background: rgba(240,79,95,0.08); color: #c0334a; }
-
-    /* text input */
-    .text-input, textarea {
-      width: 100%;
-      padding: 12px 16px;
-      border-radius: 12px;
-      border: 1.5px solid rgba(200,225,245,0.8);
-      background: rgba(255,255,255,0.8);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.95rem;
-      color: var(--deep);
-      transition: border-color 0.2s, box-shadow 0.2s;
-      outline: none;
-      resize: vertical;
-    }
-    .text-input:focus, textarea:focus {
-      border-color: var(--light-blue);
-      box-shadow: 0 0 0 3px rgba(90,171,221,0.15);
-    }
-    textarea { min-height: 160px; line-height: 1.65; }
-    .word-count { font-size: 0.8rem; color: #8aacbe; text-align: right; margin-top: 6px; }
-
-    /* ─── BUTTONS ─── */
-    .btn-row { display: flex; gap: 14px; margin-top: 32px; justify-content: flex-end; flex-wrap: wrap; }
-    .btn {
-      padding: 13px 30px;
-      border-radius: 50px;
-      border: none;
-      cursor: pointer;
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 500;
-      transition: all 0.25s;
-    }
-    .btn-primary {
-      background: linear-gradient(135deg, var(--blue), #0e5a9a);
-      color: white;
-      box-shadow: 0 6px 20px rgba(26,111,173,0.3);
-    }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(26,111,173,0.38); }
-    .btn-secondary {
-      background: rgba(255,255,255,0.8);
-      color: var(--blue);
-      border: 1.5px solid rgba(90,171,221,0.4);
-    }
-    .btn-secondary:hover { border-color: var(--blue); background: rgba(90,171,221,0.08); }
-    .btn-submit {
-      background: linear-gradient(135deg, var(--accent), #e0547a);
-      color: white;
-      box-shadow: 0 6px 20px rgba(255,107,157,0.3);
-    }
-    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(255,107,157,0.4); }
-
-    /* ─── SCORE / RESULT ─── */
-    .result-card {
-      display: none;
-      text-align: center;
-      padding: 56px 40px;
-      background: var(--glass);
-      backdrop-filter: blur(18px);
-      border-radius: 28px;
-      border: 1.5px solid rgba(255,255,255,0.9);
-      box-shadow: var(--shadow);
-      animation: fadeUp 0.5s cubic-bezier(.22,1,.36,1);
-    }
-    .result-card.show { display: block; }
-    .result-emoji { font-size: 4rem; margin-bottom: 16px; display: block; animation: pop 0.6s cubic-bezier(.22,1,.36,1); }
-    @keyframes pop { from{transform:scale(0)} to{transform:scale(1)} }
-    .result-card h2 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 12px; }
-    .result-card p { color: #5a7a96; font-size: 1rem; line-height: 1.7; max-width: 500px; margin: 0 auto 28px; }
-    .score-chips { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; margin-bottom: 28px; }
-    .score-chip {
-      padding: 12px 24px;
-      border-radius: 50px;
-      font-weight: 500;
-      font-size: 0.9rem;
-    }
-    .chip-l { background: rgba(90,171,221,0.15); color: var(--blue); }
-    .chip-r { background: rgba(66,201,138,0.12); color: #2a9e6c; }
-    .chip-w { background: rgba(255,107,157,0.12); color: #c0335c; }
-
-    /* ─── TIMER ─── */
-    .timer-badge {
-      position: fixed; top: 20px; right: 20px; z-index: 999;
-      background: var(--glass);
-      backdrop-filter: blur(14px);
-      border: 1.5px solid rgba(255,255,255,0.85);
-      border-radius: 50px;
-      padding: 10px 20px;
-      font-size: 0.92rem;
-      font-weight: 500;
-      color: var(--deep);
-      box-shadow: var(--shadow);
-      display: flex; align-items: center; gap: 8px;
-    }
-    .timer-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: blink 1s infinite; }
-    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-
-    @media(max-width:600px){
-      .section-card { padding: 28px 20px; }
-      .tabs { gap: 8px; }
-      .tab-btn { min-width: 100px; padding: 11px 12px; font-size: 0.85rem; }
-    }
+    :root{--deep:#0a2540;--blue:#1a6fad;--lb:#5aabdd;--acc:#ff6b9d;--bg:#f0f8ff;--glass:rgba(255,255,255,0.72);--sh:0 8px 40px rgba(10,37,64,0.13);}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);min-height:100vh;color:var(--deep);overflow-x:hidden;}
+    body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(ellipse 80% 60% at 20% 10%,rgba(90,171,221,0.22) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 85% 90%,rgba(255,107,157,0.12) 0%,transparent 60%),linear-gradient(160deg,#c9e8fa 0%,#f0f8ff 40%,#fce4f0 100%);}
+    .snowflakes{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;overflow:hidden;}
+    .snowflake{position:absolute;top:-20px;color:rgba(90,171,221,0.35);animation:fall linear infinite;user-select:none;}
+    @keyframes fall{to{transform:translateY(110vh) rotate(360deg);opacity:0;}}
+    .wrapper{position:relative;z-index:2;max-width:900px;margin:0 auto;padding:40px 20px 80px;}
+    header{text-align:center;padding:38px 32px 28px;background:var(--glass);backdrop-filter:blur(18px);border-radius:28px;border:1.5px solid rgba(255,255,255,0.9);box-shadow:var(--sh);margin-bottom:28px;animation:slideDown 0.7s cubic-bezier(.22,1,.36,1);}
+    @keyframes slideDown{from{opacity:0;transform:translateY(-30px)}to{opacity:1;transform:translateY(0)}}
+    .hice{font-size:3rem;margin-bottom:10px;display:block;animation:float 3s ease-in-out infinite;}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+    header h1{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,4vw,2.2rem);line-height:1.25;margin-bottom:8px;}
+    header h1 em{color:var(--blue);font-style:italic;}
+    header p{color:#5a7a96;font-size:0.93rem;}
+    .badge{display:inline-block;background:linear-gradient(135deg,var(--blue),#0e5a9a);color:white;font-size:0.78rem;padding:4px 14px;border-radius:20px;margin-top:10px;font-weight:500;}
+    .pbw{background:rgba(255,255,255,0.6);border-radius:99px;height:10px;margin:20px 0 0;overflow:hidden;border:1px solid rgba(90,171,221,0.3);}
+    .pb{height:100%;width:0%;background:linear-gradient(90deg,var(--lb),var(--acc));border-radius:99px;transition:width 0.6s;}
+    .plbl{font-size:0.8rem;color:#7a9bb5;margin-top:6px;text-align:right;}
+    .tabs{display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap;}
+    .tab-btn{flex:1;min-width:120px;padding:12px 16px;border:2px solid rgba(90,171,221,0.3);border-radius:14px;background:var(--glass);backdrop-filter:blur(12px);font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:500;color:#5a7a96;cursor:pointer;transition:all 0.25s;text-align:center;}
+    .tab-btn .ti{display:block;font-size:1.4rem;margin-bottom:3px;}
+    .tab-btn:hover{border-color:var(--lb);color:var(--blue);transform:translateY(-2px);}
+    .tab-btn.active{border-color:var(--blue);background:var(--blue);color:white;box-shadow:0 6px 24px rgba(26,111,173,0.28);transform:translateY(-2px);}
+    .tab-btn.done{border-color:#42c98a;background:rgba(66,201,138,0.08);color:#2a9e6c;}
+    .sc{display:none;background:var(--glass);backdrop-filter:blur(18px);border-radius:24px;border:1.5px solid rgba(255,255,255,0.9);box-shadow:var(--sh);padding:34px 30px;animation:fadeUp 0.4s cubic-bezier(.22,1,.36,1);}
+    .sc.active{display:block;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .sh{display:flex;align-items:center;gap:14px;margin-bottom:22px;padding-bottom:16px;border-bottom:1.5px solid rgba(90,171,221,0.18);}
+    .sib{font-size:2.4rem;}
+    .sh h2{font-family:'Playfair Display',serif;font-size:1.5rem;}
+    .sh p{font-size:0.85rem;color:#6a8aaa;margin-top:3px;}
+    .ph{background:linear-gradient(135deg,rgba(26,111,173,0.08),rgba(90,171,221,0.05));border-left:4px solid var(--blue);border-radius:0 12px 12px 0;padding:14px 18px;margin:26px 0 16px;}
+    .ph h3{font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:3px;}
+    .ph p{font-size:0.83rem;color:#5a7a96;}
+    .passage{background:rgba(232,244,253,0.5);border-left:4px solid var(--lb);border-radius:12px;padding:20px 22px;margin-bottom:22px;font-size:0.93rem;line-height:1.82;color:#2a3d50;}
+    .passage h4{font-family:'Playfair Display',serif;font-size:1.05rem;margin-bottom:10px;}
+    .passage p{margin-bottom:11px;}
+    .passage p:last-child{margin-bottom:0;}
+    .an{background:rgba(245,200,66,0.12);border:1.5px solid rgba(245,200,66,0.4);border-radius:12px;padding:11px 16px;margin-bottom:12px;font-size:0.83rem;color:#7a6010;display:flex;align-items:center;gap:8px;}
+    .ap{background:linear-gradient(135deg,var(--deep),#1a3a5c);border-radius:16px;padding:18px 22px;margin-bottom:22px;display:flex;align-items:center;gap:16px;color:white;box-shadow:0 8px 30px rgba(10,37,64,0.22);}
+    .pb2{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--lb),var(--blue));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;box-shadow:0 4px 16px rgba(90,171,221,0.4);transition:transform 0.2s;}
+    .pb2:hover{transform:scale(1.08);}
+    .ai{flex:1;}
+    .at{font-size:0.88rem;font-weight:500;margin-bottom:8px;}
+    .ab{height:4px;background:rgba(255,255,255,0.2);border-radius:99px;overflow:hidden;}
+    .af{width:0%;height:100%;background:linear-gradient(90deg,var(--lb),var(--acc));border-radius:99px;transition:width 0.3s;}
+    .am{display:flex;justify-content:space-between;align-items:center;margin-top:6px;}
+    .as{font-size:0.75rem;opacity:0.7;}
+    .rb{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:20px;color:white;font-size:0.72rem;padding:3px 10px;cursor:pointer;}
+    .qs{display:flex;flex-direction:column;gap:16px;}
+    .q{background:rgba(255,255,255,0.7);border-radius:14px;padding:18px 20px;border:1.5px solid rgba(200,225,245,0.6);transition:box-shadow 0.2s;}
+    .q:hover{box-shadow:0 4px 20px rgba(26,111,173,0.08);}
+    .ql{font-size:0.73rem;font-weight:600;color:var(--lb);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:5px;}
+    .qt{font-size:0.93rem;color:var(--deep);line-height:1.55;margin-bottom:11px;}
+    .qt strong{color:var(--blue);}
+    .opts{display:flex;flex-direction:column;gap:7px;}
+    .ol{display:flex;align-items:flex-start;gap:10px;padding:9px 13px;border-radius:10px;border:1.5px solid rgba(200,225,245,0.7);cursor:pointer;transition:all 0.2s;font-size:0.89rem;color:#3a5068;background:rgba(255,255,255,0.6);line-height:1.45;}
+    .ol:hover{border-color:var(--lb);background:rgba(90,171,221,0.08);}
+    .ol input[type=radio]{accent-color:var(--blue);width:15px;height:15px;flex-shrink:0;margin-top:2px;}
+    .ol.sel{border-color:var(--blue);background:rgba(26,111,173,0.07);color:var(--blue);font-weight:500;}
+    .ol.cor{border-color:#42c98a!important;background:rgba(66,201,138,0.1)!important;color:#1e8a5a!important;}
+    .ol.wrg{border-color:#f04f5f!important;background:rgba(240,79,95,0.08)!important;color:#c0334a!important;}
+    .ti2,.ta{width:100%;padding:10px 13px;border-radius:10px;border:1.5px solid rgba(200,225,245,0.8);background:rgba(255,255,255,0.8);font-family:'DM Sans',sans-serif;font-size:0.92rem;color:var(--deep);transition:border-color 0.2s,box-shadow 0.2s;outline:none;resize:vertical;}
+    .ti2:focus,.ta:focus{border-color:var(--lb);box-shadow:0 0 0 3px rgba(90,171,221,0.15);}
+    .ta{min-height:180px;line-height:1.7;}
+    .wc{font-size:0.78rem;color:#8aacbe;text-align:right;margin-top:5px;}
+    .ms{width:100%;margin-top:7px;padding:7px 10px;border-radius:8px;border:1.5px solid rgba(200,225,245,0.8);background:rgba(255,255,255,0.9);font-family:'DM Sans',sans-serif;font-size:0.87rem;color:var(--deep);outline:none;cursor:pointer;}
+    .ms:focus{border-color:var(--lb);}
+    .ms.cor{border-color:#42c98a!important;background:rgba(66,201,138,0.08)!important;}
+    .ms.wrg{border-color:#f04f5f!important;background:rgba(240,79,95,0.06)!important;}
+    .bi{display:inline-block;width:130px;padding:3px 8px;border-radius:6px;border:1.5px solid rgba(90,171,221,0.5);background:rgba(255,255,255,0.9);font-family:'DM Sans',sans-serif;font-size:0.88rem;color:var(--deep);outline:none;vertical-align:middle;margin:0 3px;}
+    .bi:focus{border-color:var(--blue);box-shadow:0 0 0 2px rgba(90,171,221,0.15);}
+    .bi.cor{border-color:#42c98a!important;background:rgba(66,201,138,0.08)!important;}
+    .bi.wrg{border-color:#f04f5f!important;background:rgba(240,79,95,0.06)!important;}
+    .tfng{display:flex;gap:8px;flex-wrap:wrap;}
+    .tb{padding:7px 16px;border-radius:20px;border:1.5px solid rgba(200,225,245,0.8);background:rgba(255,255,255,0.7);font-family:'DM Sans',sans-serif;font-size:0.84rem;font-weight:500;color:#5a7a96;cursor:pointer;transition:all 0.2s;}
+    .tb:hover{border-color:var(--lb);}
+    .tb.sel{border-color:var(--blue);background:var(--blue);color:white;}
+    .tb.cor{border-color:#42c98a!important;background:#42c98a!important;color:white!important;}
+    .tb.wrg{border-color:#f04f5f!important;background:#f04f5f!important;color:white!important;}
+    .br{display:flex;gap:12px;margin-top:26px;justify-content:flex-end;flex-wrap:wrap;}
+    .btn{padding:11px 26px;border-radius:50px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:0.92rem;font-weight:500;transition:all 0.25s;}
+    .btp{background:linear-gradient(135deg,var(--blue),#0e5a9a);color:white;box-shadow:0 6px 20px rgba(26,111,173,0.3);}
+    .btp:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(26,111,173,0.38);}
+    .bts{background:rgba(255,255,255,0.8);color:var(--blue);border:1.5px solid rgba(90,171,221,0.4);}
+    .bts:hover{border-color:var(--blue);}
+    .btsub{background:linear-gradient(135deg,var(--acc),#e0547a);color:white;box-shadow:0 6px 20px rgba(255,107,157,0.3);}
+    .btsub:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(255,107,157,0.4);}
+    .rc{display:none;text-align:center;padding:52px 36px;background:var(--glass);backdrop-filter:blur(18px);border-radius:28px;border:1.5px solid rgba(255,255,255,0.9);box-shadow:var(--sh);animation:fadeUp 0.5s cubic-bezier(.22,1,.36,1);}
+    .rc.show{display:block;}
+    .re{font-size:4rem;margin-bottom:14px;display:block;animation:pop 0.6s cubic-bezier(.22,1,.36,1);}
+    @keyframes pop{from{transform:scale(0)}to{transform:scale(1)}}
+    .rc h2{font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:10px;}
+    .rc>p{color:#5a7a96;font-size:0.97rem;line-height:1.7;max-width:500px;margin:0 auto 24px;}
+    .sg{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px;}
+    .sb{border-radius:16px;padding:16px 12px;}
+    .sn{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;margin-bottom:4px;}
+    .sl{font-size:0.8rem;opacity:0.75;}
+    .scl{background:rgba(90,171,221,0.12);color:var(--blue);}
+    .scr{background:rgba(66,201,138,0.12);color:#2a9e6c;}
+    .scw{background:rgba(255,107,157,0.12);color:#c0335c;}
+    .bb{display:inline-block;padding:9px 26px;border-radius:50px;background:linear-gradient(135deg,var(--blue),var(--acc));color:white;font-size:0.97rem;font-weight:600;margin-bottom:18px;}
+    .rm{font-style:italic;color:#e87aa0;font-family:'Playfair Display',serif;font-size:1.03rem;margin-bottom:22px;}
+    .tbg{position:fixed;top:20px;right:20px;z-index:999;background:var(--glass);backdrop-filter:blur(14px);border:1.5px solid rgba(255,255,255,0.85);border-radius:50px;padding:9px 17px;font-size:0.9rem;font-weight:500;color:var(--deep);box-shadow:var(--sh);display:flex;align-items:center;gap:8px;}
+    .td{width:8px;height:8px;border-radius:50%;background:var(--acc);animation:blink 1s infinite;}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+    .tbg.warn{border-color:rgba(240,79,95,0.5);}
+    .tbg.warn .td{background:#f04f5f;}
+    .tip{background:rgba(245,200,66,0.1);border-radius:10px;padding:11px 15px;margin-bottom:13px;font-size:0.84rem;color:#7a6010;}
+    .box{background:rgba(232,244,253,0.5);border-radius:10px;padding:11px 15px;margin:10px 0;font-size:0.86rem;}
+    @media(max-width:640px){.sc{padding:20px 14px;}.tabs{gap:6px;}.tab-btn{min-width:88px;padding:9px 8px;font-size:0.8rem;}.sg{grid-template-columns:1fr;}}
   </style>
 </head>
 <body>
-
-<!-- Snowflakes -->
 <div class="snowflakes" id="snowflakes"></div>
-
-<!-- Timer -->
-<div class="timer-badge">
-  <span class="timer-dot"></span>
-  <span id="timerDisplay">60:00</span>
-</div>
-
+<div class="tbg" id="tbg"><span class="td"></span><span id="td2">160:00</span></div>
 <div class="wrapper">
 
-  <!-- Header -->
-  <header>
-    <span class="header-ice">🧊</span>
-    <h1>IELTS Practice Test<br><em>— For My Love, Ayang 💙 —</em></h1>
-    <p>Listening · Reading · Writing &nbsp;|&nbsp; Do your best, I believe in you! ❤️</p>
-    <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
-    <div class="progress-label" id="progressLabel">0% completed</div>
-  </header>
+<header>
+  <span class="hice">🧊</span>
+  <h1>IELTS Practice Test<br><em>— For My Love, Ayang 💙 —</em></h1>
+  <p>Listening · Reading · Writing &nbsp;|&nbsp; Band 7.5 Advanced Level</p>
+  <span class="badge">🎯 Full 40 Questions per Section</span>
+  <div class="pbw"><div class="pb" id="pb"></div></div>
+  <div class="plbl" id="plbl">0% completed</div>
+</header>
 
-  <!-- Tabs -->
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchSection('listening')" id="tab-listening">
-      <span class="tab-icon">🎧</span>Listening
-    </button>
-    <button class="tab-btn" onclick="switchSection('reading')" id="tab-reading">
-      <span class="tab-icon">📖</span>Reading
-    </button>
-    <button class="tab-btn" onclick="switchSection('writing')" id="tab-writing">
-      <span class="tab-icon">✍️</span>Writing
-    </button>
-  </div>
-
-  <!-- ══ LISTENING ══ -->
-  <div class="section-card active" id="sec-listening">
-    <div class="section-header">
-      <span class="section-icon-big">🎧</span>
-      <div>
-        <h2>Listening Test</h2>
-        <p>Part 1 – 5 Questions &nbsp;|&nbsp; Play the audio and answer carefully.</p>
-      </div>
-    </div>
-
-    <!-- TTS Notice -->
-    <div style="background:rgba(245,200,66,0.12);border:1.5px solid rgba(245,200,66,0.4);border-radius:12px;padding:12px 16px;margin-bottom:14px;font-size:0.85rem;color:#7a6010;display:flex;align-items:center;gap:10px;">
-      <span>💡</span>
-      <span>Audio ini menggunakan <strong>Text-to-Speech</strong> dari browser. Pastikan volume perangkat kamu sudah menyala!</span>
-    </div>
-
-    <div class="audio-player">
-      <button class="play-btn" id="playBtn" onclick="toggleTTS()" title="Play audio">▶️</button>
-      <div class="audio-info">
-        <div class="audio-title">Recording 1 – Conversation at a Hotel Reception</div>
-        <div class="audio-bar"><div class="audio-fill" id="audioFill" style="width:0%"></div></div>
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;">
-          <div class="audio-time" id="audioStatus">Tekan ▶ untuk memutar percakapan</div>
-          <button onclick="replayTTS()" style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);border-radius:20px;color:white;font-size:0.75rem;padding:4px 12px;cursor:pointer;">🔄 Replay</button>
-        </div>
-      </div>
-      <span style="font-size:1.3rem;opacity:0.7">🔊</span>
-    </div>
-
-    <!-- Script transcript (hidden, for TTS) -->
-    <div id="ttsScript" style="display:none;">
-      Receptionist: Good afternoon! Welcome to the Grand Lake Hotel. How can I help you?
-      Guest: Hi, good afternoon. I have a reservation. The name is Emma Williams.
-      Receptionist: Let me check that for you... Yes, here we are! Emma Williams. You're booked in for three nights, is that correct?
-      Guest: That's right, three nights.
-      Receptionist: Wonderful. Now I see here that you originally requested a twin room, but unfortunately we had a small issue with that room's air conditioning. We'd like to upgrade you to a double room at no extra charge. Is that alright?
-      Guest: Oh, that's perfectly fine, thank you!
-      Receptionist: Great! So, just a few things to let you know. Breakfast is served in the dining room on the ground floor. It starts at seven thirty in the morning and runs until ten.
-      Guest: Perfect, that works for me.
-      Receptionist: And here is your room key card. Oh, and the Wi-Fi password is HotelLake2024. That's capital H, capital L, Hotel Lake 2024.
-      Guest: Hotel Lake 2024, got it. Thank you so much!
-      Receptionist: You're very welcome. Enjoy your stay, Miss Williams!
-    </div>
-
-    <div class="questions" id="q-listening">
-
-      <div class="question">
-        <div class="q-label">Question 1</div>
-        <div class="q-text">What is the name of the guest checking in?</div>
-        <div class="options">
-          <label class="option-label"><input type="radio" name="l1" value="A"> Sarah Johnson</label>
-          <label class="option-label"><input type="radio" name="l1" value="B"> Emma Williams</label>
-          <label class="option-label"><input type="radio" name="l1" value="C"> Laura Thompson</label>
-          <label class="option-label"><input type="radio" name="l1" value="D"> Claire Henderson</label>
-        </div>
-      </div>
-
-      <div class="question">
-        <div class="q-label">Question 2</div>
-        <div class="q-text">For how many nights will the guest be staying?</div>
-        <div class="options">
-          <label class="option-label"><input type="radio" name="l2" value="A"> Two nights</label>
-          <label class="option-label"><input type="radio" name="l2" value="B"> Three nights</label>
-          <label class="option-label"><input type="radio" name="l2" value="C"> Four nights</label>
-          <label class="option-label"><input type="radio" name="l2" value="D"> Five nights</label>
-        </div>
-      </div>
-
-      <div class="question">
-        <div class="q-label">Question 3</div>
-        <div class="q-text">What type of room did the guest originally request?</div>
-        <div class="options">
-          <label class="option-label"><input type="radio" name="l3" value="A"> Single room</label>
-          <label class="option-label"><input type="radio" name="l3" value="B"> Double room</label>
-          <label class="option-label"><input type="radio" name="l3" value="C"> Twin room</label>
-          <label class="option-label"><input type="radio" name="l3" value="D"> Suite</label>
-        </div>
-      </div>
-
-      <div class="question">
-        <div class="q-label">Question 4</div>
-        <div class="q-text">What time does breakfast start at the hotel?</div>
-        <div class="options">
-          <label class="option-label"><input type="radio" name="l4" value="A"> 6:30 AM</label>
-          <label class="option-label"><input type="radio" name="l4" value="B"> 7:00 AM</label>
-          <label class="option-label"><input type="radio" name="l4" value="C"> 7:30 AM</label>
-          <label class="option-label"><input type="radio" name="l4" value="D"> 8:00 AM</label>
-        </div>
-      </div>
-
-      <div class="question">
-        <div class="q-label">Question 5</div>
-        <div class="q-text">What is the Wi-Fi password given to the guest?</div>
-        <input type="text" class="text-input" placeholder="Type your answer here..." name="l5" oninput="updateProgress()"/>
-      </div>
-
-    </div>
-
-    <div class="btn-row">
-      <button class="btn btn-primary" onclick="submitSection('listening')">Submit Listening ➜</button>
-    </div>
-  </div>
-
-  <!-- ══ READING ══ -->
-  <div class="section-card" id="sec-reading">
-    <div class="section-header">
-      <span class="section-icon-big">📖</span>
-      <div>
-        <h2>Reading Test</h2>
-        <p>Passage 1 – 5 Questions &nbsp;|&nbsp; Read carefully before answering.</p>
-      </div>
-    </div>
-
-    <div class="passage">
-      <strong>The Science of Sleep</strong><br><br>
-      Sleep is one of the most essential biological processes for human health. During sleep, the body undergoes a series of restorative activities including muscle repair, memory consolidation, and the release of hormones that regulate growth and appetite. Despite its importance, sleep is often undervalued in modern society.<br><br>
-      The National Sleep Foundation recommends that adults aged 18–64 get between <strong>seven and nine hours</strong> of sleep per night. However, studies indicate that approximately <strong>35% of adults</strong> in developed nations report getting fewer than seven hours on a regular basis. This chronic sleep deprivation has been linked to increased risks of cardiovascular disease, obesity, diabetes, and even reduced immune function.<br><br>
-      Interestingly, the quality of sleep matters as much as the quantity. Sleep occurs in cycles, each lasting about <strong>90 minutes</strong>, and includes stages of light sleep, deep sleep (slow-wave sleep), and REM (rapid eye movement) sleep. REM sleep is particularly associated with dreaming and emotional processing. Disruption to these cycles — whether from noise, light, or irregular schedules — can impair cognitive performance even if total sleep duration appears sufficient.
-    </div>
-
-    <div class="questions" id="q-reading">
-
-      <div class="question">
-        <div class="q-label">Question 1</div>
-        <div class="q-text">How many hours of sleep does the National Sleep Foundation recommend for most adults?</div>
-        <div class="options">
-          <label class="option-label"><input type="radio" name="r1" value="A"> 6–8 hours</label>
-          <label class="option-label"><input type="radio" name="r1" value="B"> 7–9 hours</label>
-          <label class="option-label"><input type="radio" name="r1" value="C"> 8–10 hours</label>
-          <label class="option-label"><input type="radio" name="r1" value="D"> 5–7 hours</label>
-        </div>
-      </div>
-
-      <div class="question">
-        <div class="q-label">Question 2</div>
-        <div class="q-text">What percentage of adults in developed nations regularly sleep fewer than seven hours?</div>
-        <div class="options">
-          <label class="option-label"><input type="radio" name="r2" value="A"> 25%</label>
-          <label class="option-label"><input type="radio" name="r2" value="B"> 30%</label>
-          <label class="option-label"><input type="radio" name="r2" value="C"> 35%</label>
-          <label class="option-label"><input type="radio" name="r2" value="D"> 40%</label>
-        </div>
-      </div>
-
-      <div class="question">
-        <div class="q-label">Question 3</div>
-        <div class="q-text">How long does one sleep cycle typically last?</div>
-        <div class="options">
-          <label class="option-label"><input type="radio" name="r3" value="A"> 60 minutes</label>
-          <label class="option-label"><input type="radio" name="r3" value="B"> 75 minutes</label>
-          <label class="option-label"><input type="radio" name="r3" value="C"> 90 minutes</label>
-          <label class="option-label"><input type="radio" name="r3" value="D"> 120 minutes</label>
-        </div>
-      </div>
-
-      <div class="question">
-        <div class="q-label">Question 4</div>
-        <div class="q-text">Which sleep stage is most associated with dreaming and emotional processing?</div>
-        <div class="options">
-          <label class="option-label"><input type="radio" name="r4" value="A"> Light sleep</label>
-          <label class="option-label"><input type="radio" name="r4" value="B"> Deep sleep</label>
-          <label class="option-label"><input type="radio" name="r4" value="C"> Slow-wave sleep</label>
-          <label class="option-label"><input type="radio" name="r4" value="D"> REM sleep</label>
-        </div>
-      </div>
-
-      <div class="question">
-        <div class="q-label">Question 5</div>
-        <div class="q-text">According to the passage, which of the following is NOT mentioned as a consequence of chronic sleep deprivation?</div>
-        <div class="options">
-          <label class="option-label"><input type="radio" name="r5" value="A"> Cardiovascular disease</label>
-          <label class="option-label"><input type="radio" name="r5" value="B"> Depression</label>
-          <label class="option-label"><input type="radio" name="r5" value="C"> Obesity</label>
-          <label class="option-label"><input type="radio" name="r5" value="D"> Reduced immune function</label>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="btn-row">
-      <button class="btn btn-secondary" onclick="switchSection('listening')">← Back</button>
-      <button class="btn btn-primary" onclick="submitSection('reading')">Submit Reading ➜</button>
-    </div>
-  </div>
-
-  <!-- ══ WRITING ══ -->
-  <div class="section-card" id="sec-writing">
-    <div class="section-header">
-      <span class="section-icon-big">✍️</span>
-      <div>
-        <h2>Writing Test</h2>
-        <p>Task 1 + Task 2 &nbsp;|&nbsp; Express your ideas clearly.</p>
-      </div>
-    </div>
-
-    <!-- Task 1 -->
-    <div class="question" style="margin-bottom:20px;">
-      <div class="q-label">Writing Task 1 — Describe a Chart</div>
-      <div class="q-text" style="margin-bottom:14px;">
-        The chart below shows the percentage of people using the internet in four countries between 2000 and 2020. 
-        <strong>Summarize the information</strong> by selecting and reporting the main features, and make comparisons where relevant. Write at least <strong>150 words</strong>.
-      </div>
-      <!-- Simple SVG chart -->
-      <svg viewBox="0 0 420 180" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:420px;border-radius:12px;background:rgba(232,244,253,0.4);padding:12px;margin-bottom:14px;">
-        <text x="10" y="18" font-size="9" fill="#6a8aaa" font-family="DM Sans">Internet Users (%) — 2000–2020</text>
-        <!-- Grid lines -->
-        <line x1="50" y1="25" x2="400" y2="25" stroke="#cce" stroke-width="0.5"/>
-        <line x1="50" y1="60" x2="400" y2="60" stroke="#cce" stroke-width="0.5"/>
-        <line x1="50" y1="95" x2="400" y2="95" stroke="#cce" stroke-width="0.5"/>
-        <line x1="50" y1="130" x2="400" y2="130" stroke="#cce" stroke-width="0.5"/>
-        <line x1="50" y1="165" x2="400" y2="165" stroke="#cce" stroke-width="0.5"/>
-        <!-- Y labels -->
-        <text x="5" y="28" font-size="7.5" fill="#8aacbe">100%</text>
-        <text x="12" y="63" font-size="7.5" fill="#8aacbe">75%</text>
-        <text x="12" y="98" font-size="7.5" fill="#8aacbe">50%</text>
-        <text x="12" y="133" font-size="7.5" fill="#8aacbe">25%</text>
-        <text x="18" y="168" font-size="7.5" fill="#8aacbe">0%</text>
-        <!-- X labels -->
-        <text x="46" y="175" font-size="7.5" fill="#8aacbe">2000</text>
-        <text x="155" y="175" font-size="7.5" fill="#8aacbe">2005</text>
-        <text x="262" y="175" font-size="7.5" fill="#8aacbe">2010</text>
-        <text x="368" y="175" font-size="7.5" fill="#8aacbe">2020</text>
-        <!-- Lines: Country A -->
-        <polyline points="50,150 165,120 280,70 410,28" fill="none" stroke="#1a6fad" stroke-width="2.5" stroke-linecap="round"/>
-        <!-- Country B -->
-        <polyline points="50,160 165,140 280,110 410,65" fill="none" stroke="#5aabdd" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="6,3"/>
-        <!-- Country C -->
-        <polyline points="50,162 165,155 280,135 410,100" fill="none" stroke="#ff6b9d" stroke-width="2.5" stroke-linecap="round"/>
-        <!-- Country D -->
-        <polyline points="50,163 165,162 280,155 410,138" fill="none" stroke="#f5c842" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="3,3"/>
-        <!-- Legend -->
-        <rect x="52" y="32" width="10" height="3" fill="#1a6fad" rx="1"/>
-        <text x="65" y="36" font-size="7" fill="#2a3d50">Country A</text>
-        <rect x="105" y="32" width="10" height="3" fill="#5aabdd" rx="1"/>
-        <text x="118" y="36" font-size="7" fill="#2a3d50">Country B</text>
-        <rect x="155" y="32" width="10" height="3" fill="#ff6b9d" rx="1"/>
-        <text x="168" y="36" font-size="7" fill="#2a3d50">Country C</text>
-        <rect x="205" y="32" width="10" height="3" fill="#f5c842" rx="1"/>
-        <text x="218" y="36" font-size="7" fill="#2a3d50">Country D</text>
-      </svg>
-      <textarea id="writing1" placeholder="Write your response here… (min. 150 words)" oninput="countWords('writing1','wc1')"></textarea>
-      <div class="word-count" id="wc1">0 / 150+ words</div>
-    </div>
-
-    <!-- Task 2 -->
-    <div class="question">
-      <div class="q-label">Writing Task 2 — Essay</div>
-      <div class="q-text" style="margin-bottom:14px;">
-        Some people believe that technology has made our lives more complicated, while others argue it has made life simpler. 
-        <strong>Discuss both views</strong> and give your own opinion. Write at least <strong>250 words</strong>.
-      </div>
-      <textarea id="writing2" placeholder="Write your essay here… (min. 250 words)" oninput="countWords('writing2','wc2')"></textarea>
-      <div class="word-count" id="wc2">0 / 250+ words</div>
-    </div>
-
-    <div class="btn-row">
-      <button class="btn btn-secondary" onclick="switchSection('reading')">← Back</button>
-      <button class="btn btn-submit" onclick="submitAll()">✨ Submit All Sections</button>
-    </div>
-  </div>
-
-  <!-- ══ RESULT ══ -->
-  <div class="result-card" id="resultCard">
-    <span class="result-emoji">🎉</span>
-    <h2>Well Done, Ayang!</h2>
-    <p>You've completed the IELTS Practice Test. Here's how you did. Remember, every attempt makes you stronger — I'm so proud of you! 💙</p>
-    <div class="score-chips">
-      <div class="score-chip chip-l" id="scoreL">🎧 Listening: –</div>
-      <div class="score-chip chip-r" id="scoreR">📖 Reading: –</div>
-      <div class="score-chip chip-w" id="scoreW">✍️ Writing: Submitted</div>
-    </div>
-    <p id="resultMsg" style="font-style:italic;color:#e87aa0;font-family:'Playfair Display',serif;font-size:1.05rem;"></p>
-    <button class="btn btn-primary" onclick="restartTest()" style="margin-top:8px;">🔄 Try Again</button>
-  </div>
-
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchSection('L')" id="tab-L"><span class="ti">🎧</span>Listening</button>
+  <button class="tab-btn" onclick="switchSection('R')" id="tab-R"><span class="ti">📖</span>Reading</button>
+  <button class="tab-btn" onclick="switchSection('W')" id="tab-W"><span class="ti">✍️</span>Writing</button>
 </div>
 
+<!-- ═══════════════════ LISTENING ═══════════════════ -->
+<div class="sc active" id="sec-L">
+  <div class="sh"><span class="sib">🎧</span><div><h2>Listening Test</h2><p>4 Parts – 40 Questions · Play audio then answer</p></div></div>
+  <div class="an">💡 Text-to-Speech audio. Ensure volume is on! Best on Chrome or Edge.</div>
+  <div class="ap">
+    <button class="pb2" id="playBtn" onclick="toggleTTS()">▶️</button>
+    <div class="ai">
+      <div class="at">Parts 1–4 · University, Sustainability, Research &amp; Neuroscience</div>
+      <div class="ab"><div class="af" id="af"></div></div>
+      <div class="am"><span class="as" id="as2">Press ▶ to begin</span><button class="rb" onclick="replayTTS()">🔄 Replay</button></div>
+    </div>
+    <span style="font-size:1.1rem;opacity:0.6">🔊</span>
+  </div>
+
+  <div class="ph"><h3>Part 1 — Questions 1–10</h3><p>Conversation: student enrolling at university</p></div>
+  <div class="qs">
+    <div class="q"><div class="ql">Q1</div><div class="qt">What is the student's full name as registered?</div><div class="opts">
+      <label class="ol"><input type="radio" name="l1" value="A"> Priya Raghavan</label>
+      <label class="ol"><input type="radio" name="l1" value="B"> Maya Krishnaswamy</label>
+      <label class="ol"><input type="radio" name="l1" value="C"> Layla Mehrotra</label>
+      <label class="ol"><input type="radio" name="l1" value="D"> Nadia Subramaniam</label>
+    </div></div>
+    <div class="q"><div class="ql">Q2</div><div class="qt">Which faculty is the student enrolling in?</div><div class="opts">
+      <label class="ol"><input type="radio" name="l2" value="A"> Faculty of Engineering</label>
+      <label class="ol"><input type="radio" name="l2" value="B"> Faculty of Arts and Humanities</label>
+      <label class="ol"><input type="radio" name="l2" value="C"> Faculty of Environmental Sciences</label>
+      <label class="ol"><input type="radio" name="l2" value="D"> Faculty of Business Administration</label>
+    </div></div>
+    <div class="q"><div class="ql">Q3</div><div class="qt">The student previously studied at which institution?</div><div class="opts">
+      <label class="ol"><input type="radio" name="l3" value="A"> Monash University</label>
+      <label class="ol"><input type="radio" name="l3" value="B"> University of Melbourne</label>
+      <label class="ol"><input type="radio" name="l3" value="C"> Griffith University</label>
+      <label class="ol"><input type="radio" name="l3" value="D"> Queensland University of Technology</label>
+    </div></div>
+    <div class="q"><div class="ql">Q4</div><div class="qt">The deadline for submitting the enrolment form is:</div><div class="opts">
+      <label class="ol"><input type="radio" name="l4" value="A"> 14th February</label>
+      <label class="ol"><input type="radio" name="l4" value="B"> 28th February</label>
+      <label class="ol"><input type="radio" name="l4" value="C"> 7th March</label>
+      <label class="ol"><input type="radio" name="l4" value="D"> 21st March</label>
+    </div></div>
+    <div class="q"><div class="ql">Q5</div><div class="qt">Scholarship applications require a minimum GPA of:</div><div class="opts">
+      <label class="ol"><input type="radio" name="l5" value="A"> 3.2</label>
+      <label class="ol"><input type="radio" name="l5" value="B"> 3.5</label>
+      <label class="ol"><input type="radio" name="l5" value="C"> 3.7</label>
+      <label class="ol"><input type="radio" name="l5" value="D"> 3.9</label>
+    </div></div>
+    <div class="q"><div class="ql">Q6</div><div class="qt">Which accommodation does the officer recommend for first-year international students?</div><div class="opts">
+      <label class="ol"><input type="radio" name="l6" value="A"> Off-campus private apartments</label>
+      <label class="ol"><input type="radio" name="l6" value="B"> Homestay programme</label>
+      <label class="ol"><input type="radio" name="l6" value="C"> On-campus residential colleges</label>
+      <label class="ol"><input type="radio" name="l6" value="D"> Shared student housing cooperatives</label>
+    </div></div>
+    <div class="q"><div class="ql">Q7</div><div class="qt">What is the student ID number given? (Write the number)</div><input class="ti2" type="text" name="l7" placeholder="e.g. STU-XXXXXX" oninput="updateProgress()"/></div>
+    <div class="q"><div class="ql">Q8</div><div class="qt">Orientation week begins on:</div><div class="opts">
+      <label class="ol"><input type="radio" name="l8" value="A"> Monday 3rd March</label>
+      <label class="ol"><input type="radio" name="l8" value="B"> Monday 10th March</label>
+      <label class="ol"><input type="radio" name="l8" value="C"> Monday 17th March</label>
+      <label class="ol"><input type="radio" name="l8" value="D"> Monday 24th March</label>
+    </div></div>
+    <div class="q"><div class="ql">Q9</div><div class="qt">Which TWO documents must be submitted with the enrolment form? Choose TWO.</div><div class="opts">
+      <label class="ol"><input type="checkbox" name="l9" value="A"> Passport copy</label>
+      <label class="ol"><input type="checkbox" name="l9" value="B"> Medical certificate</label>
+      <label class="ol"><input type="checkbox" name="l9" value="C"> Previous academic transcripts</label>
+      <label class="ol"><input type="checkbox" name="l9" value="D"> Bank statement</label>
+      <label class="ol"><input type="checkbox" name="l9" value="E"> Letter of recommendation</label>
+    </div></div>
+    <div class="q"><div class="ql">Q10</div><div class="qt">The officer's direct phone extension number is:</div><input class="ti2" type="text" name="l10" placeholder="e.g. ext. XXXX" oninput="updateProgress()"/></div>
+  </div>
+
+  <div class="ph"><h3>Part 2 — Questions 11–20</h3><p>Monologue: community sustainability initiative annual report</p></div>
+  <div class="qs">
+    <div class="q"><div class="ql">Q11</div><div class="qt">The speaker presents the annual report for which organisation?</div><div class="opts">
+      <label class="ol"><input type="radio" name="l11" value="A"> GreenPath Community Alliance</label>
+      <label class="ol"><input type="radio" name="l11" value="B"> Urban Roots Sustainability Network</label>
+      <label class="ol"><input type="radio" name="l11" value="C"> EcoHarbour Collective</label>
+      <label class="ol"><input type="radio" name="l11" value="D"> ClimateFirst Initiative</label>
+    </div></div>
+    <div class="q"><div class="ql">Q12</div><div class="qt">How many tonnes of CO₂ were offset through the tree-planting programme last year?</div><div class="opts">
+      <label class="ol"><input type="radio" name="l12" value="A"> 120 tonnes</label>
+      <label class="ol"><input type="radio" name="l12" value="B"> 340 tonnes</label>
+      <label class="ol"><input type="radio" name="l12" value="C"> 580 tonnes</label>
+      <label class="ol"><input type="radio" name="l12" value="D"> 920 tonnes</label>
+    </div></div>
+    <div class="q"><div class="ql">Q13</div><div class="qt">The biggest challenge faced by the initiative was:</div><div class="opts">
+      <label class="ol"><input type="radio" name="l13" value="A"> Lack of government funding</label>
+      <label class="ol"><input type="radio" name="l13" value="B"> Volunteer retention and burnout</label>
+      <label class="ol"><input type="radio" name="l13" value="C"> Bureaucratic delays in permits</label>
+      <label class="ol"><input type="radio" name="l13" value="D"> Public indifference towards climate action</label>
+    </div></div>
+    <div class="q"><div class="ql">Q14</div><div class="qt">What percentage of funding comes from corporate sponsorship?</div><div class="opts">
+      <label class="ol"><input type="radio" name="l14" value="A"> 18%</label>
+      <label class="ol"><input type="radio" name="l14" value="B"> 34%</label>
+      <label class="ol"><input type="radio" name="l14" value="C"> 47%</label>
+      <label class="ol"><input type="radio" name="l14" value="D"> 62%</label>
+    </div></div>
+    <div class="q"><div class="ql">Q15</div><div class="qt">The new partnership is with which government department?</div><div class="opts">
+      <label class="ol"><input type="radio" name="l15" value="A"> Department of Agriculture</label>
+      <label class="ol"><input type="radio" name="l15" value="B"> Department of Infrastructure</label>
+      <label class="ol"><input type="radio" name="l15" value="C"> Department of Environment and Water</label>
+      <label class="ol"><input type="radio" name="l15" value="D"> Department of Education</label>
+    </div></div>
+    <div class="q"><div class="ql">Q16–18 · Complete the summary. NO MORE THAN TWO WORDS each.</div>
+      <div class="qt">The composting hub will be near the <input class="bi" type="text" name="l16" placeholder="(16)" oninput="updateProgress()"/> market. Residents can drop off waste every <input class="bi" type="text" name="l17" placeholder="(17)" oninput="updateProgress()"/> and Saturday. Compost will be distributed <input class="bi" type="text" name="l18" placeholder="(18)" oninput="updateProgress()"/> to households.</div>
+    </div>
+    <div class="q"><div class="ql">Q19</div><div class="qt">The speaker urges attendees to sign up for:</div><div class="opts">
+      <label class="ol"><input type="radio" name="l19" value="A"> The monthly newsletter</label>
+      <label class="ol"><input type="radio" name="l19" value="B"> The volunteer training programme</label>
+      <label class="ol"><input type="radio" name="l19" value="C"> The annual fundraising gala</label>
+      <label class="ol"><input type="radio" name="l19" value="D"> The online sustainability course</label>
+    </div></div>
+    <div class="q"><div class="ql">Q20</div><div class="qt">The solar panel installation will be completed by:</div><div class="opts">
+      <label class="ol"><input type="radio" name="l20" value="A"> End of this financial year</label>
+      <label class="ol"><input type="radio" name="l20" value="B"> Mid next year</label>
+      <label class="ol"><input type="radio" name="l20" value="C"> Within 18 months</label>
+      <label class="ol"><input type="radio" name="l20" value="D"> Within 3 years</label>
+    </div></div>
+  </div>
+
+  <div class="ph"><h3>Part 3 — Questions 21–30</h3><p>Discussion: two students &amp; supervisor reviewing a research project</p></div>
+  <div class="qs">
+    <div class="q"><div class="ql">Q21</div><div class="qt">The students' research project focuses on:</div><div class="opts">
+      <label class="ol"><input type="radio" name="l21" value="A"> Economic impact of remote work on urban centres</label>
+      <label class="ol"><input type="radio" name="l21" value="B"> Consumer spending changes post-pandemic</label>
+      <label class="ol"><input type="radio" name="l21" value="C"> Digital literacy programmes and elderly populations</label>
+      <label class="ol"><input type="radio" name="l21" value="D"> Correlations between urban green spaces and mental health</label>
+    </div></div>
+    <div class="q"><div class="ql">Q22</div><div class="qt">The supervisor's primary concern about the methodology is:</div><div class="opts">
+      <label class="ol"><input type="radio" name="l22" value="A"> The sample size is too small</label>
+      <label class="ol"><input type="radio" name="l22" value="B"> Potential bias in self-reported survey data</label>
+      <label class="ol"><input type="radio" name="l22" value="C"> The literature review lacks recent sources</label>
+      <label class="ol"><input type="radio" name="l22" value="D"> The methodology conflates correlation with causation</label>
+    </div></div>
+    <div class="q"><div class="ql">Q23</div><div class="qt">Student A suggests addressing the weakness by:</div><div class="opts">
+      <label class="ol"><input type="radio" name="l23" value="A"> Conducting additional focus groups</label>
+      <label class="ol"><input type="radio" name="l23" value="B"> Including a longitudinal component</label>
+      <label class="ol"><input type="radio" name="l23" value="C"> Triangulating data with physiological measurements</label>
+      <label class="ol"><input type="radio" name="l23" value="D"> Expanding the demographic scope</label>
+    </div></div>
+    <div class="q"><div class="ql">Q24</div><div class="qt">The supervisor recommends which statistical framework?</div><div class="opts">
+      <label class="ol"><input type="radio" name="l24" value="A"> Regression analysis</label>
+      <label class="ol"><input type="radio" name="l24" value="B"> Thematic coding</label>
+      <label class="ol"><input type="radio" name="l24" value="C"> Mixed-methods triangulation</label>
+      <label class="ol"><input type="radio" name="l24" value="D"> Structural equation modelling</label>
+    </div></div>
+    <div class="q"><div class="ql">Q25</div><div class="qt">Student B disagrees with Student A because:</div><div class="opts">
+      <label class="ol"><input type="radio" name="l25" value="A"> The timeline does not allow for extra data collection</label>
+      <label class="ol"><input type="radio" name="l25" value="B"> The existing data is already sufficiently robust</label>
+      <label class="ol"><input type="radio" name="l25" value="C"> Focus groups would introduce more bias</label>
+      <label class="ol"><input type="radio" name="l25" value="D"> The supervisor's feedback was misinterpreted</label>
+    </div></div>
+    <div class="q"><div class="ql">Q26–28 · What does the supervisor say about each section? A=Needs significant revision B=Satisfactory but could be stronger C=Excellent D=Should be removed</div>
+      <div class="qt">
+        Introduction: <select class="ms" name="l26" onchange="updateProgress()"><option value="">— Select —</option><option>A</option><option>B</option><option>C</option><option>D</option></select><br/><br/>
+        Literature Review: <select class="ms" name="l27" onchange="updateProgress()"><option value="">— Select —</option><option>A</option><option>B</option><option>C</option><option>D</option></select><br/><br/>
+        Methodology: <select class="ms" name="l28" onchange="updateProgress()"><option value="">— Select —</option><option>A</option><option>B</option><option>C</option><option>D</option></select>
+      </div>
+    </div>
+    <div class="q"><div class="ql">Q29</div><div class="qt">When is the revised draft due?</div><div class="opts">
+      <label class="ol"><input type="radio" name="l29" value="A"> In one week</label>
+      <label class="ol"><input type="radio" name="l29" value="B"> In two weeks</label>
+      <label class="ol"><input type="radio" name="l29" value="C"> In ten days</label>
+      <label class="ol"><input type="radio" name="l29" value="D"> By end of term</label>
+    </div></div>
+    <div class="q"><div class="ql">Q30</div><div class="qt">The supervisor says the project has potential to be:</div><div class="opts">
+      <label class="ol"><input type="radio" name="l30" value="A"> Published in the university's academic journal</label>
+      <label class="ol"><input type="radio" name="l30" value="B"> Presented at an international conference</label>
+      <label class="ol"><input type="radio" name="l30" value="C"> Expanded into a postgraduate thesis</label>
+      <label class="ol"><input type="radio" name="l30" value="D"> Used as a departmental teaching resource</label>
+    </div></div>
+  </div>
+
+  <div class="ph"><h3>Part 4 — Questions 31–40</h3><p>Academic lecture: neuroplasticity and language acquisition</p></div>
+  <div class="qs">
+    <div class="q"><div class="ql">Q31</div><div class="qt">The lecturer defines neuroplasticity as the brain's ability to:</div><div class="opts">
+      <label class="ol"><input type="radio" name="l31" value="A"> Generate new neurons throughout adulthood</label>
+      <label class="ol"><input type="radio" name="l31" value="B"> Reorganise synaptic connections in response to experience</label>
+      <label class="ol"><input type="radio" name="l31" value="C"> Recover fully from traumatic injuries within a fixed period</label>
+      <label class="ol"><input type="radio" name="l31" value="D"> Increase grey matter density through aerobic exercise</label>
+    </div></div>
+    <div class="q"><div class="ql">Q32</div><div class="qt">The critical period hypothesis suggests that after puberty:</div><div class="opts">
+      <label class="ol"><input type="radio" name="l32" value="A"> Language acquisition becomes physiologically impossible</label>
+      <label class="ol"><input type="radio" name="l32" value="B"> Native-like phonological acquisition becomes significantly harder</label>
+      <label class="ol"><input type="radio" name="l32" value="C"> Vocabulary acquisition plateaus regardless of exposure</label>
+      <label class="ol"><input type="radio" name="l32" value="D"> Syntax acquisition requires explicit grammar instruction</label>
+    </div></div>
+    <div class="q"><div class="ql">Q33</div><div class="qt">Which research showed adult learners can still achieve near-native competency?</div><div class="opts">
+      <label class="ol"><input type="radio" name="l33" value="A"> Hakuta et al. (2003) longitudinal census study</label>
+      <label class="ol"><input type="radio" name="l33" value="B"> Birdsong and Molis (2001) ultimate attainment research</label>
+      <label class="ol"><input type="radio" name="l33" value="C"> Lenneberg's (1967) critical period framework</label>
+      <label class="ol"><input type="radio" name="l33" value="D"> Johnson and Newport's (1989) age of arrival study</label>
+    </div></div>
+    <div class="q"><div class="ql">Q34</div><div class="qt">Immersion environments accelerate L2 acquisition primarily by:</div><div class="opts">
+      <label class="ol"><input type="radio" name="l34" value="A"> Providing structured grammar drilling sessions</label>
+      <label class="ol"><input type="radio" name="l34" value="B"> Increasing frequency and meaningfulness of input</label>
+      <label class="ol"><input type="radio" name="l34" value="C"> Reducing anxiety associated with making errors</label>
+      <label class="ol"><input type="radio" name="l34" value="D"> Encouraging learners to suppress their native language</label>
+    </div></div>
+    <div class="q"><div class="ql">Q35</div><div class="qt">What does the lecturer say about bilingualism and cognitive reserve?</div><div class="opts">
+      <label class="ol"><input type="radio" name="l35" value="A"> It has no scientifically proven cognitive benefits</label>
+      <label class="ol"><input type="radio" name="l35" value="B"> It may delay the onset of dementia symptoms by several years</label>
+      <label class="ol"><input type="radio" name="l35" value="C"> It increases IQ scores in children by a measurable margin</label>
+      <label class="ol"><input type="radio" name="l35" value="D"> It primarily benefits those who acquire both languages before age five</label>
+    </div></div>
+    <div class="q"><div class="ql">Q36–38 · Complete the notes. NO MORE THAN THREE WORDS.</div>
+      <div class="qt">Broca's area is responsible for <input class="bi" type="text" name="l36" placeholder="(36)" oninput="updateProgress()"/>. In late bilinguals, L1 and L2 are processed in <input class="bi" type="text" name="l37" placeholder="(37)" oninput="updateProgress()"/> cortical regions, unlike early bilinguals who use the <input class="bi" type="text" name="l38" placeholder="(38)" oninput="updateProgress()"/> area for both.</div>
+    </div>
+    <div class="q"><div class="ql">Q39</div><div class="qt">The most important factor for successful adult language learning is:</div><div class="opts">
+      <label class="ol"><input type="radio" name="l39" value="A"> Formal classroom instruction with explicit feedback</label>
+      <label class="ol"><input type="radio" name="l39" value="B"> Intrinsic motivation combined with deliberate practice</label>
+      <label class="ol"><input type="radio" name="l39" value="C"> Early exposure through media and digital tools</label>
+      <label class="ol"><input type="radio" name="l39" value="D"> Genetic predisposition towards linguistic aptitude</label>
+    </div></div>
+    <div class="q"><div class="ql">Q40</div><div class="qt">Which best summarises the lecture's overall argument?</div><div class="opts">
+      <label class="ol"><input type="radio" name="l40" value="A"> The critical period renders adult language learning fundamentally futile</label>
+      <label class="ol"><input type="radio" name="l40" value="B"> Neuroplasticity shows the brain retains significant language-learning capacity into adulthood</label>
+      <label class="ol"><input type="radio" name="l40" value="C"> Bilingualism is only cognitively beneficial if acquired before adolescence</label>
+      <label class="ol"><input type="radio" name="l40" value="D"> Immersion is the only empirically validated method for fluency</label>
+    </div></div>
+  </div>
+
+  <div class="br"><button class="btn btp" onclick="submitSection('L')">Submit Listening ➜</button></div>
+</div>
+
+<!-- ═══════════════════ READING ═══════════════════ -->
+<div class="sc" id="sec-R">
+  <div class="sh"><span class="sib">📖</span><div><h2>Reading Test</h2><p>3 Passages – 40 Questions · Academic Band 7.5</p></div></div>
+
+  <div class="ph"><h3>Passage 1 — Questions 1–13</h3><p>The Paradox of Choice and Consumer Wellbeing</p></div>
+  <div class="passage">
+    <h4>The Paradox of Choice and Consumer Wellbeing</h4>
+    <p>In contemporary consumer societies, the proliferation of options across virtually every domain of daily life has been celebrated as a triumph of market efficiency and individual freedom. Yet a growing body of research in behavioural economics and positive psychology challenges this orthodoxy, suggesting that an excess of choice may paradoxically undermine the very wellbeing it ostensibly promotes.</p>
+    <p>Barry Schwartz, in his influential work <em>The Paradox of Choice</em> (2004), drew upon Sheena Iyengar's seminal jam study to argue that reducing the number of options available to consumers can, counterintuitively, increase both satisfaction and the likelihood of a purchase. In the experiment conducted at a gourmet food store, a display offering 24 varieties of jam attracted more browsers but generated significantly fewer sales than a display of only six varieties. Schwartz interpreted this as evidence that choice overload triggers cognitive paralysis, whereby the mental effort required to evaluate an extensive option set becomes prohibitively taxing.</p>
+    <p>Critics, however, have urged caution in overgeneralising from such findings. A meta-analysis by Scheibehenne, Greifeneder, and Todd (2010) examined 50 choice-overload studies and found no consistent effect; the researchers concluded that whether more choice hurts or helps depends heavily on contextual factors such as the consumer's prior preferences, the complexity of the decision, and the manner in which options are presented. This suggests that the relationship between choice and satisfaction is not linear but highly contingent.</p>
+    <p>From a neuroscientific perspective, the prefrontal cortex — the brain region implicated in deliberative decision-making — shows signs of depletion when subjected to prolonged evaluation tasks, a phenomenon sometimes described as decision fatigue. Research by Danziger, Levav, and Avnaim-Pesso (2011) found that Israeli judges granted significantly fewer paroles as the day progressed, suggesting that cognitive resources are finite and that complex choices made later in a sequence tend to favour default options, regardless of their merit.</p>
+    <p>The implications for retail and public policy are considerable. Supermarkets, digital platforms, and healthcare systems alike are grappling with how to design choice environments — or "choice architectures" — that empower rather than overwhelm. Proponents of libertarian paternalism, most notably Richard Thaler and Cass Sunstein in <em>Nudge</em> (2008), argue that strategically structuring defaults and simplifying option sets can preserve individual autonomy while guiding people toward better outcomes. Detractors contend that such approaches are inherently manipulative and risk concentrating excessive power in the hands of those who design the architectures.</p>
+    <p>Ultimately, the debate reflects a deeper tension between two conceptions of freedom: the liberal ideal of maximum optionality and the more substantive notion that genuine freedom requires the cognitive and emotional capacity to exercise meaningful choice. Whether the resolution lies in smarter design, better education, or a fundamental recalibration of consumer culture remains, for now, an open question.</p>
+  </div>
+  <div class="qs">
+    <div class="q"><div class="ql">Q1–5 · True / False / Not Given</div>
+      <div style="margin-bottom:13px;"><div class="qt">1. Schwartz argues fewer choices consistently lead to higher satisfaction across all product categories.</div><div class="tfng"><button class="tb" onclick="selTFNG(this,'r1','TRUE')">TRUE</button><button class="tb" onclick="selTFNG(this,'r1','FALSE')">FALSE</button><button class="tb" onclick="selTFNG(this,'r1','NG')">NOT GIVEN</button></div></div>
+      <div style="margin-bottom:13px;"><div class="qt">2. The jam experiment showed a larger display attracted more customers but resulted in fewer purchases.</div><div class="tfng"><button class="tb" onclick="selTFNG(this,'r2','TRUE')">TRUE</button><button class="tb" onclick="selTFNG(this,'r2','FALSE')">FALSE</button><button class="tb" onclick="selTFNG(this,'r2','NG')">NOT GIVEN</button></div></div>
+      <div style="margin-bottom:13px;"><div class="qt">3. The Scheibehenne et al. meta-analysis found that choice overload consistently reduces satisfaction.</div><div class="tfng"><button class="tb" onclick="selTFNG(this,'r3','TRUE')">TRUE</button><button class="tb" onclick="selTFNG(this,'r3','FALSE')">FALSE</button><button class="tb" onclick="selTFNG(this,'r3','NG')">NOT GIVEN</button></div></div>
+      <div style="margin-bottom:13px;"><div class="qt">4. Danziger et al.'s study was conducted in a hospital setting.</div><div class="tfng"><button class="tb" onclick="selTFNG(this,'r4','TRUE')">TRUE</button><button class="tb" onclick="selTFNG(this,'r4','FALSE')">FALSE</button><button class="tb" onclick="selTFNG(this,'r4','NG')">NOT GIVEN</button></div></div>
+      <div><div class="qt">5. Thaler and Sunstein's "Nudge" theory has been universally welcomed by policymakers.</div><div class="tfng"><button class="tb" onclick="selTFNG(this,'r5','TRUE')">TRUE</button><button class="tb" onclick="selTFNG(this,'r5','FALSE')">FALSE</button><button class="tb" onclick="selTFNG(this,'r5','NG')">NOT GIVEN</button></div></div>
+    </div>
+    <div class="q"><div class="ql">Q6–8 · Complete the summary. NO MORE THAN TWO WORDS from the passage.</div>
+      <div class="qt">The concept of <input class="bi" type="text" name="r6" placeholder="(6)" oninput="updateProgress()"/> fatigue describes how the prefrontal cortex becomes depleted after sustained <input class="bi" type="text" name="r7" placeholder="(7)" oninput="updateProgress()"/> tasks. Choices made later in a sequence tend to favour <input class="bi" type="text" name="r8" placeholder="(8)" oninput="updateProgress()"/> options.</div>
+    </div>
+    <div class="q"><div class="ql">Q9–11 · Multiple Choice</div>
+      <div style="margin-bottom:15px;"><div class="qt">9. Critics of Schwartz believe that:</div><div class="opts">
+        <label class="ol"><input type="radio" name="r9" value="A"> Choice overload is a myth perpetuated by behavioural economists</label>
+        <label class="ol"><input type="radio" name="r9" value="B"> The effect of choice on satisfaction depends on contextual variables</label>
+        <label class="ol"><input type="radio" name="r9" value="C"> Consumers always prefer maximum options</label>
+        <label class="ol"><input type="radio" name="r9" value="D"> Schwartz's research methodology was fundamentally flawed</label>
+      </div></div>
+      <div style="margin-bottom:15px;"><div class="qt">10. "Libertarian paternalism" as used in the passage refers to:</div><div class="opts">
+        <label class="ol"><input type="radio" name="r10" value="A"> Completely free markets with no government intervention</label>
+        <label class="ol"><input type="radio" name="r10" value="B"> Structuring choices to guide people without removing their freedom</label>
+        <label class="ol"><input type="radio" name="r10" value="C"> Restricting consumer choices to essential goods only</label>
+        <label class="ol"><input type="radio" name="r10" value="D"> Mandating behaviour change through legislation</label>
+      </div></div>
+      <div><div class="qt">11. The author's concluding paragraph suggests that:</div><div class="opts">
+        <label class="ol"><input type="radio" name="r11" value="A"> Consumer culture should be fundamentally restructured immediately</label>
+        <label class="ol"><input type="radio" name="r11" value="B"> The tension between freedom and meaningful choice remains unresolved</label>
+        <label class="ol"><input type="radio" name="r11" value="C"> Smarter design is the only viable solution</label>
+        <label class="ol"><input type="radio" name="r11" value="D"> Behavioural economics has conclusively answered questions about consumer wellbeing</label>
+      </div></div>
+    </div>
+    <div class="q"><div class="ql">Q12–13 · Matching Headings</div>
+      <div class="box"><strong>i</strong> Neurological limits on decision-making &nbsp;|&nbsp; <strong>ii</strong> Contextual factors and inconsistent findings &nbsp;|&nbsp; <strong>iii</strong> Policy implications and ethical debates &nbsp;|&nbsp; <strong>iv</strong> A philosophical tension at the heart of the debate</div>
+      <div class="qt" style="margin-top:12px;">
+        Paragraph 3 (Critics of Schwartz): <select class="ms" name="r12" onchange="updateProgress()"><option value="">— Select —</option><option>i</option><option>ii</option><option>iii</option><option>iv</option></select><br/><br/>
+        Paragraph 6 (Final paragraph): <select class="ms" name="r13" onchange="updateProgress()"><option value="">— Select —</option><option>i</option><option>ii</option><option>iii</option><option>iv</option></select>
+      </div>
+    </div>
+  </div>
+
+  <div class="ph"><h3>Passage 2 — Questions 14–26</h3><p>Deep-Sea Mining: Promise, Peril, and the Politics of the Ocean Floor</p></div>
+  <div class="passage">
+    <h4>Deep-Sea Mining: Promise, Peril, and the Politics of the Ocean Floor</h4>
+    <p>The abyssal plains and mid-ocean ridges of the world's deep seas harbour vast deposits of polymetallic nodules, seafloor massive sulphides, and cobalt-rich ferromanganese crusts — mineral formations that have accumulated over millions of years. As terrestrial reserves of critical minerals such as cobalt, nickel, manganese, and rare earth elements face depletion amid surging demand from the battery and electronics industries, the deep ocean has emerged as a frontier that mining corporations, nation states, and environmental advocates are watching with a mixture of anticipation and alarm.</p>
+    <p>Proponents of deep-sea mining argue that accessing these underwater deposits is not only economically rational but environmentally preferable to expanding terrestrial mining operations, which are frequently associated with deforestation, groundwater contamination, and community displacement. The Clarion-Clipperton Zone in the Pacific Ocean alone is estimated to contain more cobalt, nickel, and manganese than all known terrestrial reserves combined. Technological advances in remotely operated vehicles and subsea robotics, advocates contend, could make extraction more precise and less ecologically disruptive than conventional open-pit mining.</p>
+    <p>Yet the scientific community has raised substantial objections. Deep-sea ecosystems are among the least understood on Earth, characterised by extraordinary biodiversity that has evolved in conditions of extreme pressure, perpetual darkness, and near-freezing temperatures. Sediment plumes generated by mining operations could smother filter feeders and disrupt chemosynthetic communities clustered around hydrothermal vents. A critical concern is that recovery timescales for these ecosystems may extend over centuries or millennia — timeframes that render conventional environmental impact assessments essentially inadequate.</p>
+    <p>The governance landscape is equally complex. Under the United Nations Convention on the Law of the Sea (UNCLOS), the seabed beyond national jurisdiction — designated "the Area" — is defined as the common heritage of mankind, administered by the International Seabed Authority (ISA). The ISA has issued exploration licences covering approximately 1.5 million square kilometres of ocean floor, predominantly in the Pacific. However, the ISA's capacity to enforce environmental regulations has been questioned, and its organisational culture has been criticised as weighted toward facilitating mining rather than genuinely protecting marine ecosystems.</p>
+    <p>In 2021, Nauru triggered the "two-year rule" under UNCLOS, which required the ISA to finalise mining regulations by July 2023 regardless of the state of the underlying science. This move, widely seen as industry-driven, provoked sharp criticism from scientists and advocacy groups who argued that it placed commercial timelines ahead of ecological prudence. A coalition of states including France, Germany, and New Zealand subsequently called for a moratorium or precautionary pause on deep-sea mining pending further research.</p>
+    <p>The ethical dimensions of deep-sea mining are entangled with broader questions of intergenerational equity and the limits of the extractive economy. If the transition to clean energy — itself predicated on vast quantities of battery metals — is achieved at the cost of irrevocably degrading ecosystems that humanity has barely begun to understand, it raises uncomfortable questions about whether the environmental credentials of the green economy are as robust as its advocates claim.</p>
+  </div>
+  <div class="qs">
+    <div class="q"><div class="ql">Q14–19 · True / False / Not Given</div>
+      <div style="margin-bottom:13px;"><div class="qt">14. The Clarion-Clipperton Zone contains more cobalt than all known land-based reserves.</div><div class="tfng"><button class="tb" onclick="selTFNG(this,'r14','TRUE')">TRUE</button><button class="tb" onclick="selTFNG(this,'r14','FALSE')">FALSE</button><button class="tb" onclick="selTFNG(this,'r14','NG')">NOT GIVEN</button></div></div>
+      <div style="margin-bottom:13px;"><div class="qt">15. Scientists have concluded deep-sea ecosystems can recover from mining within 50 years.</div><div class="tfng"><button class="tb" onclick="selTFNG(this,'r15','TRUE')">TRUE</button><button class="tb" onclick="selTFNG(this,'r15','FALSE')">FALSE</button><button class="tb" onclick="selTFNG(this,'r15','NG')">NOT GIVEN</button></div></div>
+      <div style="margin-bottom:13px;"><div class="qt">16. The ISA has issued exploration licences covering 1.5 million square kilometres of ocean floor.</div><div class="tfng"><button class="tb" onclick="selTFNG(this,'r16','TRUE')">TRUE</button><button class="tb" onclick="selTFNG(this,'r16','FALSE')">FALSE</button><button class="tb" onclick="selTFNG(this,'r16','NG')">NOT GIVEN</button></div></div>
+      <div style="margin-bottom:13px;"><div class="qt">17. Nauru's activation of the two-year rule was welcomed by the international scientific community.</div><div class="tfng"><button class="tb" onclick="selTFNG(this,'r17','TRUE')">TRUE</button><button class="tb" onclick="selTFNG(this,'r17','FALSE')">FALSE</button><button class="tb" onclick="selTFNG(this,'r17','NG')">NOT GIVEN</button></div></div>
+      <div style="margin-bottom:13px;"><div class="qt">18. France, Germany, and New Zealand called for a temporary halt to deep-sea mining.</div><div class="tfng"><button class="tb" onclick="selTFNG(this,'r18','TRUE')">TRUE</button><button class="tb" onclick="selTFNG(this,'r18','FALSE')">FALSE</button><button class="tb" onclick="selTFNG(this,'r18','NG')">NOT GIVEN</button></div></div>
+      <div><div class="qt">19. Deep-sea mining is currently prohibited under international law.</div><div class="tfng"><button class="tb" onclick="selTFNG(this,'r19','TRUE')">TRUE</button><button class="tb" onclick="selTFNG(this,'r19','FALSE')">FALSE</button><button class="tb" onclick="selTFNG(this,'r19','NG')">NOT GIVEN</button></div></div>
+    </div>
+    <div class="q"><div class="ql">Q20–23 · Multiple Choice</div>
+      <div style="margin-bottom:15px;"><div class="qt">20. Proponents argue deep-sea mining is environmentally preferable because:</div><div class="opts">
+        <label class="ol"><input type="radio" name="r20" value="A"> It produces no sediment plumes or chemical waste</label>
+        <label class="ol"><input type="radio" name="r20" value="B"> Technology could make it more precise and less disruptive</label>
+        <label class="ol"><input type="radio" name="r20" value="C"> Deep-sea ecosystems are uninhabited and expendable</label>
+        <label class="ol"><input type="radio" name="r20" value="D"> International regulations ensure strict environmental standards</label>
+      </div></div>
+      <div style="margin-bottom:15px;"><div class="qt">21. "Common heritage of mankind" means the deep seabed:</div><div class="opts">
+        <label class="ol"><input type="radio" name="r21" value="A"> Belongs exclusively to coastal nation states</label>
+        <label class="ol"><input type="radio" name="r21" value="B"> Cannot be exploited under any circumstances</label>
+        <label class="ol"><input type="radio" name="r21" value="C"> Is a shared global resource administered for all humanity</label>
+        <label class="ol"><input type="radio" name="r21" value="D"> Is governed solely by the country that discovers its deposits</label>
+      </div></div>
+      <div style="margin-bottom:15px;"><div class="qt">22. The concern raised in the final paragraph is that:</div><div class="opts">
+        <label class="ol"><input type="radio" name="r22" value="A"> Battery technology will be insufficient for the clean energy transition</label>
+        <label class="ol"><input type="radio" name="r22" value="B"> The environmental cost of green energy may undermine its own ecological justification</label>
+        <label class="ol"><input type="radio" name="r22" value="C"> Rare earth elements will be exhausted within a decade</label>
+        <label class="ol"><input type="radio" name="r22" value="D"> Developing nations are excluded from the benefits of deep-sea mining</label>
+      </div></div>
+      <div><div class="qt">23. The author's overall tone toward deep-sea mining can best be described as:</div><div class="opts">
+        <label class="ol"><input type="radio" name="r23" value="A"> Enthusiastically supportive</label>
+        <label class="ol"><input type="radio" name="r23" value="B"> Dismissive of environmental concerns</label>
+        <label class="ol"><input type="radio" name="r23" value="C"> Cautiously analytical with implicit scepticism</label>
+        <label class="ol"><input type="radio" name="r23" value="D"> Strongly opposed and emotionally engaged</label>
+      </div></div>
+    </div>
+    <div class="q"><div class="ql">Q24–26 · Summary completion. Words from the passage only.</div>
+      <div class="qt">The deep sea contains mineral formations called polymetallic <input class="bi" type="text" name="r24" placeholder="(24)" oninput="updateProgress()"/>. Mining creates sediment <input class="bi" type="text" name="r25" placeholder="(25)" oninput="updateProgress()"/> that could disrupt chemosynthetic communities. The ISA has been criticised for prioritising mining over genuinely <input class="bi" type="text" name="r26" placeholder="(26)" oninput="updateProgress()"/> marine ecosystems.</div>
+    </div>
+  </div>
+
+  <div class="ph"><h3>Passage 3 — Questions 27–40</h3><p>The Architecture of Moral Luck — most challenging passage</p></div>
+  <div class="passage">
+    <h4>The Architecture of Moral Luck</h4>
+    <p>Few concepts in moral philosophy have generated as much productive controversy as moral luck — the unsettling idea that factors entirely beyond an agent's control can legitimately affect the moral judgements we make about them. The term was introduced simultaneously and independently by philosophers Thomas Nagel and Bernard Williams in 1976, and it has since become a touchstone for debates about responsibility, desert, and the foundations of ethical assessment.</p>
+    <p>Nagel distinguished four varieties of moral luck: resultant luck (where outcomes differ despite identical intentions and efforts), circumstantial luck (the situations one happens to face), constitutive luck (the character, temperament, and dispositions one is born with), and causal luck (the extent to which prior causes determine one's actions). The canonical illustration of resultant luck is the case of two equally reckless drivers: one reaches their destination uneventfully while the other, through no additional fault of their own, strikes a pedestrian who unexpectedly steps into the road. Our moral intuitions reliably — and, critics argue, unreliably — treat these two drivers differently, despite the symmetry in their culpable behaviour.</p>
+    <p>The philosophical puzzle this generates is acute. A fundamental commitment of Kantian ethics is that moral evaluation should track only what is within an agent's rational control — the will, not consequences that chance may determine. If we accept this Kantian premise, then moral luck is not merely paradoxical but incoherent: luck, by definition, cannot generate genuine moral responsibility. Yet our actual practices of praise, blame, guilt, and resentment are thoroughly infused with luck-sensitive judgements.</p>
+    <p>Williams's response was characteristically subversive. Rather than attempting to reconcile moral luck with a coherent theory of responsibility, he used the concept to challenge the Kantian project itself. The very aspiration to insulate morality from luck, Williams argued, reflects an implausibly idealised conception of agency that abstracts the moral agent from the embodied, contingent, historically situated creature that humans actually are.</p>
+    <p>Contemporary responses have taken several forms. Some philosophers, notably Susan Wolf and Dana Nelkin, have argued that moral luck is less troubling than it appears because robust moral responsibility requires not merely causal control but a specific kind of rational self-governance — and where that capacity is absent, moral responsibility is indeed diminished or absent. Others, such as Michael Moore, bite the bullet and defend outcome-sensitive moral assessment on grounds that consequential differences between actions reflect genuine differences in what agents have done to the world.</p>
+    <p>The debate carries significant practical stakes. Criminal law in most jurisdictions distinguishes between attempted and completed offences, assigning heavier penalties to the latter even when the attempt was equally culpable — a direct institutionalisation of resultant luck. Tort law similarly calibrates liability to actual harm rather than merely to negligent conduct. Whether these legal distinctions track anything morally significant, or merely reflect pre-theoretical intuitions that should be reformed in light of philosophical reflection, remains a live question at the intersection of jurisprudence and moral theory.</p>
+    <p>What the moral luck literature ultimately reveals is not simply a problem to be solved but a fundamental tension within our moral self-understanding: we are deeply committed both to the idea that people deserve to be treated in accordance with their choices and to practices of moral assessment that systematically transcend the scope of individual choice. Dissolving this tension entirely may require revisions to our moral concepts so radical as to be practically incoherent — which may explain why, nearly five decades after Nagel and Williams introduced the concept, the debate shows no sign of resolution.</p>
+  </div>
+  <div class="qs">
+    <div class="q"><div class="ql">Q27–30 · Matching — Who argued what? A=Nagel B=Williams C=Wolf/Nelkin D=Michael Moore</div>
+      <div class="qt">
+        27. Moral responsibility is diminished when rational self-governance is absent: <select class="ms" name="r27" onchange="updateProgress()"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option></select><br/><br/>
+        28. The aspiration to remove luck from morality reflects an unrealistic view of human agency: <select class="ms" name="r28" onchange="updateProgress()"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option></select><br/><br/>
+        29. Distinguished four types of moral luck including resultant, circumstantial, constitutive, causal: <select class="ms" name="r29" onchange="updateProgress()"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option></select><br/><br/>
+        30. Outcome-sensitive moral assessment is defensible because consequences reflect what agents have done: <select class="ms" name="r30" onchange="updateProgress()"><option value="">—</option><option>A</option><option>B</option><option>C</option><option>D</option></select>
+      </div>
+    </div>
+    <div class="q"><div class="ql">Q31–34 · True / False / Not Given</div>
+      <div style="margin-bottom:13px;"><div class="qt">31. Nagel and Williams developed the concept of moral luck collaboratively.</div><div class="tfng"><button class="tb" onclick="selTFNG(this,'r31','TRUE')">TRUE</button><button class="tb" onclick="selTFNG(this,'r31','FALSE')">FALSE</button><button class="tb" onclick="selTFNG(this,'r31','NG')">NOT GIVEN</button></div></div>
+      <div style="margin-bottom:13px;"><div class="qt">32. Kantian ethics holds that moral evaluation should be based solely on factors within the agent's control.</div><div class="tfng"><button class="tb" onclick="selTFNG(this,'r32','TRUE')">TRUE</button><button class="tb" onclick="selTFNG(this,'r32','FALSE')">FALSE</button><button class="tb" onclick="selTFNG(this,'r32','NG')">NOT GIVEN</button></div></div>
+      <div style="margin-bottom:13px;"><div class="qt">33. Most criminal justice systems treat attempted and completed offences identically.</div><div class="tfng"><button class="tb" onclick="selTFNG(this,'r33','TRUE')">TRUE</button><button class="tb" onclick="selTFNG(this,'r33','FALSE')">FALSE</button><button class="tb" onclick="selTFNG(this,'r33','NG')">NOT GIVEN</button></div></div>
+      <div><div class="qt">34. The author suggests the moral luck debate will be resolved within the next decade.</div><div class="tfng"><button class="tb" onclick="selTFNG(this,'r34','TRUE')">TRUE</button><button class="tb" onclick="selTFNG(this,'r34','FALSE')">FALSE</button><button class="tb" onclick="selTFNG(this,'r34','NG')">NOT GIVEN</button></div></div>
+    </div>
+    <div class="q"><div class="ql">Q35–38 · Multiple Choice</div>
+      <div style="margin-bottom:15px;"><div class="qt">35. The "two reckless drivers" example illustrates:</div><div class="opts">
+        <label class="ol"><input type="radio" name="r35" value="A"> Constitutive luck</label>
+        <label class="ol"><input type="radio" name="r35" value="B"> Causal luck</label>
+        <label class="ol"><input type="radio" name="r35" value="C"> Resultant luck</label>
+        <label class="ol"><input type="radio" name="r35" value="D"> Circumstantial luck</label>
+      </div></div>
+      <div style="margin-bottom:15px;"><div class="qt">36. Williams's response was "subversive" because he:</div><div class="opts">
+        <label class="ol"><input type="radio" name="r36" value="A"> Accepted Kantian premises and extended them to resolve the paradox</label>
+        <label class="ol"><input type="radio" name="r36" value="B"> Used moral luck to attack the very framework from which the problem arose</label>
+        <label class="ol"><input type="radio" name="r36" value="C"> Proposed that luck should be excluded from all moral reasoning</label>
+        <label class="ol"><input type="radio" name="r36" value="D"> Argued moral luck only applies to consequentialist theories</label>
+      </div></div>
+      <div style="margin-bottom:15px;"><div class="qt">37. When the author says philosophers must "bite the bullet," they mean:</div><div class="opts">
+        <label class="ol"><input type="radio" name="r37" value="A"> Accept a difficult or counterintuitive position because logic demands it</label>
+        <label class="ol"><input type="radio" name="r37" value="B"> Abandon the debate in favour of practical solutions</label>
+        <label class="ol"><input type="radio" name="r37" value="C"> Remain agnostic on difficult questions to avoid controversy</label>
+        <label class="ol"><input type="radio" name="r37" value="D"> Prioritise legal frameworks over philosophical reasoning</label>
+      </div></div>
+      <div><div class="qt">38. The best title for the final paragraph would be:</div><div class="opts">
+        <label class="ol"><input type="radio" name="r38" value="A"> A resolution to the moral luck paradox</label>
+        <label class="ol"><input type="radio" name="r38" value="B"> A persistent and possibly irresolvable tension in moral thought</label>
+        <label class="ol"><input type="radio" name="r38" value="C"> Why moral luck should be excluded from legal philosophy</label>
+        <label class="ol"><input type="radio" name="r38" value="D"> The triumph of Kantian ethics over consequentialist theories</label>
+      </div></div>
+    </div>
+    <div class="q"><div class="ql">Q39–40 · Short Answer — NO MORE THAN THREE WORDS from the passage.</div>
+      <div style="margin-bottom:13px;"><div class="qt">39. What one-word adjective does the author use to describe Williams's approach to the Kantian project?</div><input class="ti2" type="text" name="r39" placeholder="Your answer..." oninput="updateProgress()"/></div>
+      <div><div class="qt">40. Which two areas of law are mentioned as examples of institutionalised moral luck?</div><input class="ti2" type="text" name="r40" placeholder="e.g. criminal law and..." oninput="updateProgress()"/></div>
+    </div>
+  </div>
+
+  <div class="br">
+    <button class="btn bts" onclick="switchSection('L')">← Back</button>
+    <button class="btn btp" onclick="submitSection('R')">Submit Reading ➜</button>
+  </div>
+</div>
+
+<!-- ═══════════════════ WRITING ═══════════════════ -->
+<div class="sc" id="sec-W">
+  <div class="sh"><span class="sib">✍️</span><div><h2>Writing Test</h2><p>Task 1 + Task 2 · Academic Band 7.5</p></div></div>
+
+  <div class="ph"><h3>Writing Task 1 — Report (minimum 150 words)</h3><p>Describe and compare data. Do NOT include personal opinion.</p></div>
+  <div class="q">
+    <div class="qt" style="margin-bottom:14px;">The graph shows the <strong>percentage of adults reporting high levels of stress</strong> across five countries between <strong>2008 and 2022</strong>. Summarise the information by selecting and reporting the main features, and make comparisons where relevant.</div>
+    <svg viewBox="0 0 500 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:500px;border-radius:12px;background:rgba(232,244,253,0.4);padding:14px 10px;margin-bottom:14px;display:block;">
+      <text x="10" y="15" font-size="9" fill="#6a8aaa">Adults Reporting High Stress (%) — 2008 to 2022</text>
+      <line x1="60" y1="25" x2="480" y2="25" stroke="#cce" stroke-width="0.6"/><line x1="60" y1="63" x2="480" y2="63" stroke="#cce" stroke-width="0.6"/><line x1="60" y1="101" x2="480" y2="101" stroke="#cce" stroke-width="0.6"/><line x1="60" y1="139" x2="480" y2="139" stroke="#cce" stroke-width="0.6"/><line x1="60" y1="177" x2="480" y2="177" stroke="#cce" stroke-width="0.6"/>
+      <text x="5" y="28" font-size="8" fill="#8aacbe">80%</text><text x="5" y="66" font-size="8" fill="#8aacbe">60%</text><text x="5" y="104" font-size="8" fill="#8aacbe">40%</text><text x="5" y="142" font-size="8" fill="#8aacbe">20%</text><text x="10" y="180" font-size="8" fill="#8aacbe">0%</text>
+      <text x="55" y="196" font-size="8" fill="#8aacbe">2008</text><text x="155" y="196" font-size="8" fill="#8aacbe">2012</text><text x="255" y="196" font-size="8" fill="#8aacbe">2016</text><text x="355" y="196" font-size="8" fill="#8aacbe">2020</text><text x="455" y="196" font-size="8" fill="#8aacbe">2022</text>
+      <polyline points="60,82 160,63 260,44 360,29 460,26" fill="none" stroke="#e84343" stroke-width="2.2" stroke-linecap="round"/>
+      <polyline points="60,110 160,104 260,93 360,86 460,82" fill="none" stroke="#ff8c00" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="6,3"/>
+      <polyline points="60,72 160,80 260,90 360,68 460,62" fill="none" stroke="#1a6fad" stroke-width="2.2" stroke-linecap="round"/>
+      <polyline points="60,140 160,137 260,135 360,130 460,127" fill="none" stroke="#2a9e6c" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="3,3"/>
+      <polyline points="60,100 160,108 260,114 360,122 460,126" fill="none" stroke="#9b59b6" stroke-width="2.2" stroke-linecap="round"/>
+      <circle cx="60" cy="82" r="3" fill="#e84343"/><circle cx="460" cy="26" r="3" fill="#e84343"/>
+      <circle cx="60" cy="72" r="3" fill="#1a6fad"/><circle cx="460" cy="62" r="3" fill="#1a6fad"/>
+      <rect x="62" y="31" width="9" height="3" fill="#e84343" rx="1"/><text x="74" y="35" font-size="7" fill="#444">Brazil</text>
+      <rect x="108" y="31" width="9" height="3" fill="#ff8c00" rx="1"/><text x="120" y="35" font-size="7" fill="#444">Japan</text>
+      <rect x="150" y="31" width="9" height="3" fill="#1a6fad" rx="1"/><text x="162" y="35" font-size="7" fill="#444">USA</text>
+      <rect x="192" y="31" width="9" height="3" fill="#2a9e6c" rx="1"/><text x="204" y="35" font-size="7" fill="#444">Germany</text>
+      <rect x="252" y="31" width="9" height="3" fill="#9b59b6" rx="1"/><text x="264" y="35" font-size="7" fill="#444">Australia</text>
+    </svg>
+    <textarea id="w1" class="ta" placeholder="Write your Task 1 report here (min. 150 words)..." oninput="cw('w1','wc1')"></textarea>
+    <div class="wc" id="wc1">0 / 150+ words</div>
+  </div>
+
+  <div class="ph" style="margin-top:28px;"><h3>Writing Task 2 — Academic Essay (minimum 250 words)</h3><p>Structure: Intro → Body 1 → Body 2 → Your opinion → Conclusion</p></div>
+  <div class="q">
+    <div class="qt" style="margin-bottom:14px;"><strong>Some argue that artificial intelligence will fundamentally transform the nature of work, eliminating the need for human labour in most industries. Others believe AI will create new employment categories and augment human capabilities rather than replace them.</strong><br/><br/>Discuss both views and give your own opinion. To what extent do you agree or disagree that AI poses an existential threat to human employment?</div>
+    <div class="tip">💡 <strong>Band 7.5 Tip:</strong> Use sophisticated vocabulary, cohesive devices, and clear paragraphing. Avoid vague generalisations. Develop each point fully with specific examples or logical reasoning. Show awareness of nuance and counter-arguments.</div>
+    <textarea id="w2" class="ta" style="min-height:220px;" placeholder="Write your Task 2 essay here (min. 250 words)..." oninput="cw('w2','wc2')"></textarea>
+    <div class="wc" id="wc2">0 / 250+ words</div>
+  </div>
+
+  <div class="br">
+    <button class="btn bts" onclick="switchSection('R')">← Back</button>
+    <button class="btn btsub" onclick="submitAll()">✨ Submit All &amp; See Results</button>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div class="rc" id="rc">
+  <span class="re" id="re">🎉</span>
+  <h2>Test Complete, Ayang!</h2>
+  <p>Here are your results. Every attempt brings you closer to your goal — I'm incredibly proud of you! 💙</p>
+  <span class="bb" id="bb">Estimated Band: —</span>
+  <div class="sg">
+    <div class="sb scl"><div class="sn" id="sL">—</div><div class="sl">🎧 Listening /40</div></div>
+    <div class="sb scr"><div class="sn" id="sR">—</div><div class="sl">📖 Reading /40</div></div>
+    <div class="sb scw"><div class="sn">✓</div><div class="sl">✍️ Writing Submitted</div></div>
+  </div>
+  <p class="rm" id="rmsg"></p>
+  <button class="btn btp" onclick="location.reload()">🔄 Try Again</button>
+</div>
+
+</div><!-- /wrapper -->
 <script>
-  // ── Snowflakes ──
-  const sf = document.getElementById('snowflakes');
-  for(let i=0;i<18;i++){
-    const s=document.createElement('span');
-    s.className='snowflake';
-    s.textContent=['❄','❅','❆','✦','·'][Math.floor(Math.random()*5)];
-    s.style.left=Math.random()*100+'vw';
-    s.style.fontSize=(0.7+Math.random()*1.2)+'rem';
-    s.style.animationDuration=(6+Math.random()*10)+'s';
-    s.style.animationDelay=(-Math.random()*12)+'s';
-    s.style.opacity=0.2+Math.random()*0.5;
-    sf.appendChild(s);
-  }
+// Snowflakes
+const sf=document.getElementById('snowflakes');
+for(let i=0;i<18;i++){const s=document.createElement('span');s.className='snowflake';s.textContent=['❄','❅','❆','✦'][i%4];s.style.left=Math.random()*100+'vw';s.style.fontSize=(0.7+Math.random()*1.2)+'rem';s.style.animationDuration=(6+Math.random()*10)+'s';s.style.animationDelay=(-Math.random()*12)+'s';s.style.opacity=0.2+Math.random()*0.5;sf.appendChild(s);}
 
-  // ── Correct answers ──
-  const answers = {
-    l1:'B', l2:'B', l3:'C', l4:'C',
-    r1:'B', r2:'C', r3:'C', r4:'D', r5:'B'
-  };
+// Timer
+let secs=9600;
+const te=document.getElementById('td2'),tbg=document.getElementById('tbg');
+const ti=setInterval(()=>{if(secs<=0){clearInterval(ti);te.textContent='00:00';return;}secs--;const m=Math.floor(secs/60),s=secs%60;te.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');if(secs<600)tbg.classList.add('warn');},1000);
 
-  // ── Timer ──
-  let totalSeconds = 3600;
-  const timerEl = document.getElementById('timerDisplay');
-  const timerInterval = setInterval(()=>{
-    if(totalSeconds<=0){clearInterval(timerInterval);timerEl.textContent='00:00';return;}
-    totalSeconds--;
-    const m=Math.floor(totalSeconds/60), s=totalSeconds%60;
-    timerEl.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
-    if(totalSeconds<300) timerEl.parentElement.style.borderColor='rgba(240,79,95,0.5)';
-  },1000);
+// TFNG state
+const TF={};
+function selTFNG(btn,name,val){
+  TF[name]=val;
+  btn.closest('.tfng').querySelectorAll('.tb').forEach(b=>b.classList.remove('sel'));
+  btn.classList.add('sel');
+  updateProgress();
+}
 
-  // ── Section switching ──
-  let currentSection='listening';
-  const sections=['listening','reading','writing'];
-  function switchSection(name){
-    document.querySelectorAll('.section-card').forEach(c=>c.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-    document.getElementById('sec-'+name).classList.add('active');
-    document.getElementById('tab-'+name).classList.add('active');
-    currentSection=name;
-    updateProgress();
-  }
+// Section switch
+function switchSection(n){
+  document.querySelectorAll('.sc').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sec-'+n).classList.add('active');
+  document.getElementById('tab-'+n).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  updateProgress();
+}
 
-  // ── Progress ──
-  function updateProgress(){
-    const radioTotal=Object.keys(answers).length;
-    let filled=0;
-    document.querySelectorAll('input[type=radio]:checked').forEach(()=>filled++);
-    const l5=document.querySelector('input[name=l5]');
-    if(l5&&l5.value.trim()) filled++;
-    const w1=document.getElementById('writing1').value.trim();
-    const w2=document.getElementById('writing2').value.trim();
-    const writingDone=(w1.split(/\s+/).filter(Boolean).length>=150?1:0)+(w2.split(/\s+/).filter(Boolean).length>=250?1:0);
-    const pct=Math.round(((filled+(writingDone*0.5))/(radioTotal+1+2))*100);
-    document.getElementById('progressBar').style.width=Math.min(pct,100)+'%';
-    document.getElementById('progressLabel').textContent=Math.min(pct,100)+'% completed';
-  }
-
-  // ── Radio highlight ──
-  document.querySelectorAll('.option-label input[type=radio]').forEach(inp=>{
-    inp.addEventListener('change',function(){
-      const name=this.name;
-      document.querySelectorAll(`input[name=${name}]`).forEach(r=>{
-        r.closest('.option-label').classList.remove('selected');
-      });
-      this.closest('.option-label').classList.add('selected');
-      updateProgress();
-    });
+// Progress
+function updateProgress(){
+  const sec=document.querySelector('.sc.active');if(!sec)return;
+  let tot=0,fil=0;
+  sec.querySelectorAll('input[type=radio]').forEach(r=>{tot++;if(r.checked)fil++;});
+  sec.querySelectorAll('input[type=text],.bi').forEach(i=>{tot++;if(i.value.trim())fil++;});
+  sec.querySelectorAll('.ms').forEach(s=>{tot++;if(s.value)fil++;});
+  sec.querySelectorAll('.tfng').forEach(t=>{
+    tot++;
+    const oc=t.querySelector('.tb')?.getAttribute('onclick')||'';
+    const nm=oc.match(/'(\w+)'/)?.[1];
+    if(nm&&TF[nm])fil++;
   });
+  const pct=tot>0?Math.round(fil/tot*100):0;
+  document.getElementById('pb').style.width=pct+'%';
+  document.getElementById('plbl').textContent=pct+'% completed';
+}
 
-  // ── Word count ──
-  function countWords(id,wcId){
-    const words=document.getElementById(id).value.trim().split(/\s+/).filter(Boolean).length;
-    const limit=id==='writing1'?150:250;
-    const el=document.getElementById(wcId);
-    el.textContent=words+' / '+limit+'+ words';
-    el.style.color=words>=limit?'#42c98a':'#8aacbe';
+// Radio highlight on select
+document.querySelectorAll('.ol input[type=radio]').forEach(inp=>{
+  inp.addEventListener('change',function(){
+    document.querySelectorAll(`input[name=${this.name}]`).forEach(r=>r.closest('.ol').classList.remove('sel'));
+    this.closest('.ol').classList.add('sel');
     updateProgress();
+  });
+});
+
+// Word count
+function cw(id,wcId){
+  const words=document.getElementById(id).value.trim().split(/\s+/).filter(Boolean).length;
+  const lim=id==='w1'?150:250;
+  const el=document.getElementById(wcId);
+  el.textContent=words+' / '+lim+'+ words';
+  el.style.color=words>=lim?'#42c98a':'#8aacbe';
+}
+
+// Answers
+const ANS={
+  l1:'B',l2:'C',l3:'A',l4:'C',l5:'C',l6:'C',l7:'stu-482916',l8:'B',l9:['A','C'],l10:'3047',
+  l11:'A',l12:'C',l13:'B',l14:'C',l15:'C',l16:'central',l17:'wednesday',l18:'free of charge',l19:'B',l20:'A',
+  l21:'D',l22:'B',l23:'C',l24:'D',l25:'A',l26:'B',l27:'A',l28:'A',l29:'B',l30:'A',
+  l31:'B',l32:'B',l33:'B',l34:'B',l35:'B',l36:'speech production',l37:'partially overlapping',l38:'same',l39:'B',l40:'B',
+  r1:'FALSE',r2:'TRUE',r3:'FALSE',r4:'NG',r5:'NG',
+  r6:'decision',r7:'evaluation',r8:'default',
+  r9:'B',r10:'B',r11:'B',r12:'ii',r13:'iv',
+  r14:'TRUE',r15:'FALSE',r16:'TRUE',r17:'FALSE',r18:'TRUE',r19:'NG',
+  r20:'B',r21:'C',r22:'B',r23:'C',
+  r24:'nodules',r25:'plumes',r26:'protecting',
+  r27:'C',r28:'B',r29:'A',r30:'D',
+  r31:'FALSE',r32:'TRUE',r33:'FALSE',r34:'FALSE',
+  r35:'C',r36:'B',r37:'A',r38:'B',
+  r39:'subversive',r40:'tort law'
+};
+
+function chkRadio(name){const el=document.querySelector(`input[name=${name}]:checked`);return el&&el.value===ANS[name]?1:0;}
+function chkTF(keys){return keys.reduce((s,k)=>s+(TF[k]&&TF[k]===ANS[k]?1:0),0);}
+function chkText(keys){return keys.reduce((s,k)=>{const el=document.querySelector(`[name=${k}]`);if(!el)return s;const v=el.value.trim().toLowerCase();const a=Array.isArray(ANS[k])?ANS[k].map(x=>x.toLowerCase()):[ANS[k].toLowerCase()];return s+(a.some(x=>v.includes(x)||x.includes(v))?1:0);},0);}
+function chkSel(keys){return keys.reduce((s,k)=>{const el=document.querySelector(`[name=${k}]`);return s+(el&&el.value===ANS[k]?1:0);},0);}
+function hlRadio(name){document.querySelectorAll(`input[name=${name}]`).forEach(r=>{const l=r.closest('.ol');if(!l)return;if(r.value===ANS[name])l.classList.add('cor');else if(r.checked)l.classList.add('wrg');r.disabled=true;});}
+function hlTF(name){const correct=ANS[name];document.querySelectorAll('.tb').forEach(btn=>{const oc=btn.getAttribute('onclick')||'';if(!oc.includes("'"+name+"'"))return;const bv=oc.match(/'([A-Z_]+)'\)$/)?.[1];if(bv===correct)btn.classList.add('cor');else if(bv===TF[name]&&bv!==correct)btn.classList.add('wrg');btn.disabled=true;});}
+function hlSel(keys){keys.forEach(k=>{const el=document.querySelector(`[name=${k}]`);if(!el)return;if(el.value===ANS[k])el.classList.add('cor');else if(el.value)el.classList.add('wrg');el.disabled=true;});}
+
+let lSc=0,rSc=0,lDone=false,rDone=false;
+function submitSection(sec){
+  if(sec==='L'){
+    lSc=['l1','l2','l3','l4','l5','l6','l8','l11','l12','l13','l14','l15','l19','l20','l21','l22','l23','l24','l25','l29','l30','l31','l32','l33','l34','l35','l39','l40'].reduce((s,n)=>s+chkRadio(n),0)
+      +chkText(['l7','l10','l16','l17','l18','l36','l37','l38'])
+      +chkSel(['l26','l27','l28']);
+    ['l1','l2','l3','l4','l5','l6','l8','l11','l12','l13','l14','l15','l19','l20','l21','l22','l23','l24','l25','l29','l30','l31','l32','l33','l34','l35','l39','l40'].forEach(hlRadio);
+    hlSel(['l26','l27','l28']);
+    document.getElementById('tab-L').classList.add('done');
+    lDone=true;switchSection('R');
+  } else {
+    rSc=chkTF(['r1','r2','r3','r4','r5','r14','r15','r16','r17','r18','r19','r31','r32','r33','r34'])
+      +chkText(['r6','r7','r8','r24','r25','r26','r39','r40'])
+      +['r9','r10','r11','r20','r21','r22','r23','r35','r36','r37','r38'].reduce((s,n)=>s+chkRadio(n),0)
+      +chkSel(['r12','r13','r27','r28','r29','r30']);
+    ['r1','r2','r3','r4','r5','r14','r15','r16','r17','r18','r19','r31','r32','r33','r34'].forEach(hlTF);
+    ['r9','r10','r11','r20','r21','r22','r23','r35','r36','r37','r38'].forEach(hlRadio);
+    hlSel(['r12','r13','r27','r28','r29','r30']);
+    document.getElementById('tab-R').classList.add('done');
+    rDone=true;switchSection('W');
   }
+}
 
-  // ── Score calc ──
-  let lScore=0, rScore=0;
-  function calcScore(prefix, count){
-    let score=0;
-    for(let i=1;i<=count;i++){
-      const k=prefix+i;
-      const sel=document.querySelector(`input[name=${k}]:checked`);
-      if(sel && sel.value===answers[k]) score++;
-    }
-    return score;
-  }
+function submitAll(){
+  document.getElementById('tab-W').classList.add('done');
+  document.querySelectorAll('.sc').forEach(c=>c.classList.remove('active'));
+  const res=document.getElementById('rc');res.classList.add('show');
+  const tot=lSc+rSc,mx=80,pct=tot/mx;
+  let band,emoji,msg;
+  if(pct>=0.88){band='8.0+';emoji='🌟';msg='Outstanding performance! Band 8+ is truly within your reach. 🎓';}
+  else if(pct>=0.75){band='7.5';emoji='🎉';msg='Excellent! That is a solid Band 7.5 score. You have got this! 💪';}
+  else if(pct>=0.62){band='7.0';emoji='😊';msg='Great job! Focus on your weak areas and you will hit 7.5 next time! 📚';}
+  else if(pct>=0.50){band='6.5';emoji='💙';msg='Good effort! I believe in you — keep practising every day! 🩵';}
+  else{band='6.0';emoji='🤗';msg='Do not give up! Every attempt makes you stronger. I love you and I am so proud! ❤️';}
+  document.getElementById('re').textContent=emoji;
+  document.getElementById('bb').textContent='Estimated Band: '+band;
+  document.getElementById('sL').textContent=lSc+'/40';
+  document.getElementById('sR').textContent=rSc+'/40';
+  document.getElementById('rmsg').textContent=msg;
+  clearInterval(ti);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 
-  // ── Submit section ──
-  let lSubmitted=false, rSubmitted=false;
-  function submitSection(sec){
-    if(sec==='listening'){
-      lScore=calcScore('l',4);
-      // show correct/wrong
-      for(let i=1;i<=4;i++){
-        const k='l'+i;
-        document.querySelectorAll(`input[name=${k}]`).forEach(r=>{
-          const lbl=r.closest('.option-label');
-          if(r.value===answers[k]) lbl.classList.add('correct');
-          else if(r.checked) lbl.classList.add('wrong');
-          r.disabled=true;
-        });
-      }
-      document.getElementById('tab-listening').classList.add('done');
-      lSubmitted=true;
-      switchSection('reading');
-    } else if(sec==='reading'){
-      rScore=calcScore('r',5);
-      for(let i=1;i<=5;i++){
-        const k='r'+i;
-        document.querySelectorAll(`input[name=${k}]`).forEach(r=>{
-          const lbl=r.closest('.option-label');
-          if(r.value===answers[k]) lbl.classList.add('correct');
-          else if(r.checked) lbl.classList.add('wrong');
-          r.disabled=true;
-        });
-      }
-      document.getElementById('tab-reading').classList.add('done');
-      rSubmitted=true;
-      switchSection('writing');
-    }
-  }
+// ─── TTS ───
+const LINES=[
+  {t:"Good morning and welcome to the Hartfield University Enrolment Office. How can I help you today?",r:0.86,p:1.1},
+  {t:"Hi, good morning. I'm here to complete my enrolment. My name is Maya Krishnaswamy.",r:0.84,p:0.9},
+  {t:"Lovely. Let me pull up your file... Yes, I have you here, Maya Krishnaswamy. You've been admitted to the Faculty of Environmental Sciences, is that correct?",r:0.86,p:1.1},
+  {t:"That's right, yes.",r:0.84,p:0.9},
+  {t:"And I see you previously studied at Monash University. We'll need a copy of your academic record from there.",r:0.86,p:1.1},
+  {t:"Of course. I brought it with me, along with a copy of my passport as you mentioned in the email.",r:0.84,p:0.9},
+  {t:"Perfect. Those are exactly the two documents we need. The deadline for submitting this completed enrolment form is the seventh of March.",r:0.86,p:1.1},
+  {t:"Got it. The seventh of March. And what about the scholarship application?",r:0.84,p:0.9},
+  {t:"Scholarship applicants must have a minimum GPA of three point seven. Looking at your transcript, you should be eligible.",r:0.86,p:1.1},
+  {t:"Wonderful. I'm still looking for accommodation. Any recommendations?",r:0.84,p:0.9},
+  {t:"For international students in their first year, we really do recommend the on-campus residential colleges. It makes settling in much easier.",r:0.86,p:1.1},
+  {t:"That sounds ideal. And do you have a student ID ready for me?",r:0.84,p:0.9},
+  {t:"Yes, your student ID is S-T-U dash four eight two nine one six. Orientation week begins on Monday the tenth of March. My extension is three oh four seven.",r:0.86,p:1.1},
+  {t:"Thank you so much. This has been really helpful.",r:0.84,p:0.9},
+  {t:"My pleasure. Welcome to Hartfield.",r:0.86,p:1.1},
+  {t:"Good evening everyone. I'm here to present the annual report for GreenPath Community Alliance.",r:0.85,p:1.05},
+  {t:"Through our tree-planting programme alone, we offset approximately five hundred and eighty tonnes of carbon dioxide last year.",r:0.85,p:1.05},
+  {t:"Our greatest challenge this year was volunteer retention and burnout. Sustaining a passionate volunteer base remains our most pressing difficulty.",r:0.85,p:1.05},
+  {t:"Approximately forty-seven percent of our funding comes from corporate sponsorship.",r:0.85,p:1.05},
+  {t:"We've formed a new partnership with the Department of Environment and Water, which will fund our river restoration project.",r:0.85,p:1.05},
+  {t:"Our composting hub will be located near the central market. Residents can drop off organic waste every Wednesday and Saturday, and compost will be distributed free of charge to participating households.",r:0.85,p:1.05},
+  {t:"Please visit our website and sign up for the volunteer training programme.",r:0.85,p:1.05},
+  {t:"Our solar panel installation across three community centres will be completed by end of this financial year.",r:0.85,p:1.05},
+  {t:"Right, so let's take a look at your research project. You're examining correlations between urban green spaces and mental health outcomes.",r:0.85,p:1.1},
+  {t:"Yes, and we think the preliminary findings are quite promising. We've seen a consistent pattern in the self-reported data.",r:0.84,p:0.9},
+  {t:"That's where I have a concern. Self-reported survey data introduces potential bias.",r:0.83,p:1.05},
+  {t:"I suggested we triangulate the data using physiological measurements — cortisol levels, heart rate variability — to complement the self-reports.",r:0.84,p:0.9},
+  {t:"I think the timeline doesn't allow for that. We'd need ethical clearance and equipment access.",r:0.83,p:0.88},
+  {t:"Given your constraints, I'd recommend structural equation modelling to control for confounding variables.",r:0.85,p:1.1},
+  {t:"Your introduction is satisfactory but could be stronger. The literature review needs significant revision — you're missing key papers from the last five years. The methodology also needs significant revision.",r:0.85,p:1.1},
+  {t:"Should we book another meeting to review the revised draft in two weeks?",r:0.84,p:0.9},
+  {t:"Two weeks sounds right. Despite my criticisms, this project has the potential to be published in the university's academic journal.",r:0.85,p:1.1},
+  {t:"Good morning everyone. Today's lecture focuses on neuroplasticity and its implications for second language acquisition.",r:0.84,p:1.05},
+  {t:"Neuroplasticity refers to the brain's ability to reorganise synaptic connections in response to experience — to rewire itself based on what we do, learn, and practise.",r:0.84,p:1.05},
+  {t:"The critical period hypothesis proposes that after puberty, native-like phonological acquisition becomes significantly harder. Adult learners can learn languages, but achieving native-like pronunciation is increasingly difficult.",r:0.84,p:1.05},
+  {t:"However, Birdsong and Molis in 2001 conducted ultimate attainment research showing that a meaningful subset of adult learners do achieve near-native competency.",r:0.84,p:1.05},
+  {t:"Immersion environments accelerate second language acquisition primarily by increasing the frequency and meaningfulness of input.",r:0.84,p:1.05},
+  {t:"There is compelling evidence that bilingualism may delay the onset of dementia symptoms by several years.",r:0.84,p:1.05},
+  {t:"The Broca's area is primarily responsible for speech production. In late bilinguals, L1 and L2 are processed in partially overlapping cortical regions. Early bilinguals tend to use the same area for both languages.",r:0.84,p:1.05},
+  {t:"The most important factor for successful adult language learning is intrinsic motivation combined with deliberate practice.",r:0.84,p:1.05},
+  {t:"To conclude: neuroplasticity demonstrates convincingly that the brain retains significant language-learning capacity well into adulthood. Thank you.",r:0.84,p:1.05}
+];
 
-  // ── Submit all ──
-  function submitAll(){
-    if(!lSubmitted){ lScore=calcScore('l',4); }
-    if(!rSubmitted){ rScore=calcScore('r',5); }
-    document.getElementById('tab-writing').classList.add('done');
-    document.querySelectorAll('.section-card').forEach(c=>c.classList.remove('active'));
-    const res=document.getElementById('resultCard');
-    res.classList.add('show');
-    document.getElementById('scoreL').textContent='🎧 Listening: '+lScore+'/5';
-    document.getElementById('scoreR').textContent='📖 Reading: '+rScore+'/5';
-    const total=lScore+rScore;
-    let msg='';
-    if(total>=8) msg='Amazing! You\'re absolutely brilliant. 🌟';
-    else if(total>=6) msg='Great job! A little more practice and you\'ll ace it! 💪';
-    else if(total>=4) msg='Good effort! Keep studying, you\'re getting there! 📚';
-    else msg='Don\'t give up! Every mistake is a step forward. I love you! 🩵';
-    document.getElementById('resultMsg').textContent=msg;
-    clearInterval(timerInterval);
-    window.scrollTo({top:0,behavior:'smooth'});
-  }
+let curL=0,ttsOn=false,ttsPI=null,ttsStart=0;
+const DUR=420000;
 
-  // ── Restart ──
-  function restartTest(){
-    location.reload();
-  }
-
-  // ── TTS Audio ──
-  let ttsUtterance = null;
-  let ttsPlaying = false;
-  let ttsProgressInterval = null;
-  let ttsStartTime = 0;
-  const TTS_DURATION_MS = 75000; // ~75 seconds estimated
-
-  const ttsLines = [
-    { text: "Good afternoon! Welcome to the Grand Lake Hotel. How can I help you?", rate: 0.88, pitch: 1.15 },
-    { text: "Hi, good afternoon. I have a reservation. The name is Emma Williams.", rate: 0.85, pitch: 0.92 },
-    { text: "Let me check that for you... Yes, here we are! Emma Williams. You are booked in for three nights, is that correct?", rate: 0.88, pitch: 1.15 },
-    { text: "That's right, three nights.", rate: 0.85, pitch: 0.92 },
-    { text: "Wonderful. Now I see here that you originally requested a twin room, but unfortunately we had a small issue with that room's air conditioning. We'd like to upgrade you to a double room at no extra charge. Is that alright?", rate: 0.88, pitch: 1.15 },
-    { text: "Oh, that's perfectly fine, thank you!", rate: 0.85, pitch: 0.92 },
-    { text: "Great! So, just a few things to let you know. Breakfast is served in the dining room on the ground floor. It starts at seven thirty in the morning and runs until ten.", rate: 0.88, pitch: 1.15 },
-    { text: "Perfect, that works for me.", rate: 0.85, pitch: 0.92 },
-    { text: "And here is your room key card. Oh, and the Wi-Fi password is Hotel Lake 2024. That's capital H, capital L, Hotel, Lake, 2024.", rate: 0.84, pitch: 1.15 },
-    { text: "Hotel Lake 2024, got it. Thank you so much!", rate: 0.85, pitch: 0.92 },
-    { text: "You're very welcome. Enjoy your stay, Miss Williams!", rate: 0.88, pitch: 1.15 },
-  ];
-
-  let currentLine = 0;
-  let ttsChain = null;
-
-  function speakLine(index) {
-    if (index >= ttsLines.length) {
-      // Done
-      ttsPlaying = false;
-      document.getElementById('playBtn').textContent = '▶️';
-      document.getElementById('audioFill').style.width = '100%';
-      document.getElementById('audioStatus').textContent = '✅ Selesai! Jawab soal di bawah.';
-      clearInterval(ttsProgressInterval);
-      return;
-    }
-
-    const line = ttsLines[index];
-    const utter = new SpeechSynthesisUtterance(line.text);
-    utter.rate = line.rate;
-    utter.pitch = line.pitch;
-    utter.volume = 1;
-    utter.lang = 'en-US';
-
-    // Try to assign different voices for alternating speakers
-    const voices = speechSynthesis.getVoices();
-    const femaleVoices = voices.filter(v => v.lang.startsWith('en') && (v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('woman') || v.name.includes('Samantha') || v.name.includes('Victoria') || v.name.includes('Karen') || v.name.includes('Moira') || v.name.includes('Fiona')));
-    const maleVoices = voices.filter(v => v.lang.startsWith('en') && (v.name.toLowerCase().includes('male') || v.name.toLowerCase().includes('man') || v.name.includes('Daniel') || v.name.includes('Alex') || v.name.includes('Fred') || v.name.includes('Tom')));
-    const enVoices = voices.filter(v => v.lang.startsWith('en'));
-
-    // Even index = receptionist (higher pitch), odd = guest (lower pitch)
-    if (index % 2 === 0) {
-      if (femaleVoices.length > 0) utter.voice = femaleVoices[0];
-      else if (enVoices.length > 0) utter.voice = enVoices[0];
-    } else {
-      if (maleVoices.length > 0) utter.voice = maleVoices[0];
-      else if (enVoices.length > 1) utter.voice = enVoices[1];
-      else if (enVoices.length > 0) utter.voice = enVoices[0];
-    }
-
-    const speaker = index % 2 === 0 ? '👩 Receptionist' : '🧑 Guest';
-    document.getElementById('audioStatus').textContent = speaker + ': "' + line.text.substring(0, 40) + (line.text.length > 40 ? '…' : '') + '"';
-
-    utter.onend = () => {
-      currentLine++;
-      setTimeout(() => speakLine(currentLine), 300);
-    };
-
-    utter.onerror = (e) => {
-      console.warn('TTS error:', e);
-      currentLine++;
-      speakLine(currentLine);
-    };
-
-    ttsUtterance = utter;
-    speechSynthesis.speak(utter);
-  }
-
-  function startTTSProgress() {
-    ttsStartTime = Date.now();
-    const fill = document.getElementById('audioFill');
-    clearInterval(ttsProgressInterval);
-    ttsProgressInterval = setInterval(() => {
-      const elapsed = Date.now() - ttsStartTime;
-      const pct = Math.min((elapsed / TTS_DURATION_MS) * 100, 99);
-      fill.style.width = pct + '%';
-    }, 500);
-  }
-
-  function toggleTTS() {
-    if (!('speechSynthesis' in window)) {
-      alert('Browser kamu tidak mendukung Text-to-Speech. Coba pakai Chrome atau Edge ya!');
-      return;
-    }
-
-    if (ttsPlaying) {
-      // Pause
-      speechSynthesis.pause();
-      ttsPlaying = false;
-      document.getElementById('playBtn').textContent = '▶️';
-      document.getElementById('audioStatus').textContent = '⏸ Dijeda...';
-      clearInterval(ttsProgressInterval);
-    } else {
-      // Resume or start
-      if (speechSynthesis.paused) {
-        speechSynthesis.resume();
-        ttsPlaying = true;
-        document.getElementById('playBtn').textContent = '⏸️';
-        startTTSProgress();
-      } else {
-        // Fresh start
-        speechSynthesis.cancel();
-        currentLine = 0;
-        ttsPlaying = true;
-        document.getElementById('playBtn').textContent = '⏸️';
-        document.getElementById('audioFill').style.width = '0%';
-        // Wait for voices to load
-        const voices = speechSynthesis.getVoices();
-        if (voices.length === 0) {
-          speechSynthesis.onvoiceschanged = () => { speakLine(0); startTTSProgress(); };
-        } else {
-          speakLine(0);
-          startTTSProgress();
-        }
-      }
+function spkLine(i){
+  if(i>=LINES.length){ttsOn=false;document.getElementById('playBtn').textContent='✅';document.getElementById('af').style.width='100%';document.getElementById('as2').textContent='Listening complete! Answer the questions.';clearInterval(ttsPI);return;}
+  const ln=LINES[i];
+  const u=new SpeechSynthesisUtterance(ln.t);
+  u.rate=ln.r;u.pitch=ln.p;u.volume=1;u.lang='en-US';
+  const vs=speechSynthesis.getVoices().filter(v=>v.lang.startsWith('en'));
+  if(vs.length>0)u.voice=i%2===0?vs[0]:(vs[1]||vs[0]);
+  document.getElementById('as2').textContent=(i%2===0?'👩':'🧑')+': "'+ln.t.substring(0,48)+(ln.t.length>48?'…':'')+'"';
+  u.onend=()=>{curL++;setTimeout(()=>spkLine(curL),350);};
+  u.onerror=()=>{curL++;spkLine(curL);};
+  speechSynthesis.speak(u);
+}
+function startProg(){ttsStart=Date.now();const af=document.getElementById('af');clearInterval(ttsPI);ttsPI=setInterval(()=>{af.style.width=Math.min(((Date.now()-ttsStart)/DUR)*100,99)+'%';},1000);}
+function toggleTTS(){
+  if(!('speechSynthesis'in window)){alert('TTS not supported. Use Chrome or Edge.');return;}
+  if(ttsOn){speechSynthesis.pause();ttsOn=false;document.getElementById('playBtn').textContent='▶️';document.getElementById('as2').textContent='⏸ Paused';clearInterval(ttsPI);}
+  else{
+    if(speechSynthesis.paused){speechSynthesis.resume();ttsOn=true;document.getElementById('playBtn').textContent='⏸️';startProg();}
+    else{speechSynthesis.cancel();curL=0;ttsOn=true;document.getElementById('playBtn').textContent='⏸️';document.getElementById('af').style.width='0%';
+      const vs=speechSynthesis.getVoices();
+      if(vs.length===0){speechSynthesis.onvoiceschanged=()=>{spkLine(0);startProg();};}
+      else{spkLine(0);startProg();}
     }
   }
-
-  function replayTTS() {
-    speechSynthesis.cancel();
-    ttsPlaying = false;
-    currentLine = 0;
-    clearInterval(ttsProgressInterval);
-    document.getElementById('audioFill').style.width = '0%';
-    document.getElementById('playBtn').textContent = '▶️';
-    document.getElementById('audioStatus').textContent = 'Tekan ▶ untuk memutar percakapan';
-  }
+}
+function replayTTS(){speechSynthesis.cancel();ttsOn=false;curL=0;clearInterval(ttsPI);document.getElementById('af').style.width='0%';document.getElementById('playBtn').textContent='▶️';document.getElementById('as2').textContent='Press ▶ to begin';}
 </script>
 </body>
 </html>

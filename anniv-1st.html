@@ -594,6 +594,120 @@
         backdrop-filter: blur(10px);
       }
 
+      .intro-screen {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background:
+          radial-gradient(circle at 30% 20%, rgba(244, 91, 147, 0.28), transparent 28rem),
+          radial-gradient(circle at 70% 80%, rgba(255, 211, 138, 0.22), transparent 24rem),
+          #140817;
+        color: #fff7fb;
+        transition: opacity 0.8s ease, visibility 0.8s ease;
+      }
+
+      .intro-screen.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .intro-card {
+        width: min(620px, 100%);
+        text-align: center;
+      }
+
+      .intro-card h2 {
+        margin: 0 0 14px;
+        color: #fff7fb;
+        font-size: clamp(2.6rem, 9vw, 6.2rem);
+      }
+
+      .intro-card p {
+        color: #ffd6e3;
+        line-height: 1.8;
+      }
+
+      .loader-bar {
+        height: 10px;
+        margin: 26px 0 18px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      .loader-bar span {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--pink), var(--gold));
+        animation: loadMemories 2.6s ease forwards;
+        transform-origin: left;
+      }
+
+      @keyframes loadMemories {
+        from { transform: scaleX(0); }
+        to { transform: scaleX(1); }
+      }
+
+      .countdown-card {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 18px;
+        align-items: center;
+        margin-top: 18px;
+        padding: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.68);
+        border-radius: 30px;
+        background: linear-gradient(135deg, rgba(20, 8, 23, 0.95), rgba(125, 33, 72, 0.92));
+        box-shadow: 0 20px 55px rgba(125, 33, 72, 0.18);
+        color: #fff7fb;
+      }
+
+      .countdown-card h3 {
+        margin: 0 0 8px;
+        color: #fff7fb;
+        font-size: 2rem;
+      }
+
+      .countdown-card p {
+        margin: 0;
+        color: #ffd6e3;
+        line-height: 1.7;
+      }
+
+      .countdown-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+
+      .countdown-box {
+        padding: 14px 10px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.1);
+        text-align: center;
+      }
+
+      .countdown-box strong {
+        display: block;
+        color: var(--gold);
+        font-size: 1.7rem;
+      }
+
+      .countdown-box span {
+        display: block;
+        margin-top: 3px;
+        color: #ffd6e3;
+        font-size: 0.72rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
       .modal.active {
         display: grid;
       }
@@ -605,6 +719,54 @@
         background: #fffaf8;
         box-shadow: 0 34px 90px rgba(20, 8, 23, 0.32);
         text-align: center;
+      }
+
+      .modal-card.wide {
+        width: min(760px, 100%);
+        text-align: left;
+      }
+
+      .modal-actions {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .lightbox-card {
+        width: min(920px, 100%);
+        padding: 12px;
+        border-radius: 30px;
+        background: #fffaf8;
+        box-shadow: 0 34px 90px rgba(20, 8, 23, 0.32);
+      }
+
+      .lightbox-card img {
+        max-height: 76svh;
+        border-radius: 22px;
+        object-fit: contain;
+        background: #190b1c;
+      }
+
+      .lightbox-caption {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 6px 4px;
+        color: var(--wine);
+        font-weight: 800;
+      }
+
+      .lightbox-caption button {
+        border: 0;
+        border-radius: 999px;
+        background: #ffe7ef;
+        color: var(--wine);
+        padding: 9px 13px;
+        font-weight: 900;
+        cursor: pointer;
       }
 
       .modal-card h3 {
@@ -675,6 +837,7 @@
         .copy-grid,
         .logs,
         .memory-note,
+        .countdown-card,
         .closing {
           grid-template-columns: 1fr;
         }
@@ -747,6 +910,10 @@
           grid-row: auto;
         }
 
+        .countdown-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
         .closing img {
           height: 320px;
         }
@@ -759,6 +926,16 @@
     </style>
   </head>
   <body>
+    <div class="intro-screen" id="introScreen" aria-label="Opening cinematic">
+      <div class="intro-card">
+        <span class="eyebrow">Loading 365 memories</span>
+        <h2>Our Story Starts Again</h2>
+        <p>Semua arsip dibuka. Semua foto dimuat. Semua missing logs tetap disimpan sebagai bagian dari kita.</p>
+        <div class="loader-bar"><span></span></div>
+        <button class="btn" type="button" onclick="skipIntro()">Masuk sekarang</button>
+      </div>
+    </div>
+
     <audio id="romanticAudio" preload="metadata" loop>
       <source src="asset5/Yiruma - River Flows In You (An Kay Remix).mp3" type="audio/mpeg" />
     </audio>
@@ -932,7 +1109,22 @@
             <p>Satu tahun pertama ini bukan akhir cerita. Ini baru versi 1.0 dari perjalanan kita. Masih banyak fitur yang belum dibuat, banyak halaman yang belum dibuka, banyak foto yang belum diambil, dan banyak hari biasa yang nanti jadi kenangan berharga.</p>
             <p>Aku tidak janji semuanya selalu mudah. Tapi aku mau tetap belajar jadi orang yang lebih baik buat kamu. Aku mau tetap tumbuh bareng kamu, pelan-pelan, dengan cara yang sehat, tulus, dan penuh rasa syukur.</p>
             <p><strong>Happy 1st Anniversary, Vania.</strong> Kalau kamu masih mau, aku ingin lanjut menulis chapter berikutnya sama kamu.</p>
-            <button class="btn" type="button" onclick="openModal()">Accept next chapter</button>
+            <div class="actions">
+              <button class="btn" type="button" onclick="openModal()">Accept next chapter</button>
+              <button class="btn secondary" type="button" onclick="openLoveLetter()">Buka surat terakhir</button>
+            </div>
+          </div>
+        </article>
+        <article class="countdown-card" aria-label="Countdown anniversary kedua">
+          <div>
+            <h3>Countdown v2.0</h3>
+            <p>Timer menuju anniversary kedua. Karena cerita ini belum selesai, cuma naik versi.</p>
+          </div>
+          <div class="countdown-grid" id="nextCountdown">
+            <div class="countdown-box"><strong>0</strong><span>hari</span></div>
+            <div class="countdown-box"><strong>0</strong><span>jam</span></div>
+            <div class="countdown-box"><strong>0</strong><span>menit</span></div>
+            <div class="countdown-box"><strong>0</strong><span>detik</span></div>
           </div>
         </article>
       </section>
@@ -953,6 +1145,29 @@
         <h3 id="hugTitle">Pelukan terkirim</h3>
         <p>Status: successfully delivered. Satu pelukan paling hangat sudah mendarat di sana. Terima kasih sudah jadi bagian paling manis dari satu tahun ini.</p>
         <button class="btn" type="button" onclick="closeModal()">Tutup & lanjut sayang</button>
+      </div>
+    </div>
+
+    <div class="modal" id="loveLetterModal" role="dialog" aria-modal="true" aria-labelledby="letterTitle">
+      <div class="modal-card wide">
+        <h3 id="letterTitle">Surat terakhir di versi 1.0</h3>
+        <p>Vania, kalau halaman ini adalah rangkuman satu tahun, maka bagian ini adalah inti yang paling ingin aku simpan.</p>
+        <p>Aku suka caramu hadir, bahkan di hari-hari yang tidak selalu rapi. Aku suka bagaimana kita bisa ketawa karena hal kecil, diam karena capek, lalu tetap saling cari. Aku suka fakta bahwa setelah semua naik-turun, kamu tetap jadi orang yang paling ingin aku kabari.</p>
+        <p>Terima kasih sudah menemani versi aku yang belum sempurna. Terima kasih sudah jadi bagian dari banyak hari biasa yang akhirnya terasa spesial. Kalau nanti ada tahun kedua, ketiga, dan seterusnya, aku ingin kita tetap belajar jadi tempat paling aman buat satu sama lain.</p>
+        <p><strong>Love service active. Memory saved. Next chapter ready.</strong></p>
+        <div class="modal-actions">
+          <button class="btn" type="button" onclick="closeLoveLetter()">Simpan di hati</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="lightboxModal" role="dialog" aria-modal="true" aria-label="Preview foto">
+      <div class="lightbox-card">
+        <img id="lightboxImage" src="" alt="Preview kenangan anniversary" />
+        <div class="lightbox-caption">
+          <span id="lightboxCaption">Memory saved</span>
+          <button type="button" onclick="closeLightbox()">Tutup</button>
+        </div>
       </div>
     </div>
 
@@ -1074,7 +1289,7 @@
 
       document.getElementById("memoryCount").textContent = galleryAssets.length;
       document.getElementById("filmStrip").innerHTML = galleryAssets.map((src, index) => `<img src="${src}" alt="Preview kenangan ${index + 1}" loading="lazy" />`).join("");
-      document.getElementById("galleryGrid").innerHTML = galleryAssets.map((src, index) => `<figure><img src="${src}" alt="Kenangan anniversary 1 tahun ${index + 1}" loading="lazy" /></figure>`).join("");
+      document.getElementById("galleryGrid").innerHTML = galleryAssets.map((src, index) => `<figure><img src="${src}" alt="Kenangan anniversary 1 tahun ${index + 1}" loading="lazy" data-index="${index}" /></figure>`).join("");
 
       const romanticAudio = document.getElementById("romanticAudio");
       const musicToggle = document.getElementById("musicToggle");
@@ -1102,10 +1317,88 @@
 
       function closeModal() {
         document.getElementById("hugModal").classList.remove("active");
+        document.getElementById("hugTitle").textContent = "Pelukan terkirim";
+        document.querySelector("#hugModal p").textContent = "Status: successfully delivered. Satu pelukan paling hangat sudah mendarat di sana. Terima kasih sudah jadi bagian paling manis dari satu tahun ini.";
       }
 
       document.getElementById("hugModal").addEventListener("click", (event) => {
         if (event.target.id === "hugModal") closeModal();
+      });
+
+      const captions = [
+        "Momen kecil, rasa besar.",
+        "Ini kita, versi bahagia.",
+        "Saved memory, no rollback.",
+        "Foto biasa, artinya luar biasa.",
+        "Satu frame, banyak rindu.",
+        "Real world log: love active.",
+      ];
+
+      function skipIntro() {
+        document.getElementById("introScreen").classList.add("hidden");
+      }
+
+      setTimeout(skipIntro, 3200);
+
+      function openLoveLetter() {
+        document.getElementById("loveLetterModal").classList.add("active");
+      }
+
+      function closeLoveLetter() {
+        document.getElementById("loveLetterModal").classList.remove("active");
+      }
+
+      function openLightbox(src, index) {
+        document.getElementById("lightboxImage").src = src;
+        document.getElementById("lightboxCaption").textContent = captions[index % captions.length];
+        document.getElementById("lightboxModal").classList.add("active");
+      }
+
+      function closeLightbox() {
+        document.getElementById("lightboxModal").classList.remove("active");
+        document.getElementById("lightboxImage").src = "";
+      }
+
+      document.getElementById("galleryGrid").addEventListener("click", (event) => {
+        const image = event.target.closest("img");
+        if (!image) return;
+        openLightbox(image.src, Number(image.dataset.index));
+      });
+
+      document.getElementById("lightboxModal").addEventListener("click", (event) => {
+        if (event.target.id === "lightboxModal") closeLightbox();
+      });
+
+      document.getElementById("loveLetterModal").addEventListener("click", (event) => {
+        if (event.target.id === "loveLetterModal") closeLoveLetter();
+      });
+
+      const countdownTarget = new Date("2027-06-17T00:00:00+07:00");
+      const countdownBoxes = document.querySelectorAll("#nextCountdown strong");
+
+      function updateCountdown() {
+        const distance = Math.max(0, countdownTarget - new Date());
+        const days = Math.floor(distance / 86400000);
+        const hours = Math.floor((distance % 86400000) / 3600000);
+        const minutes = Math.floor((distance % 3600000) / 60000);
+        const seconds = Math.floor((distance % 60000) / 1000);
+        [days, hours, minutes, seconds].forEach((value, index) => {
+          countdownBoxes[index].textContent = String(value).padStart(2, "0");
+        });
+      }
+
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+
+      let easterClicks = 0;
+      document.querySelector("h1").addEventListener("click", () => {
+        easterClicks += 1;
+        if (easterClicks === 5) {
+          document.getElementById("hugTitle").textContent = "Secret memory unlocked";
+          document.querySelector("#hugModal p").textContent = "Kalau kamu nemu ini, berarti kamu memang selalu jadi favoritku. Hidden feature kecil, rasa besar.";
+          openModal();
+          easterClicks = 0;
+        }
       });
     </script>
   </body>

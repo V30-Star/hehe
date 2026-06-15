@@ -238,6 +238,24 @@
         transform: scale(1.05);
       }
 
+      .page-card.locked {
+        filter: grayscale(0.15);
+      }
+
+      .page-card.locked a {
+        background: linear-gradient(135deg, #777, #aaa);
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+
+      .unlock-countdown {
+        display: block;
+        margin: -6px 0 18px;
+        color: #8b2f61;
+        font-size: 0.86em;
+        font-weight: 700;
+      }
+
       .footer {
         text-align: center;
         color: rgba(0, 0, 0, 0.6);
@@ -297,11 +315,12 @@
       <p class="subtitle">Celebrate our beautiful moments together</p>
 
       <div class="pages-grid">
-        <div class="page-card">
+        <div class="page-card locked" id="anniv1Card">
           <span class="page-icon">💞</span>
           <h2>ANNIV 1 YEAR</h2>
           <p>Full story of our first year: active archives, missing logs, gallery, and next chapter</p>
-          <a href="anniv-1st.html">Open 1st Anniversary</a>
+          <span class="unlock-countdown" id="anniv1Countdown">Unlocking soon...</span>
+          <a href="anniv-1st.html" id="anniv1Link" aria-disabled="true">Locked until 17-06-2026 00:00</a>
         </div>
 
         <div class="page-card">
@@ -353,5 +372,38 @@
 
       <div class="footer">Made with <span class="heart-divider">❤️</span> for our love story</div>
     </div>
+
+    <script>
+      const anniv1UnlockAt = new Date("2026-06-17T00:00:00+07:00");
+      const anniv1Card = document.getElementById("anniv1Card");
+      const anniv1Link = document.getElementById("anniv1Link");
+      const anniv1Countdown = document.getElementById("anniv1Countdown");
+
+      function updateAnniv1Lock() {
+        const remaining = anniv1UnlockAt - new Date();
+
+        if (remaining <= 0) {
+          anniv1Card.classList.remove("locked");
+          anniv1Link.textContent = "Open 1st Anniversary";
+          anniv1Link.removeAttribute("aria-disabled");
+          anniv1Countdown.textContent = "Unlocked. Happy 1st Anniversary!";
+          return;
+        }
+
+        const days = Math.floor(remaining / 86400000);
+        const hours = Math.floor((remaining % 86400000) / 3600000);
+        const minutes = Math.floor((remaining % 3600000) / 60000);
+        const seconds = Math.floor((remaining % 60000) / 1000);
+
+        anniv1Countdown.textContent = `Unlock in ${days}d ${hours}h ${minutes}m ${seconds}s`;
+      }
+
+      anniv1Link.addEventListener("click", (event) => {
+        if (anniv1UnlockAt > new Date()) event.preventDefault();
+      });
+
+      updateAnniv1Lock();
+      setInterval(updateAnniv1Lock, 1000);
+    </script>
   </body>
 </html>

@@ -1,0 +1,937 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Happy 1st Anniversary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --ink: #25131b;
+        --muted: #765868;
+        --paper: #fff9f7;
+        --card: rgba(255, 255, 255, 0.82);
+        --pink: #f45b93;
+        --rose: #ff9ab8;
+        --wine: #7d2148;
+        --cream: #ffe8d6;
+        --night: #140817;
+        --gold: #ffd38a;
+        --line: rgba(125, 33, 72, 0.18);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at top left, rgba(244, 91, 147, 0.18), transparent 34rem),
+          radial-gradient(circle at 90% 12%, rgba(255, 211, 138, 0.26), transparent 28rem),
+          linear-gradient(135deg, #fff5f2 0%, #ffe4ef 48%, #fff8ea 100%);
+        font-family: Inter, system-ui, sans-serif;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image: linear-gradient(rgba(125, 33, 72, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(125, 33, 72, 0.04) 1px, transparent 1px);
+        background-size: 48px 48px;
+        pointer-events: none;
+        z-index: -2;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      img {
+        display: block;
+        width: 100%;
+      }
+
+      .shell {
+        width: min(1120px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .nav {
+        position: sticky;
+        top: 12px;
+        z-index: 20;
+        display: flex;
+        justify-content: center;
+        padding: 12px 0;
+      }
+
+      .nav-inner {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.62);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 16px 40px rgba(125, 33, 72, 0.12);
+      }
+
+      .nav a {
+        padding: 9px 14px;
+        border-radius: 999px;
+        color: var(--wine);
+        font-size: 0.86rem;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .nav a:hover {
+        background: #ffe7ef;
+      }
+
+      .hero {
+        min-height: 92svh;
+        display: grid;
+        grid-template-columns: 1.02fr 0.98fr;
+        gap: 36px;
+        align-items: center;
+        padding: 44px 0 72px;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.64);
+        color: var(--wine);
+        font-size: 0.82rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Playfair Display", Georgia, serif;
+      }
+
+      h1 {
+        margin: 20px 0 18px;
+        color: var(--wine);
+        font-size: clamp(3.4rem, 9vw, 7.8rem);
+        line-height: 0.9;
+        letter-spacing: -0.07em;
+      }
+
+      .lead {
+        max-width: 620px;
+        color: var(--muted);
+        font-size: clamp(1.05rem, 2vw, 1.28rem);
+        line-height: 1.8;
+      }
+
+      .actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 28px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        min-height: 48px;
+        padding: 0 18px;
+        border: 0;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--pink), #ff7fa8);
+        color: white;
+        font: inherit;
+        font-weight: 800;
+        text-decoration: none;
+        box-shadow: 0 16px 30px rgba(244, 91, 147, 0.32);
+        cursor: pointer;
+      }
+
+      .btn.secondary {
+        background: white;
+        color: var(--wine);
+        box-shadow: inset 0 0 0 1px var(--line), 0 14px 24px rgba(125, 33, 72, 0.08);
+      }
+
+      .hero-art {
+        position: relative;
+        min-height: 560px;
+      }
+
+      .photo-stack {
+        position: absolute;
+        inset: 0;
+      }
+
+      .polaroid {
+        position: absolute;
+        overflow: hidden;
+        padding: 12px 12px 48px;
+        border-radius: 26px;
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: 0 30px 70px rgba(75, 21, 46, 0.2);
+        transform: rotate(var(--rotate));
+      }
+
+      .polaroid img {
+        height: 100%;
+        border-radius: 18px;
+        object-fit: cover;
+      }
+
+      .polaroid span {
+        position: absolute;
+        left: 18px;
+        right: 18px;
+        bottom: 14px;
+        color: var(--wine);
+        font-weight: 800;
+        text-align: center;
+      }
+
+      .p1 {
+        top: 20px;
+        left: 40px;
+        width: min(78%, 380px);
+        height: 430px;
+        --rotate: -5deg;
+        z-index: 3;
+      }
+
+      .p2 {
+        top: 120px;
+        right: 0;
+        width: 250px;
+        height: 320px;
+        --rotate: 8deg;
+        z-index: 2;
+      }
+
+      .p3 {
+        bottom: 8px;
+        left: 0;
+        width: 230px;
+        height: 290px;
+        --rotate: 7deg;
+        z-index: 4;
+      }
+
+      .orb {
+        position: absolute;
+        border-radius: 999px;
+        filter: blur(4px);
+        opacity: 0.82;
+      }
+
+      .orb.one {
+        top: 32px;
+        right: 60px;
+        width: 150px;
+        height: 150px;
+        background: #ffd6e3;
+      }
+
+      .orb.two {
+        right: 22px;
+        bottom: 82px;
+        width: 95px;
+        height: 95px;
+        background: #ffd38a;
+      }
+
+      section {
+        padding: 78px 0;
+      }
+
+      .section-head {
+        display: grid;
+        grid-template-columns: 0.75fr 1fr;
+        gap: 28px;
+        align-items: end;
+        margin-bottom: 30px;
+      }
+
+      .section-kicker {
+        color: var(--pink);
+        font-size: 0.78rem;
+        font-weight: 900;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      h2 {
+        margin: 8px 0 0;
+        color: var(--wine);
+        font-size: clamp(2.2rem, 5vw, 4.4rem);
+        line-height: 1;
+        letter-spacing: -0.045em;
+      }
+
+      .section-head p,
+      .copy-card p,
+      .timeline-card p,
+      .quote-card p,
+      .closing p {
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .copy-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+
+      .copy-card,
+      .quote-card,
+      .timeline-card,
+      .log-panel,
+      .closing {
+        border: 1px solid rgba(255, 255, 255, 0.68);
+        border-radius: 30px;
+        background: var(--card);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 20px 55px rgba(125, 33, 72, 0.1);
+      }
+
+      .copy-card {
+        padding: 28px;
+      }
+
+      .copy-card.wide {
+        grid-column: 1 / -1;
+      }
+
+      .copy-card h3,
+      .timeline-card h3,
+      .quote-card h3 {
+        margin: 0 0 12px;
+        color: var(--wine);
+        font-size: 1.6rem;
+      }
+
+      .timeline {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 14px;
+      }
+
+      .month {
+        position: relative;
+        min-height: 182px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.62);
+        overflow: hidden;
+      }
+
+      .month.active {
+        color: white;
+        background: linear-gradient(135deg, rgba(125, 33, 72, 0.92), rgba(244, 91, 147, 0.8));
+        box-shadow: 0 18px 40px rgba(125, 33, 72, 0.2);
+      }
+
+      .month.missing {
+        border-style: dashed;
+        opacity: 0.86;
+      }
+
+      .month strong {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 1.05rem;
+      }
+
+      .month span {
+        display: inline-block;
+        margin-bottom: 22px;
+        padding: 5px 9px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.68);
+        color: var(--wine);
+        font-size: 0.72rem;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .month.active span {
+        background: rgba(255, 255, 255, 0.18);
+        color: white;
+      }
+
+      .month p {
+        margin: 0;
+        line-height: 1.55;
+      }
+
+      .journey-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+
+      .timeline-card {
+        position: relative;
+        min-height: 360px;
+        padding: 22px;
+        overflow: hidden;
+      }
+
+      .timeline-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--tone);
+        opacity: 0.18;
+        pointer-events: none;
+      }
+
+      .timeline-card > * {
+        position: relative;
+      }
+
+      .timeline-card img {
+        height: 168px;
+        margin-bottom: 18px;
+        border-radius: 22px;
+        object-fit: cover;
+        box-shadow: 0 16px 38px rgba(125, 33, 72, 0.16);
+      }
+
+      .tag {
+        display: inline-flex;
+        margin-bottom: 12px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: white;
+        color: var(--wine);
+        font-size: 0.72rem;
+        font-weight: 900;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .logs {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 20px;
+        align-items: stretch;
+      }
+
+      .log-panel {
+        padding: 26px;
+        background: linear-gradient(145deg, #160919, #27112b);
+        color: #ffe8f1;
+        font-family: "SFMono-Regular", Consolas, monospace;
+        overflow: hidden;
+      }
+
+      .log-panel div {
+        margin: 12px 0;
+        color: #ffc0d3;
+        line-height: 1.7;
+      }
+
+      .log-panel strong {
+        color: var(--gold);
+      }
+
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-rows: 180px;
+        gap: 12px;
+      }
+
+      .gallery figure {
+        position: relative;
+        margin: 0;
+        overflow: hidden;
+        border-radius: 24px;
+        background: #fff;
+        box-shadow: 0 14px 32px rgba(125, 33, 72, 0.12);
+      }
+
+      .gallery figure:nth-child(1),
+      .gallery figure:nth-child(8) {
+        grid-row: span 2;
+      }
+
+      .gallery figure:nth-child(3),
+      .gallery figure:nth-child(10) {
+        grid-column: span 2;
+      }
+
+      .gallery img {
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+
+      .gallery figure:hover img {
+        transform: scale(1.06);
+      }
+
+      .quotes {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+      }
+
+      .quote-card {
+        padding: 24px;
+      }
+
+      .quote-card blockquote {
+        margin: 0 0 18px;
+        color: var(--wine);
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 1.45rem;
+        line-height: 1.25;
+      }
+
+      .closing {
+        position: relative;
+        display: grid;
+        grid-template-columns: 0.8fr 1.2fr;
+        gap: 26px;
+        align-items: center;
+        padding: 26px;
+        overflow: hidden;
+      }
+
+      .closing img {
+        height: 420px;
+        border-radius: 28px;
+        object-fit: cover;
+      }
+
+      .closing h2 {
+        margin-bottom: 18px;
+      }
+
+      .modal {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+        display: none;
+        place-items: center;
+        padding: 20px;
+        background: rgba(20, 8, 23, 0.58);
+        backdrop-filter: blur(10px);
+      }
+
+      .modal.active {
+        display: grid;
+      }
+
+      .modal-card {
+        width: min(520px, 100%);
+        padding: 28px;
+        border-radius: 30px;
+        background: #fffaf8;
+        box-shadow: 0 34px 90px rgba(20, 8, 23, 0.32);
+        text-align: center;
+      }
+
+      .modal-card h3 {
+        margin: 0 0 10px;
+        color: var(--wine);
+        font-size: 2rem;
+      }
+
+      .modal-card p {
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      footer {
+        padding: 42px 0 60px;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      @media (max-width: 900px) {
+        .hero,
+        .section-head,
+        .copy-grid,
+        .logs,
+        .closing {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          padding-top: 28px;
+        }
+
+        .hero-art {
+          min-height: 470px;
+        }
+
+        .timeline,
+        .journey-grid,
+        .quotes {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .gallery {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 620px) {
+        .shell {
+          width: min(100% - 22px, 1120px);
+        }
+
+        .nav {
+          display: none;
+        }
+
+        section {
+          padding: 54px 0;
+        }
+
+        .hero-art {
+          min-height: 380px;
+        }
+
+        .p1 {
+          left: 22px;
+          width: 78%;
+          height: 330px;
+        }
+
+        .p2 {
+          width: 160px;
+          height: 230px;
+        }
+
+        .p3 {
+          width: 150px;
+          height: 210px;
+        }
+
+        .timeline,
+        .journey-grid,
+        .quotes,
+        .gallery {
+          grid-template-columns: 1fr;
+        }
+
+        .gallery {
+          grid-auto-rows: 260px;
+        }
+
+        .gallery figure:nth-child(n) {
+          grid-column: auto;
+          grid-row: auto;
+        }
+
+        .closing img {
+          height: 320px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav" aria-label="Navigasi halaman">
+      <div class="nav-inner">
+        <a href="#opening">Opening</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#journey">Journey</a>
+        <a href="#missing">Missing Logs</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#future">Future</a>
+      </div>
+    </nav>
+
+    <header class="shell hero">
+      <div>
+        <span class="eyebrow">Anniversary v1.0 · 365 hari</span>
+        <h1>One Year of Us</h1>
+        <p class="lead">Untuk Vania, satu tahun ini bukan cuma tanggal yang akhirnya genap. Ini semua tawa kecil, obrolan random, rindu, ngambek sebentar, lalu balik lagi karena rumah paling hangat tetap kamu.</p>
+        <div class="actions">
+          <a class="btn" href="#opening">Buka cerita</a>
+          <button class="btn secondary" type="button" onclick="openModal()">Kirim pelukan online</button>
+        </div>
+      </div>
+      <div class="hero-art" aria-label="Kolase foto anniversary">
+        <div class="orb one"></div>
+        <div class="orb two"></div>
+        <div class="photo-stack">
+          <figure class="polaroid p1">
+            <img src="assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.07.jpeg" alt="Foto utama anniversary 1 tahun" />
+            <span>365 days, still you</span>
+          </figure>
+          <figure class="polaroid p2">
+            <img src="assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.04 (1).jpeg" alt="Kenangan bersama" loading="lazy" />
+            <span>real world logs</span>
+          </figure>
+          <figure class="polaroid p3">
+            <img src="assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.58.jpeg" alt="Momen manis" loading="lazy" />
+            <span>favorite person</span>
+          </figure>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section id="opening" class="shell">
+        <div class="section-head">
+          <div>
+            <span class="section-kicker">The Opening</span>
+            <h2>Awal yang tidak sempat jadi web.</h2>
+          </div>
+          <p>Bulan 1 dan 2 kosong di folder, tapi bukan kosong di hati. Justru di sana semua mulai tumbuh pelan-pelan.</p>
+        </div>
+        <div class="copy-grid">
+          <article class="copy-card">
+            <h3>Terima kasih, Vania</h3>
+            <p>Terima kasih sudah bertahan sejauh ini. Terima kasih sudah jadi tempat aku pulang, jadi orang yang bikin hari biasa terasa lebih hangat, dan jadi alasan kenapa banyak momen kecil terasa layak diingat.</p>
+          </article>
+          <article class="copy-card">
+            <h3>Bulan 1-2: private beta</h3>
+            <p>Waktu itu mungkin kita masih malu-malu, masih sibuk memahami ritme satu sama lain, atau terlalu asyik menikmati momen berdua secara langsung sampai belum kepikiran mendokumentasikannya lewat web.</p>
+          </article>
+          <article class="copy-card wide">
+            <h3>Fondasi</h3>
+            <p>Bulan 1 dan 2 mungkin tidak punya halaman khusus. Tapi mereka tetap jadi fondasi. Di sana semuanya mulai tumbuh: rasa nyaman, rasa penasaran, rasa sayang, dan keyakinan kecil bahwa kayaknya aku mau jalan lebih jauh sama orang ini.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="timeline" class="shell">
+        <div class="section-head">
+          <div>
+            <span class="section-kicker">12 Month Map</span>
+            <h2>Timeline kita.</h2>
+          </div>
+          <p>Yang aktif jadi arsip digital. Yang kosong jadi missing log. Semua tetap bagian dari cerita.</p>
+        </div>
+        <div class="timeline" id="monthTimeline"></div>
+      </section>
+
+      <section id="journey" class="shell">
+        <div class="section-head">
+          <div>
+            <span class="section-kicker">The Journey</span>
+            <h2>Bulan 3 sampai 8.</h2>
+          </div>
+          <p>Enam web, enam vibe, satu pesan yang sama: aku sayang kamu dan aku mau kamu tahu itu.</p>
+        </div>
+        <div class="journey-grid" id="journeyGrid"></div>
+      </section>
+
+      <section id="missing" class="shell">
+        <div class="section-head">
+          <div>
+            <span class="section-kicker">Missing Logs</span>
+            <h2>Web kosong, rasa tetap jalan.</h2>
+          </div>
+          <p>Bulan 9 sampai 12 tidak sempat ter-deploy. Tapi hubungan tetap running properly di dunia nyata.</p>
+        </div>
+        <div class="logs">
+          <div class="log-panel" aria-label="Log bulan kosong">
+            <div><strong>[month-09]</strong> web not found, memory exists</div>
+            <div><strong>[month-10]</strong> deploy skipped, love still active</div>
+            <div><strong>[month-11]</strong> busy in real life, relationship running properly</div>
+            <div><strong>[month-12]</strong> preparing anniversary v1.0</div>
+          </div>
+          <article class="copy-card">
+            <h3>Tidak ada fatal bug</h3>
+            <p>Mungkin ada hari-hari sibuk, kerjaan yang minta diselesaikan, capek yang tidak selalu sempat dijelaskan, dan masa ketika kita berjuang diam-diam sambil tetap membawa satu sama lain di pikiran.</p>
+            <p>Web-nya memang tidak ter-deploy. Tapi hubungan kita tetap running properly. Tidak ada forced shutdown. Tidak ada rollback ke asing. Yang ada cuma proses pendewasaan.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="gallery" class="shell">
+        <div class="section-head">
+          <div>
+            <span class="section-kicker">Memory Mosaic</span>
+            <h2>Folder kenangan.</h2>
+          </div>
+          <p>Foto dari `assetAnniv1st` jadi galeri utama. Momen lama dan baru ketemu di satu halaman.</p>
+        </div>
+        <div class="gallery" id="galleryGrid"></div>
+      </section>
+
+      <section class="shell">
+        <div class="section-head">
+          <div>
+            <span class="section-kicker">Card Quotes</span>
+            <h2>Kalimat kecil.</h2>
+          </div>
+          <p>Cocok buat card, modal, atau caption carousel.</p>
+        </div>
+        <div class="quotes">
+          <article class="quote-card">
+            <h3>Puitis</h3>
+            <blockquote>"Setahun bukan cuma waktu yang lewat, tapi rumah kecil yang kita bangun dari sabar, tawa, dan rindu."</blockquote>
+            <p>Untuk foto yang terasa paling hangat.</p>
+          </article>
+          <article class="quote-card">
+            <h3>Developer</h3>
+            <blockquote>"Web boleh missing log, tapi love service tetap running properly."</blockquote>
+            <p>No fatal bug. No rollback. Just growing together.</p>
+          </article>
+          <article class="quote-card">
+            <h3>Santai</h3>
+            <blockquote>"Kadang sweet, kadang ribut kecil, tapi tetap kamu yang paling aku cari."</blockquote>
+            <p>Untuk momen receh yang cuma kalian paham.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="future" class="shell">
+        <article class="closing">
+          <img src="assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.01 (2).jpeg" alt="Foto penutup anniversary" loading="lazy" />
+          <div>
+            <span class="section-kicker">The Future</span>
+            <h2>Lanjut tahun kedua?</h2>
+            <p>Satu tahun pertama ini bukan akhir cerita. Ini baru versi 1.0 dari perjalanan kita. Masih banyak fitur yang belum dibuat, banyak halaman yang belum dibuka, banyak foto yang belum diambil, dan banyak hari biasa yang nanti jadi kenangan berharga.</p>
+            <p>Aku tidak janji semuanya selalu mudah. Tapi aku mau tetap belajar jadi orang yang lebih baik buat kamu. Aku mau tetap tumbuh bareng kamu, pelan-pelan, dengan cara yang sehat, tulus, dan penuh rasa syukur.</p>
+            <p><strong>Happy 1st Anniversary, Vania.</strong> Kalau kamu masih mau, aku ingin lanjut menulis chapter berikutnya sama kamu.</p>
+            <button class="btn" type="button" onclick="openModal()">Accept next chapter</button>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="shell">Built from every active archive, every missing log, and every real memory.</footer>
+
+    <div class="modal" id="hugModal" role="dialog" aria-modal="true" aria-labelledby="hugTitle">
+      <div class="modal-card">
+        <h3 id="hugTitle">Pelukan terkirim</h3>
+        <p>Status: successfully delivered. Satu pelukan paling hangat sudah mendarat di sana. Terima kasih sudah jadi bagian paling manis dari satu tahun ini.</p>
+        <button class="btn" type="button" onclick="closeModal()">Tutup & lanjut sayang</button>
+      </div>
+    </div>
+
+    <script>
+      const months = [
+        [1, "Missing Log", "Belum ada web. Masih malu-malu, tapi rasa mulai tumbuh.", false],
+        [2, "Missing Log", "Belum terdokumentasi, karena kita sibuk menikmati langsung.", false],
+        [3, "Archived", "First digital archive. Roller coaster kecil yang manis.", true],
+        [4, "Archived", "Countdown, puzzle, dan cinta yang dibuat jadi misi.", true],
+        [5, "Archived", "Cosmic love. Kamu mulai terasa seperti rumah.", true],
+        [6, "Archived", "Snakes and ladders. Naik turun, tetap bareng.", true],
+        [7, "Archived", "Mission accomplished. Cinta juga butuh belajar.", true],
+        [8, "Archived", "Pelukan online, rasa nyata.", true],
+        [9, "Missing Log", "Missing log, memory saved.", false],
+        [10, "Missing Log", "Deploy tertunda, sayang tetap jalan.", false],
+        [11, "Missing Log", "Sibuk dunia nyata, hati tetap sinkron.", false],
+        [12, "Missing Log", "Menyiapkan versi 1.0: satu tahun kita.", false],
+      ];
+
+      const journey = [
+        {
+          month: "Month 3",
+          tag: "Pastel archive",
+          image: "ANNIV3/tangan.jpg",
+          tone: "linear-gradient(135deg, #ff9abb, #ffe2ec)",
+          text: "Tiga bulan terasa seperti roller coaster kecil: tawa, gemes, sebel sedikit, tapi tetap jatuh cinta tiap hari.",
+        },
+        {
+          month: "Month 4",
+          tag: "Countdown mission",
+          image: "asset/love.jpg",
+          tone: "linear-gradient(135deg, #15142b, #ff82b2)",
+          text: "Bulan keempat jadi checkpoint rahasia: countdown, puzzle, dan misi kecil yang dibuat cuma supaya kamu senyum.",
+        },
+        {
+          month: "Month 5",
+          tag: "Cosmic love",
+          image: "asset5/1.jpg",
+          tone: "linear-gradient(135deg, #1a0033, #ffd38a)",
+          text: "Semesta kecil kita. Kamu jadi tawa, tenang, dan rasa pulang yang pelan-pelan makin kuat.",
+        },
+        {
+          month: "Month 6",
+          tag: "Game board",
+          image: "asset5/10.jpg",
+          tone: "linear-gradient(135deg, #ff82b2, #ffc49a)",
+          text: "Seperti ular tangga: kadang naik, kadang turun. Tapi selama tetap satu papan, kita tetap sampai.",
+        },
+        {
+          month: "Month 7",
+          tag: "TOEFL mission",
+          image: "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.55.jpeg",
+          tone: "linear-gradient(135deg, #d63384, #e3f2fd)",
+          text: "Anniversary jadi challenge. Kalau cinta ini ujian, aku tetap mau belajar, asal hadiahnya kamu.",
+        },
+        {
+          month: "Month 8",
+          tag: "Online hug",
+          image: "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.03 (2).jpeg",
+          tone: "linear-gradient(135deg, #fff5f5, #feb2b2)",
+          text: "Soft pink, hati melayang, dan pelukan online. Sederhana, tapi paling tulus: aku bersyukur punya kamu.",
+        },
+      ];
+
+      const galleryAssets = [
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.51.jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.52.jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.53 (1).jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.54.jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.55 (1).jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.56.jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.57 (1).jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.58 (2).jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.59.jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.00 (2).jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.02.jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.06 (1).jpeg",
+      ];
+
+      document.getElementById("monthTimeline").innerHTML = months
+        .map(([number, status, text, active]) => `<article class="month ${active ? "active" : "missing"}"><strong>Bulan ${number}</strong><span>${status}</span><p>${text}</p></article>`)
+        .join("");
+
+      document.getElementById("journeyGrid").innerHTML = journey
+        .map(
+          (item) => `<article class="timeline-card" style="--tone:${item.tone}"><img src="${item.image}" alt="${item.month}" loading="lazy" /><span class="tag">${item.tag}</span><h3>${item.month}</h3><p>${item.text}</p></article>`,
+        )
+        .join("");
+
+      document.getElementById("galleryGrid").innerHTML = galleryAssets.map((src, index) => `<figure><img src="${src}" alt="Kenangan anniversary 1 tahun ${index + 1}" loading="lazy" /></figure>`).join("");
+
+      function openModal() {
+        document.getElementById("hugModal").classList.add("active");
+      }
+
+      function closeModal() {
+        document.getElementById("hugModal").classList.remove("active");
+      }
+
+      document.getElementById("hugModal").addEventListener("click", (event) => {
+        if (event.target.id === "hugModal") closeModal();
+      });
+    </script>
+  </body>
+</html>

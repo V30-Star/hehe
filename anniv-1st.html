@@ -496,6 +496,55 @@
         transform: scale(1.06);
       }
 
+      .memory-note {
+        display: grid;
+        grid-template-columns: 0.8fr 1.2fr;
+        gap: 18px;
+        margin-bottom: 18px;
+      }
+
+      .stat-card {
+        padding: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.68);
+        border-radius: 30px;
+        background: linear-gradient(135deg, rgba(244, 91, 147, 0.13), rgba(255, 211, 138, 0.2)), var(--card);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 20px 55px rgba(125, 33, 72, 0.1);
+      }
+
+      .stat-card strong {
+        display: block;
+        color: var(--wine);
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: clamp(2.4rem, 6vw, 4.6rem);
+        line-height: 0.92;
+      }
+
+      .stat-card span {
+        display: block;
+        margin-top: 10px;
+        color: var(--muted);
+        font-weight: 800;
+      }
+
+      .film-strip {
+        display: flex;
+        gap: 10px;
+        overflow-x: auto;
+        padding: 10px 0 6px;
+        scrollbar-width: thin;
+      }
+
+      .film-strip img {
+        flex: 0 0 140px;
+        width: 140px;
+        height: 110px;
+        border: 6px solid rgba(255, 255, 255, 0.86);
+        border-radius: 18px;
+        object-fit: cover;
+        box-shadow: 0 12px 26px rgba(125, 33, 72, 0.14);
+      }
+
       .quotes {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -569,6 +618,51 @@
         line-height: 1.8;
       }
 
+      .music-player {
+        position: fixed;
+        right: 18px;
+        bottom: 18px;
+        z-index: 40;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 12px;
+        align-items: center;
+        width: min(330px, calc(100% - 36px));
+        padding: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.72);
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.78);
+        backdrop-filter: blur(18px);
+        box-shadow: 0 18px 48px rgba(125, 33, 72, 0.18);
+      }
+
+      .music-player button {
+        display: grid;
+        place-items: center;
+        width: 46px;
+        height: 46px;
+        border: 0;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--pink), #ff7fa8);
+        color: white;
+        font-size: 1.1rem;
+        cursor: pointer;
+        box-shadow: 0 12px 24px rgba(244, 91, 147, 0.3);
+      }
+
+      .music-player strong {
+        display: block;
+        color: var(--wine);
+        font-size: 0.9rem;
+      }
+
+      .music-player span {
+        display: block;
+        margin-top: 2px;
+        color: var(--muted);
+        font-size: 0.78rem;
+      }
+
       footer {
         padding: 42px 0 60px;
         color: var(--muted);
@@ -580,6 +674,7 @@
         .section-head,
         .copy-grid,
         .logs,
+        .memory-note,
         .closing {
           grid-template-columns: 1fr;
         }
@@ -655,10 +750,19 @@
         .closing img {
           height: 320px;
         }
+
+        .music-player {
+          right: 11px;
+          bottom: 11px;
+        }
       }
     </style>
   </head>
   <body>
+    <audio id="romanticAudio" preload="metadata" loop>
+      <source src="asset5/Yiruma - River Flows In You (An Kay Remix).mp3" type="audio/mpeg" />
+    </audio>
+
     <nav class="nav" aria-label="Navigasi halaman">
       <div class="nav-inner">
         <a href="#opening">Opening</a>
@@ -776,8 +880,19 @@
             <span class="section-kicker">Memory Mosaic</span>
             <h2>Folder kenangan.</h2>
           </div>
-          <p>Foto dari `assetAnniv1st` jadi galeri utama. Momen lama dan baru ketemu di satu halaman.</p>
+          <p>Semua foto dari `assetAnniv1st` dipakai. Tidak ada memori yang ditinggal di folder.</p>
         </div>
+        <div class="memory-note">
+          <article class="stat-card">
+            <strong id="memoryCount">42</strong>
+            <span>foto masuk galeri 1 tahun</span>
+          </article>
+          <article class="copy-card">
+            <h3>All memories loaded</h3>
+            <p>Galeri ini bukan cuma highlight. Semua foto dari folder anniversary 1 tahun ikut tampil, supaya halaman ini terasa seperti album penuh: rapi, panjang, dan hidup.</p>
+          </article>
+        </div>
+        <div class="film-strip" id="filmStrip" aria-label="Film strip semua kenangan"></div>
         <div class="gallery" id="galleryGrid"></div>
       </section>
 
@@ -813,7 +928,7 @@
           <img src="assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.01 (2).jpeg" alt="Foto penutup anniversary" loading="lazy" />
           <div>
             <span class="section-kicker">The Future</span>
-            <h2>Lanjut tahun kedua?</h2>
+            <h2>Lets Be Together ALWAYS!!!</h2>
             <p>Satu tahun pertama ini bukan akhir cerita. Ini baru versi 1.0 dari perjalanan kita. Masih banyak fitur yang belum dibuat, banyak halaman yang belum dibuka, banyak foto yang belum diambil, dan banyak hari biasa yang nanti jadi kenangan berharga.</p>
             <p>Aku tidak janji semuanya selalu mudah. Tapi aku mau tetap belajar jadi orang yang lebih baik buat kamu. Aku mau tetap tumbuh bareng kamu, pelan-pelan, dengan cara yang sehat, tulus, dan penuh rasa syukur.</p>
             <p><strong>Happy 1st Anniversary, Vania.</strong> Kalau kamu masih mau, aku ingin lanjut menulis chapter berikutnya sama kamu.</p>
@@ -824,6 +939,14 @@
     </main>
 
     <footer class="shell">Built from every active archive, every missing log, and every real memory.</footer>
+
+    <div class="music-player" aria-label="Pemutar lagu romantis">
+      <button id="musicToggle" type="button" aria-label="Putar atau jeda lagu">▶</button>
+      <div>
+        <strong>River Flows In You</strong>
+        <span id="musicStatus">Tap untuk mulai lagu romantis</span>
+      </div>
+    </div>
 
     <div class="modal" id="hugModal" role="dialog" aria-modal="true" aria-labelledby="hugTitle">
       <div class="modal-card">
@@ -896,17 +1019,47 @@
 
       const galleryAssets = [
         "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.51.jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.52 (1).jpeg",
         "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.52.jpeg",
         "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.53 (1).jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.53.jpeg",
         "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.54.jpeg",
         "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.55 (1).jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.55.jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.56 (1).jpeg",
         "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.56.jpeg",
         "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.57 (1).jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.57.jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.58 (1).jpeg",
         "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.58 (2).jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.58.jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.59 (1).jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.59 (2).jpeg",
         "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.14.59.jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.00 (1).jpeg",
         "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.00 (2).jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.00.jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.01 (1).jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.01 (2).jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.01.jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.02 (1).jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.02 (2).jpeg",
         "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.02.jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.03 (1).jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.03 (2).jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.03.jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.04 (1).jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.04 (2).jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.04.jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.05 (1).jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.05 (2).jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.05.jpeg",
         "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.06 (1).jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.06 (2).jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.06.jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.07 (1).jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.07 (2).jpeg",
+        "assetAnniv1st/WhatsApp Image 2026-06-15 at 10.15.07.jpeg",
       ];
 
       document.getElementById("monthTimeline").innerHTML = months
@@ -919,7 +1072,29 @@
         )
         .join("");
 
+      document.getElementById("memoryCount").textContent = galleryAssets.length;
+      document.getElementById("filmStrip").innerHTML = galleryAssets.map((src, index) => `<img src="${src}" alt="Preview kenangan ${index + 1}" loading="lazy" />`).join("");
       document.getElementById("galleryGrid").innerHTML = galleryAssets.map((src, index) => `<figure><img src="${src}" alt="Kenangan anniversary 1 tahun ${index + 1}" loading="lazy" /></figure>`).join("");
+
+      const romanticAudio = document.getElementById("romanticAudio");
+      const musicToggle = document.getElementById("musicToggle");
+      const musicStatus = document.getElementById("musicStatus");
+
+      musicToggle.addEventListener("click", async () => {
+        if (romanticAudio.paused) {
+          try {
+            await romanticAudio.play();
+            musicToggle.textContent = "❚❚";
+            musicStatus.textContent = "Lagu jalan, vibes makin romantis";
+          } catch (error) {
+            musicStatus.textContent = "Browser minta tap ulang untuk audio";
+          }
+        } else {
+          romanticAudio.pause();
+          musicToggle.textContent = "▶";
+          musicStatus.textContent = "Lagu dijeda";
+        }
+      });
 
       function openModal() {
         document.getElementById("hugModal").classList.add("active");
